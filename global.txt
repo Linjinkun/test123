@@ -1,0 +1,4833 @@
+<?php
+
+/**
+ * this not free,powered by keke-tech
+ * @auther 九江
+ * encoding GBK  last-modify 2011-2-24
+ */
+keke_lang_class::load_lang_class('keke_glob_class');
+
+class keke_glob_class
+{
+
+    static $_shop_arr = null;
+
+    public static function get_payitem_type()
+    {
+        global $_lang;
+        return array("task" => $_lang ['task_pub'], "work" => $_lang ['witkey_submit']);
+    }
+
+    public static function get_kfbb_type()
+    {
+        return array('cqzr' => "产权代理", 'gjlx' => "助您选稿", 'hddp' => "替您点评", 'xqws' => "写您所需", 'rgmh' => "威客速荐");
+    }
+
+    public static function withdraw_status()
+    {
+        global $_lang;
+        //return array ("1" => $_lang ['wait_audit'], "2" => $_lang ['has_success'], "3" => $_lang ['has_fail'], "4" => $_lang['withdraw_paying'] );
+        return array(
+            "1" => $_lang ['wait_audit'], /* "3" => $_lang ['has_turn_down'], "4" => $_lang['withdraw_paying'], "5"=>$_lang['has_wdraw_fail'], */
+            "2" => $_lang ['has_wdraw_suc'], "6" => $_lang['wdraw_return'], "7" => $_lang['wdraw_check_fail'], "8" => $_lang['wdraw_first_suc'], "9" => $_lang['wdraw_second_suc'], "10" => $_lang['wdraw_pay_fail'], "11" => $_lang['wdraw_pay_pending'], "12" => "部分转退款", "13" => "全额转退款", "14" => "线下打款未决");
+    }
+
+    /**
+     * message_send类型
+     */
+    public static function get_message_send_type()
+    {
+        global $_lang;
+        return array(
+            array(
+                "1" => "send_sms",
+                "2" => "send_email",
+                "3" => "send_mobile_sms",
+                "4" => "send_app_switch"
+            ),
+            array(
+                "send_sms" => $_lang['site_msg'],
+                "send_email" => $_lang['send_email'],
+                "send_mobile_sms" => $_lang['send_mobile_sms'],
+                "send_app_switch" => 'APP推送站内短信开关'
+            )
+        );
+    }
+
+    /**
+     * 消息发送分类对象类型
+     */
+    public static function get_message_send_obj()
+    {
+        global $_lang;
+        return array("task" => $_lang ['task'], "service" => $_lang ['goods'], "space" => $_lang ['space'], "user" => $_lang ['user'], "found" => $_lang ['funds'], 'safe' => $_lang ['safe'], "trans" => $_lang ['rights'], "auth" => '认证', 'buyer' => '雇主', 'witkey' => $_lang ['witkey'], 'integrity' => '诚信', 'ask' => '问答');
+    }
+
+    /**
+     * feed类型
+     *
+     */
+    public static function get_feed_type()
+    {
+        global $_lang;
+        return array("pub_task" => $_lang ['pub_task'], "lottery_win" => '摇奖中奖', "join_work" => $_lang ['join_work'], "task_pay" => $_lang ['pay_task_cost'], "task_prom" => $_lang ['from_prom_task'], "vip" => $_lang ['become_vip'], "withdraw" => $_lang ['withdraw'], "work_accept" => $_lang ['task_bid'], "work_delay" => $_lang ['task_delay'], "add_service" => $_lang ['create_service'], 'user_index' => $_lang ['website_feed'], "user_talent" => $_lang ['lastest_user_feed'], "index_all" => $_lang ['taking_place_in'], "bank_auth" => $_lang ['bank_auth'], "pub_work" => $_lang ['pub_work'], 'task_bid' => '任务中标', 'prom_task_bid' => '推广中标', 'prom_reg' => '邀请会员', 'prom_pub_task' => '推广发布', 'prom_auth' => '推广认证', "realname_auth" => $_lang ['realname_auth'], "enterprise_auth" => $_lang ['enterprise_auth'], "email_auth" => $_lang ['email_auth'], "weibo_auth" => $_lang ['weibo_auth'], "realname_auth" => $_lang ['realname_auth'], "task_pay" => $_lang ['get_commission'], "default" => $_lang ['default']);
+    }
+
+    public static function get_event_status()
+    {
+        global $_lang;
+        return array("0" => $_lang ['has_grant'], "1" => $_lang ['not_grant']);
+    }
+
+    public static function get_tag_type()
+    {
+        global $_lang;
+        return array("1" => array("1" => $_lang ['task'], "2" => "task"), "2" => array("1" => $_lang ['articles'], "2" => "article"), //"3" =>array("1"=>$_lang['task_class'],"2"=>"category"),
+            "4" => array("1" => $_lang ['self_defined_sql'], "2" => "autosql"), "5" => array("1" => $_lang ['self_defined_code'], "2" => "autocode"))//"6" =>array("1"=>$_lang['goods'],"2"=>"service"),
+            //"7" =>array("1"=>$_lang['articles_class'],"2"=>"artcate"),
+            ;
+    }
+
+    public static function get_open_api()
+    {
+        global $_lang;
+        $r = array('wx' => array('name' => 'wx', 'ico' => 'wx'), 'facebook' => array('name' => 'facebook', 'ico' => 'facebook'), 'google' => array('name' => 'google', 'ico' => 'google'), 'sina' => array('name' => $_lang ['sina_weibo'], 'ico' => 'sina'), 'ten' => array('name' => $_lang ['tenxun_weibo'], 'ico' => 'ten'), 'qq' => array('name' => $_lang ['qq_number'], 'ico' => 'qq'), 'taobao' => array('name' => $_lang ['taobao'], 'ico' => 'taobao'), 'netease' => array('name' => $_lang ['wangyi_weibo'], 'ico' => 'netease'), 'sohu' => array('name' => $_lang ['sohu_weibo'], 'ico' => 'sohu'), 'alipay' => array('name' => $_lang ['alipay'], 'ico' => 'alipay'), 'renren' => array('name' => $_lang ['renren'], 'ico' => 'renren'), 'douban' => array('name' => $_lang ['douban'], 'ico' => 'douban'), 'baidu' => array('name' => $_lang ['baidu'], 'ico' => 'baidu'), 'msn' => array('name' => 'msn', 'ico' => 'msn'));
+        return $r;
+    }
+
+    public static function get_online_pay()
+    {
+        return array('alipayjs' => "支付宝即时付款", '99bill' => '快钱', 'chinapay' => '中国银联', 'alipaywap' => "手机支付宝即时付款");
+    }
+
+
+    /**
+     * 模型类型
+     */
+    public static function get_model_type()
+    {
+        global $_lang;
+        return array("mreward" => $_lang ['more_reward'], "preward" => $_lang ['piece_reward'], "sreward" => $_lang ['single_reward'], "dtender" => $_lang ['deposit_tender'], "tender" => $_lang ['normal_tender'], "goods" => $_lang ['witkey_goods'], "service" => $_lang ['witkey_service'], "match" => $_lang ['match']);
+    }
+
+    /**
+     * 威客类型
+     */
+    public static function get_witkey_type_name($type_id)
+    {
+        $witkey_type_name_arr = array('0' => '无', '1' => '个人', '2' => '团队', '3' => '公司');
+        $result = $type_id ? $witkey_type_name_arr[$type_id] : $witkey_type_name_arr;
+        return $result;
+    }
+
+    /**
+     * 模型类型
+     */
+    public static function get_model_name_en($model_id)
+    {
+        $model_name_arr = array("1" => "sreward", "2" => 'mreward', "3" => "preward", "4" => "tender");
+        $result = $model_id ? $model_name_arr[$model_id] : $model_name_arr;
+        return $result;
+    }
+
+    /**
+     * 充值订单类型
+     */
+    public static function get_charge_type()
+    {
+        global $_lang;
+        return array("online_charge" => $_lang ['online_recharge'], "offline_charge" => $_lang ['offline_recharge'], "admin_charge" => "后台充值");
+    }
+
+    /**
+     * 互评星级
+     * @return array
+     */
+    public static function get_mark_star()
+    {
+        global $_lang;
+        return array("1" => $_lang ['one_star'], "2" => $_lang ['two_star'], "3" => $_lang ['three_star'], "4" => $_lang ['four_star'], "5" => $_lang ['five_star']);
+    }
+
+    /**
+     *
+     * 获取aouth登录方式
+     */
+    public static function get_oauth_type()
+    {
+        global $_lang;
+        return array('sina' => array('name' => $_lang ['sina_weibo'], 'ico' => 'sina'), 'ten' => array('name' => $_lang ['tenxun_weibo'], 'ico' => 'ten'), 'qq' => array('name' => $_lang ['tenxun_qq'], 'ico' => 'qq'), 'netease' => array('name' => $_lang ['wangyi_weibo'], 'ico' => 'netease'), 'sohu' => array('name' => $_lang ['sohu_weibo'], 'ico' => 'sohu'), 'taobao' => array('name' => "淘宝", 'ico' => 'taobao'), 'renren' => array('name' => "人人网", 'ico' => 'renren'), 'baidu' => array('name' => "百度", 'ico' => 'baidu'), 'douban' => array('name' => "豆瓣", 'ico' => 'douban'));
+    }
+
+    /**
+     *
+     * 获取工作年龄要求数组
+     */
+    public static function get_job_age()
+    {
+        return array('1' => '不限', '2' => '18岁至22岁', '3' => '20岁至28岁', '4' => '25岁至40岁');
+    }
+
+    /**
+     *
+     * 获取工资待遇数组
+     */
+    public static function get_job_salary()
+    {
+        return array('1' => '面议', '2' => '1500-2000元', '3' => '2000-3000元', '4' => '3000-5000元', '5' => '5000元以上');
+    }
+
+    /**
+     *
+     * 获取工作经验数组
+     */
+    public static function get_job_experience()
+    {
+        return array('1' => '不限', '2' => '1-2年', '3' => '2-3年', '4' => '3-5年', '5' => '5年以上');
+    }
+
+    /**
+     *
+     * 获取招聘对象
+     */
+    public static function get_job_obj()
+    {
+        return array('1' => '不限', '2' => '学生', '3' => '下岗职工');
+    }
+
+    /**
+     *
+     * 获取招聘学历要求
+     */
+    public static function get_job_education()
+    {
+        return array('0' => '不限', '1' => '中专以上', '2' => '大专以上', '3' => '本科以上', '4' => '硕士以上', '5' => '博士以上');
+    }
+
+    /**
+     *
+     * 获取任务类型
+     */
+    public static function get_task_type()
+    {
+        global $_lang;
+
+        return array("1" => $_lang ['single_reward'], "2" => $_lang ['more_reward'], "3" => $_lang ['piece_reward'], "4" => $_lang ['normal_tender'], "5" => $_lang ['deposit_tender'], "6" => $_lang ['works'], "7" => $_lang ['service']);
+    }
+
+    /**
+     *
+     * 获取收藏类型
+     */
+    static function get_favor_type()
+    {
+        global $_lang;
+        return array("task" => '任务', "shop" => '商铺', 'service' => '服务');
+    }
+
+    /**
+     *
+     * 获取企业空间风格图片路径
+     */
+    public static function get_e_space_style()
+    {
+        global $_lang;
+        return array("default" => "data/uploads/space/e_default.jpg", "hs" => "data/uploads/space/e_hs.jpg", "js" => "data/uploads/space/e_js.jpg", "qy" => "data/uploads/space/e_qy.jpg", "ty" => "data/uploads/space/e_ty.jpg", "zs" => "data/uploads/space/e_zs.jpg");
+    }
+
+    /**
+     *
+     * 获取企业空间风格图片名字
+     */
+    public static function get_e_space_name()
+    {
+        global $_lang;
+        return array("default" => $_lang ['bule_classic'], "hs" => $_lang ['gray_country'], "js" => $_lang ['golden_boundless'], "qy" => $_lang ['akiba_story'], "ty" => $_lang ['days_wing'], "zs" => $_lang ['purple_country']);
+    }
+
+    /**
+     *
+     * 获取个人空间风格图片路径
+     */
+    public static function get_p_space_style()
+    {
+        global $_lang;
+        return array("default" => "data/uploads/space/p_default.jpg", "bh" => "data/uploads/space/p_bh.jpg", "lsjd" => "data/uploads/space/p_lsjd.jpg", "lj" => "data/uploads/space/p_lj.jpg", "qxy" => "data/uploads/space/p_qxy.jpg", "qxyy" => "data/uploads/space/p_qxyy.jpg");
+    }
+
+    /**
+     *
+     * 获取个人空间风格图片名字
+     */
+    public static function get_p_space_name()
+    {
+        global $_lang;
+        return array("default" => $_lang ['default'], "bh" => $_lang ['lily'], "lsjd" => $_lang ['bule_classic'], "lj" => $_lang ['lj'], "qxy" => $_lang ['qxy'], "qxyy" => $_lang ['qxyy']);
+    }
+
+    /**
+     *
+     * 获取附件类型
+     */
+    public static function get_file_type()
+    {
+        global $_lang;
+        return array("task" => $_lang ['task_attachment'], 'brand' => '品牌馆', "work" => $_lang ['work_attachment'], "agreement" => $_lang ['agreement_attachment'], "user_cert" => $_lang ['auth_attachment'], "space" => $_lang ['user_space'], "report" => "举报", "worksource" => "源文件");
+    }
+
+    /**
+     *
+     * 每个模型任务状态的描述
+     */
+    public static function get_taskstatus_desc()
+    {
+        global $_lang;
+        return array(
+            "2" => array("desc" => $_lang ['submit_deadline'], "time" => "sub_time"), "3" => array("desc" => $_lang ['choose_end'], "time" => "end_time"));
+    }
+
+    /**
+     * 获取一品通等级
+     * @return array
+     */
+    public static function get_eptong_level($status = '1', $font = '')
+    {
+        /*
+          $level_arr = array(
+          21 => array('level_id' => 21, 'brand' => 'cn', 'level_name' => '一品通5600版', 'allow_buy' => 1, 'month' => 12, 'price' => 5600, 'ept_price' => 3600, 'eptong_balance' => 2000, 'level_type' => 'eptong', 'order_desc' => '(包括2000专项广告费)', 'credit_score' => 5),
+          22 => array('level_id' => 22, 'brand' => 'cn', 'level_name' => '一品通8600版', 'allow_buy' => 1, 'month' => 12, 'price' => 8600, 'ept_price' => 3600, 'eptong_balance' => 5000, 'level_type' => 'eptong', 'order_desc' => '(包括5000专项广告费)', 'credit_score' => 5),
+          );
+         */
+        $status == 'all' and $where = "1=1" or $where = "allow_buy = " . $status;
+        $status == 'all' and $pk = "" or $pk = "level_id";
+
+        if ($font > 0) {
+            $where .= ' and id=4 '; // 只限制9800版本
+        } elseif ($font == '-1') {
+            $pk = "id"; // 只限后端完整月份
+        }
+
+        $level_arr = db_factory::get_table_data("*", "witkey_eptong_level", $where, "", "", "", $pk);
+        foreach ($level_arr as $k => $v) {
+            $price = unserialize($v['price_config']);
+            $count_num = count($price);
+            if ($count_num == 1) {
+                $price = $price[0];
+                $level_arr[$k] = array_merge($level_arr[$k], $price);
+            } elseif ($count_num > 1) {
+                foreach ($price as $key => $val) {
+                    $price_arr[$val['level_key_id']] = $val;
+                }
+                unset($price);
+                $level_arr[$k]['give'] = $price_arr;
+            }
+        }
+        return $level_arr;
+    }
+
+    /**
+     * 获取城市类目
+     */
+    public static function get_city_cate()
+    {
+        return array(
+            0 => '全国',
+            1 => '特大城市',
+            2 => '一线城市',
+            3 => '准一线城市',
+            4 => '大型二线城市',
+            5 => '中等二线城市',
+            6 => '准二线城市',
+        );
+    }
+
+    /**
+     *
+     * 增值服务时间，顺序数组
+     * 下面的数组代表：
+     * 第一个时间是top结束时间
+     * 第二个时间代表加急的结束时间
+     * 以此类推：
+     * 注：(当添加增值服务是需要更新此数组)
+     */
+    public static function get_payitem_arr()
+    {
+        $payitem_arr = array("top", "urgent");
+        return $payitem_arr;
+    }
+
+    /**
+     * 将阿拉伯数字换成汉字
+     * @param number $num 数字(如果有值,返回对应的值,没有返回数组)
+     * @return array/string
+     */
+    public static function num2ch($num = '')
+    {
+        $ch_arr = array(1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十');
+        if ($num != '' && array_key_exists((int)$num, $ch_arr)) {
+            return $ch_arr [(int)$num];
+        }
+        return $ch_arr;
+    }
+
+    /*     *
+     * 返回服务视频类型
+     */
+
+    public static function get_video_cat()
+    {
+        return array('1' => '成功雇主', '2' => '玩转一品', '3' => '优秀威客', '4' => '媒体宣传');
+    }
+
+    /*     *
+     * 返回客户类型（用于客户跟踪）
+     */
+
+    public static function get_track_type()
+    {
+        return array('1' => '新联系，有待跟进', '2' => '意向不是很明确', '3' => '为高意向客户', '4' => '有明确合作需求，发了合同', '5' => '最终确认合作细节', '6' => '悔单客户', '7' => '没意向客户', '8' => '未接通的客户', '9' => '空号停机');
+    }
+
+    /*     *
+     * 返回开票状态（开票管理）
+     */
+
+    public static function get_iv_status()
+    {
+        return array('-1' => '取消申请', '0' => '提交等待审核', '1' => '已受理', '2' => '拒绝受理');
+    }
+
+    /*     *
+     * 返回税金状态（开票管理）
+     */
+
+    public static function get_iv_taxes_status()
+    {
+        return array("0" => "未收取", "1" => "已收取", "2" => "已退还");
+    }
+
+    /*     *
+     * 返回运费状态（开票管理）
+     */
+
+    public static function get_iv_freight_status()
+    {
+        return array("0" => "未收取", "1" => "已收取", "2" => "已退还");
+    }
+
+    /*     *
+     * 返回开票证件类型（开票管理）
+     */
+
+    public static function get_document_type()
+    {
+        return array('1' => '身份证', '2' => '护照', '3' => '军官证', '4' => '驾驶证');
+    }
+
+    /*     *
+     * 返回举报雇主类型
+     */
+
+    public static function get_buyer_report_type()
+    {
+        return array('1' => array('1', '虚假任务', '雇主发布的任务存在虚假信息 ，或者内容中含有各类广告。'), '2' => array('2', '违法违规', '任务中含有违反法律、法规、政策、规则或者有损社会风俗习惯的内容。'), '3' => array('3', '雇主作弊', '雇主发布需求后存在恶意刷单的行为'), '4' => array('4', '其他', '威客报名参与了任务，提交的作品被无效或雇主采用方案，但是未选中标等'));
+// 		return array ('1' => array ('1', '虚假任务', '任务属于测试信息，或者广告内容，有炒作嫌疑的任务类型。' ), '2' => array ('2', '任务违规', '任务内容或完成过程涉及违反法律、法规、政策、规则的或者有损社会善良风俗习惯的内容。' ), '3' => array ('3', '雇主作弊', '任务雇主通过注册马甲小号参与任务的作弊方法，参与任务选自己中标拿回赏金。' ), '4' => array ('4', '其他', '其他违规内容。' ) );
+    }
+
+    /*     *
+     * 返回举报雇主类型
+     */
+
+    public static function get_seller_report_type()
+    {
+        return array('1' => array('1', '广告', '与任务要求没有联系，对任务完成没有帮助的各类广告。'), '2' => array('2', '非法内容', '违反法律、法规、政策、规则的或者有损社会善良风俗习惯的内容。'), '3' => array('3', '重复交稿', '指在同一任务中，无特殊原因或正常理由的多次交稿。'), '4' => array('4', '虚假交稿', '威客报名参与了任务，没有提交任务作品或者提交的任务作品无效。'), '5' => array('5', '完全抄袭', '威客报名后提交的稿件作品，涉嫌和已注册或者使用的作品完全一样。'), '6' => array('6', '其他', '其他违规内容。'));
+    }
+
+    /*     *
+     * 返回举报雇主类型
+     */
+
+    public static function get_credit_use()
+    {
+        return array('1' => '隐藏交稿', '2' => '增值服务', '3' => '首页商铺展示', '4' => '频道页任务推荐', '5' => '威客频道商铺展示', '6' => '人才首页商铺展示');
+    }
+
+    /*     *
+     * 返回用户实名认证地区
+     */
+
+    public static function get_realname_zone()
+    {
+        return array('1' => array('cn_name' => '中国大陆', 'en_name' => 'In mainland China', 'value' => '1', 'logo' => 'In_mainland_China.gif', 'selected' => '1'), '2' => array('cn_name' => '港澳地区', 'en_name' => 'Hong Kong and Macao', 'value' => '2', 'logo' => 'Hong_Kong_and_Macao.png'), '3' => array('cn_name' => '台湾地区', 'en_name' => 'Tawan', 'value' => '3', 'logo' => 'taiwan.png'), '4' => array('cn_name' => '海外地区', 'en_name' => 'Overseas areas', 'value' => '4', 'logo' => 'Overseas_areas.png'));
+    }
+
+    /*     *
+     * 返回用户实名认证身份选择
+     */
+
+    public static function get_realname_identity()
+    {
+        return array('1' => array('cn_name' => '个人', 'en_name' => 'personal', 'value' => 'personal', 'logo' => '', 'selected' => '1'), '2' => array('cn_name' => '企业', 'en_name' => 'company', 'value' => 'company', 'logo' => ''));
+    }
+
+    /*     *
+     * 友情链接分类
+     */
+
+    public static function get_link_cat()
+    {
+        return array('1' => '首页', //index 1
+            '2' => '社区', //home
+            '3' => '推广员', //tuigo 1
+            '4' => '帮助中心', //help  1
+            '5' => '新闻中心', //Chief 1首席设计师
+            '6' => '人才大厅', //rencai 1 人才宝库
+            '7' => '成功案例', //anli  1
+            '8' => '精彩专题', //zt  1
+            '9' => '劳务大厅', //fuwu  1服务悬赏
+            '10' => '摇奖中标', //yaojiang 1
+            '11' => '创意大厅', //chuangyi 1
+            '12' => '直接雇佣', //guyong 1
+            '13' => '云创平台', //yun 1
+            '14' => '问答首页',
+            '15' => 'VIP之家频道首页',
+            '16' => '攻略',
+            '17' => '媒介',
+            '18' => '一品财税'
+        );
+    }
+
+    /*     *
+     * 首页友情链接分类
+     */
+
+    public static function get_index_link_cat()
+    {
+        return array('1' => '推荐网站', '2' => '友情链接', '3' => '特别鸣谢', '4' => '合作伙伴');
+    }
+
+    /*     *
+     * 专题分类
+     */
+
+    public static function get_special_cat()
+    {
+        return array('1' => '任务专题', '2' => '人才专题', '3' => '活动专题', '4' => '首席专题', '5' => '其它专题');
+    }
+
+    /*     *
+     * 专题分类
+     */
+
+    public static function get_special_seocatname()
+    {
+        return array('1' => 'rwzt', '2' => 'rczt', '3' => 'hdzt', '4' => 'sxzt', '5' => 'qtzt', '6' => 'cyds');
+    }
+
+    /**
+     * 服务单位
+     *
+     */
+    public static function get_price_unit()
+    {
+        return array('1' => '年', '2' => '月', '3' => '日', '4' => '小时', '5' => '件', '6' => '次', '7' => '一口价', '8' => '其他', '9' => '价格面议', '10' => '起', '11' => '款', '12' => '套', '13' => '组', '14' => '页', '15' => '篇');
+    }
+
+    /**
+     * 获取用户类型
+     *
+     */
+    public static function get_user_type()
+    {
+        return array('1' => '个人', '2' => '工作室', '3' => '企业', '4' => 'E创客');
+    }
+
+    /**
+     * 获取认证状态ICO图标
+     *
+     * public static function get_auth_ico($auth_realname, $auth_mobile, $auth_email, $auth_bank, $auth_integrity = '') {
+     * global $_K;
+     * if ($auth_realname==1) {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_1_yes.png' alt='实名认证通过'> ";
+     * } else {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_1_no.png' alt='实名认证未通过'> ";
+     * }
+     * if ($auth_mobile==1) {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_2_yes.png' alt='手机认证通过'> ";
+     * } else {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_2_no.png' alt='手机认证未通过'> ";
+     * }
+     * if ($auth_email==1) {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_3_yes.png' alt='邮箱认证通过'> ";
+     * } else {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_3_no.png' alt='邮箱认证未通过'> ";
+     * }
+     * if ($auth_bank==1) {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_4_yes.png' alt='银行卡认证通过'> ";
+     * } else {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_4_no.png' alt='银行卡认证未通过'> ";
+     * }
+     * if ($auth_integrity !== '') {
+     * $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_5_" . ( $auth_integrity ? 'yes' : 'no') . ".png' alt='诚信会员认证通过'> ";
+     * }
+     * return $str;
+     * } */
+
+    /**
+     * 获取认证状态ICO图标,未认证时不显示任何图标
+     */
+    public static function get_auth_ico($auth_realname, $auth_mobile, $auth_email, $auth_bank, $auth_integrity = '', $uid = 0)
+    {
+        global $_K, $_lang;
+        if ($auth_realname == 1) {
+            //$str .= ' <span class="icoident icosm_on" title="实名认证">&nbsp;</span>';
+            $str .= ' <i class="icom icosm_on" title="已实名认证">&nbsp;</i> ';
+        }
+        if ($auth_mobile == 1) {
+            //$str .= ' <span class="icoident icosj_on" title="手机认证">&nbsp;</span>';
+            $str .= ' <i class="icom icosj_on" title="已手机认证">&nbsp;</i> ';
+        }
+        if ($auth_email == 1) {
+            //$str .= ' <span class="icoident icoyx_on" title="邮箱认证">&nbsp;</span>';
+            $str .= ' <i class="icom icoyx_on" title="已邮箱认证">&nbsp;</i> ';
+        }
+        if ($auth_bank == 1) {
+            //$str .= ' <span class="icoident icobk_on" title="银行卡认证">&nbsp;</span>';
+            $str .= ' <i class="icom icobk_on" title="已银行卡认证">&nbsp;</i> ';
+        }
+        if ($auth_integrity !== '') {
+            //$str .= ' <span class="icoident icocx_'.($auth_integrity?'on':'off').'" title="诚信会员认证通过">&nbsp;</span>';
+            /* if(!$auth_integrity && $uid){
+              $memcache = new Memcache;
+              list($host, $port) = explode(':', IPTRACER_MEMCACHED_HOST);
+              $memcache->connect($host, $port);
+
+              $sincerity = $memcache->get ( 'sincerity_'.$uid );
+              if($sincerity['exist']){
+              $auth_integrity = $sincerity['integ'] == -1 ? 0 : 1;
+              }else{
+              $mem_integ = db_factory::query("select v1 from ".TABLEPRE."witkey_member_ext where k='fake_integ' and type='shop' and uid=".$uid." limit 1",1,86400);
+              $auth_integrity = $mem_integ[0]['v1'];
+
+              $sincerity['integ'] = $auth_integrity ? $auth_integrity : -1;
+              $sincerity['exist'] = 1;
+
+              $exp_time = 3600;
+              $memcache->set ( 'sincerity_'.$uid, $sincerity, 0, $exp_time);
+              }
+              } */
+            //icocx_new_off绿  icocx_new_on灰
+            $str .= '<a href="' . keke_tpl_class::url_rewrite($_K['siteurl'] . '/index.php?do=integrity') . '" target="_blank">';
+            $str .= ' <i class="icocx_new_' . ($auth_integrity ? 'off' : 'on') . '" title="' . ($auth_integrity ? $_lang['integ_title'] : $_lang['no_integ_title']) . '">&nbsp;</i> ';
+            $str .= '</a>';
+        }
+        return $str;
+    }
+
+    /**
+     * 获取单认证图标
+     */
+    public static function get_single_ico($type = 1, $auth = 0)
+    {
+        global $_K;
+        $arr = array(1 => '实名认证', 2 => '手机认证', 3 => '邮箱认证', 4 => '银行卡认证');
+        if ($auth == 1) {
+            $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_{$type}_yes.png' alt='" . $arr [$type] . "通过'> ";
+        } else {
+            $str .= " <img src='" . $_K [siteurl] . '/' . SKIN_PATH . "/theme/{$_K['theme']}/img/ico/auth_{$type}_no.png' alt='" . $arr [$type] . "未通过'> ";
+        }
+        return $str;
+    }
+
+    /**
+     * 获取店铺等级ICO图标
+     */
+    public static function get_shop_level_ico($level, $tpl = '')
+    {
+        global $_K;
+
+        $leve_list = keke_glob_class::get_shop_level_txt();
+
+        if ($level && array_key_exists($level, $leve_list)) {
+            $str = "<a href='" . keke_tpl_class::url_rewrite($_K[siteurl] . "/index.php?do=vip") . "' target='_blank' title='" . $leve_list[$level] . "服务商' class='c333'>";
+            /*
+              if ($tpl=='bubble_pic' && strpos($leve_list[$level], 'VIP')===0) {
+              $str .= '<i class="icovip">'.str_replace('VIP', '', $leve_list[$level]).'</i>';
+              }else if($tpl=='credit'){
+              $str .= $leve_list[$level];
+              }else {
+              //$str .= '<i class="iico bgred">'.$leve_list[$level].'</i>';
+              $str .= '<i class="spico spico_' . ($level-2) . '"></i>';
+              }
+             */
+            if ($_K['rooturl']) {
+                if ($tpl == 'credit') {
+                    $str .= $leve_list[$level];
+                } else {
+                    $str .= '<i class="iico bgred">' . $leve_list[$level] . '</i>';
+                }
+            } else {
+                if ($tpl == 'credit') {
+                    $str .= $leve_list[$level];
+                } elseif ($level >= 2) {
+                    $str .= '<i class="spico spico_' . $level . '"></i>';
+                }else {
+                    $str .= '<i class="iico bgred">' . $leve_list[$level] . '</i>';
+                }
+            }
+
+            $str .= '</a>';
+        }
+        return $str;
+    }
+
+    public static function get_shop_level_txt($level = null)
+    {
+        global $_K;
+        if ($_K['rooturl']) {
+            $level_list = array(
+                1 => '基礎版',
+//                2 => 'VIP擴展',
+                2 => 'VIP白銀',
+                3 => 'VIP旗艦',
+                4 => 'VIP白金',
+                5 => 'VIP鉆石',
+                6 => 'VIP皇冠',
+                7 => '金尊皇冠', //VIP戰略合作
+                8 => '至尊皇冠',
+                9 => '金尊旗舰版',
+                10 => '至尊旗舰版',
+            );
+        } else {
+            $level_list = array(
+                1 => '基础版',
+//                2 => 'VIP拓展',
+                2 => 'VIP白银',
+                3 => 'VIP旗舰',
+                4 => 'VIP白金',
+                5 => 'VIP钻石',
+                6 => 'VIP皇冠',
+                7 => '金尊皇冠', //VIP战略合作
+                8 => '至尊皇冠',
+                9 => '金尊旗舰版',
+                10 => '至尊旗舰版',
+            );
+        }
+
+        $level and $level_list = $level_list[$level];
+        return $level_list;
+    }
+
+    /**
+     * 获取威客等级
+     */
+    public static function get_w_level_grade_clk($level, $tpl = '', $seller_credit = 0)
+    {
+        global $_K;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        $tpl_str = "";
+        if ($level == 9 && $seller_credit) {
+            $tpl_str = keke_glob_class::get_capability_level_ico($level, $seller_credit, "", $tpl, "", $seller_credit);
+        }
+        !$tpl_str and $tpl_str = "<i class='iico" . ($tpl == 'bubble_pic' ? ' bgred' : '') . "'>" . self::get_w_level_txt($level) . "</i>";
+        return $tpl_str;
+    }
+
+    /**
+     * 获取威客等级ICO图标
+     */
+    public static function get_w_level_ico($level, $tpl = '', $seller_credit = 0)
+    {
+        global $_K;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        $tpl_str = "";
+        if ($level == 9 && $seller_credit) {
+            $tpl_str = keke_glob_class::get_capability_level_ico($level, $seller_credit, "", $tpl, "", $seller_credit);
+        }
+        !$tpl_str and $tpl_str = "<a href='" . keke_tpl_class::url_rewrite($_K[siteurl] . "/index.php?do=article&art_id=9148") . "' target='_blank' title='能力品级：" . self::get_w_level_txt($level) . "'><i class='iico" . ($tpl == 'bubble_pic' ? ' bgred' : '') . "'>" . self::get_w_level_txt($level) . "</i></a>";
+        return $tpl_str;
+    }
+
+    /**
+     * 获取威客等级ICO图标（无超链接）
+     */
+    public static function get_w_level_ico2($level, $tpl = '', $seller_credit = 0)
+    {
+        global $_K;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        $tpl_str = "";
+        if ($level == 9 && $seller_credit) {
+            $tpl_str = keke_glob_class::get_capability_level_ico($level, $seller_credit, "", $tpl, "", $seller_credit);
+        }
+        !$tpl_str and $tpl_str = "<a href='#' title='能力品级：" . self::get_w_level_txt($level) . "'><i class='iico" . ($tpl == 'bubble_pic' ? ' bgred' : '') . "'>" . self::get_w_level_txt($level) . "</i></a>";
+        return $tpl_str;
+    }
+
+    /**
+     * 获取威客等级钻石、王冠、皇冠等ico
+     * @param int $level 能力等级标识
+     * @param int $seller_credit 能力等级分值
+     * @return string $tpl_str;
+     */
+    public static function get_capability_level_ico($level, $seller_credit = 0, $m_ico = "", $tpl = "", $title = "", $all_credit = 0)
+    {
+        $tpl_str = "";
+        //一品以前的都还是维持原来的
+        if ($level < 9) {
+            return $tpl_str;
+        }
+        $max_mark = db_factory::get_count("select m_value from " . TABLEPRE . "witkey_mark_rule where mark_rule_id='9'", 0, null, 86400 * 7);
+        if ($level == 9 && $seller_credit < $max_mark) {
+            return $tpl_str;
+        }
+        //配置
+        $capability_arr = array(
+            1 => array('m_value' => $max_mark, 'm_ico' => 'icohgz1', 'm_name' => '钻石'),
+            2 => array('m_value' => $max_mark * 2, 'm_ico' => 'icohgz2', 'm_name' => '钻石2'),
+            3 => array('m_value' => $max_mark * 3, 'm_ico' => 'icohgz3', 'm_name' => '钻石3'),
+            4 => array('m_value' => $max_mark * 4, 'm_ico' => 'icohgz4', 'm_name' => '钻石4'),
+            5 => array('m_value' => $max_mark * 5, 'm_ico' => 'icohgg1', 'm_name' => '王冠'),
+            10 => array('m_value' => $max_mark * 5 * 2, 'm_ico' => 'icohgg2', 'm_name' => '王冠2'),
+            15 => array('m_value' => $max_mark * 5 * 3, 'm_ico' => 'icohgg3', 'm_name' => '王冠3'),
+            20 => array('m_value' => $max_mark * 5 * 4, 'm_ico' => 'icohgg4', 'm_name' => '王冠4'),
+            25 => array('m_value' => $max_mark * 5 * 5, 'm_ico' => 'icohgh1', 'm_name' => '皇冠'),
+            50 => array('m_value' => $max_mark * 5 * 5 * 2, 'm_ico' => 'icohgh2', 'm_name' => '皇冠2'),
+            75 => array('m_value' => $max_mark * 5 * 5 * 3, 'm_ico' => 'icohgh3', 'm_name' => '皇冠3'),
+            100 => array('m_value' => $max_mark * 5 * 5 * 4, 'm_ico' => 'icohgh4', 'm_name' => '皇冠4'),
+            125 => array('m_value' => $max_mark * 5 * 5 * 5, 'm_ico' => 'icohgh5', 'm_name' => '皇冠5'),
+        );
+
+        $first = intval($seller_credit / $max_mark);
+        if ($first > 5) {//超过钻石级别的算法
+            $beishu = intval($first / 5);
+            $first = 5 * $beishu;
+        }
+        $capa_key_arr = array_keys($capability_arr);
+        $capa_count = count($capa_key_arr);
+        $capa_dif_arr = array();
+        for ($i = 0; $i < $capa_count; $i++) {
+            $capa_dif_arr[] = abs($first - $capa_key_arr[$i]);
+        }
+        $capa_min = min($capa_dif_arr);
+        for ($i = 0; $i < $capa_count; $i++) {
+            if ($capa_min == $capa_dif_arr[$i]) {
+                if ($capa_key_arr[$i] > $first) {
+                    $first = $capa_key_arr[$i - 1];
+                } else {
+                    $first = $capa_key_arr[$i];
+                }
+            }
+        }
+        $first_class = $capability_arr[$first]['m_ico'];
+        //$title or $title = "，能力值：".$seller_credit;
+        if (!$title) {
+            //$paiming = db_factory::get_count("select count(distinct seller_credit) as c from ".TABLEPRE."witkey_space where w_level = 9 and seller_credit > ".$all_credit, 0, null, 3600);
+            require_once(S_ROOT . 'lib/helper/keke_solr.php');
+            $search = new keke_solr();
+            $solr_fl = "seller_credit,w_level,uid";
+            $solr_fq = "w_level:9;seller_credit:{" . $all_credit . " TO *}";
+            $solrData = json_decode($search->goSearch('talent', $solr_fl, '', $solr_fq, "", 0, 1, 'json'), true);
+            if ($solrData['responseHeader']['status'] == 0) {
+                $paiming = $solrData['response']['numFound'];
+                $title = "，全站排名第" . ($paiming + 1) . "位";
+            }
+        }
+
+        if (!$first) {
+            if ($m_ico) {
+                $tpl_str = "<a href='" . keke_tpl_class::url_rewrite($_K[siteurl] . "/index.php?do=article&art_id=9148") . "' target='_blank' title='能力品级：" . self::get_w_level_txt($level) . $title . "'><i class='iico" . ($tpl == 'bubble_pic' ? ' bgred' : '') . "'>" . self::get_w_level_txt($level) . $m_ico . "</i></a>";
+            }
+            return $tpl_str;
+        }
+
+        $m_ico .= "<i class='icohg " . $first_class . "'></i>";
+
+        //有余数时再次调用方法
+        $mod_first = $seller_credit % ($max_mark * $first);
+        if ($mod_first >= $max_mark && $all_credit < ($max_mark * 5 * 5 * 5)) {
+            $tpl_str = self::get_capability_level_ico($level, $mod_first, $m_ico, $tpl, $title, $all_credit);
+        }
+        !$tpl_str and $tpl_str = "<a href='" . keke_tpl_class::url_rewrite($_K[siteurl] . "/index.php?do=article&art_id=9148") . "' target='_blank' title='能力品级：" . self::get_w_level_txt($level) . $title . "'><i class='iico" . ($tpl == 'bubble_pic' ? ' bgred' : '') . "'>" . self::get_w_level_txt($level) . $m_ico . "</i></a>";
+        return $tpl_str;
+    }
+
+    /**
+     * 获取威客等级中文字
+     */
+    public static function get_w_level_txt($level = 1, $is_all = false)
+    {
+        $w_level_arr = array(
+            1 => '九品',
+            2 => '八品',
+            3 => '七品',
+            4 => '六品',
+            5 => '五品',
+            6 => '四品',
+            7 => '三品',
+            8 => '二品',
+            9 => '一品',
+        );
+        if (!intval($level)) {
+            $level = 1;
+        }
+        if ($is_all) {
+            return array_reverse($w_level_arr, true);
+        } else {
+            return $w_level_arr[$level];
+        }
+    }
+
+    /**
+     * 访问雇主等级
+     */
+    public static function get_g_level_grade_clk($level)
+    {
+        global $_K, $do;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        if ($do == 'employer') {
+            $ico_class = '';
+        } elseif ($do == 'eptc') {
+            $ico_class = '';
+        } else {
+            $ico_class = 'bgred';
+        }
+        return "<i class='iico {$ico_class}'>" . self::get_w_level_txt($level) . "</i>";
+    }
+
+    /**
+     * 获取雇主等级ICO图标
+     */
+    public static function get_g_level_ico($level)
+    {
+        global $_K, $do;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        if ($do == 'employer') {
+            $ico_class = '';
+        } elseif ($do == 'eptc') {
+            $ico_class = '';
+        } else {
+            $ico_class = 'bgred';
+        }
+        return "<a href='{$_K[siteurl]}/index.php?do=help&view=info&art_cat_id=611&art_id=9156' target='_blank'><i class='iico {$ico_class}'>" . self::get_w_level_txt($level) . "</i></a>";
+    }
+
+    /**
+     * 获取雇主等级ICO图标（无超链接）
+     */
+    public static function get_g_level_ico2($level)
+    {
+        global $_K, $do;
+        if (!intval($level)) {
+            $level = 1;
+        }
+        if ($do == 'employer') {
+            $ico_class = '';
+        } else {
+            $ico_class = 'bgred';
+        }
+        return "<a href='#'><i class='iico {$ico_class}'>" . self::get_w_level_txt($level) . "</i></a>";
+    }
+
+    /**
+     * 身份证审核失败的话术
+     * */
+    public static function get_auth_realname_error_mes()
+    {
+        return array('1、提交的是其他照片，非身份证照片' => '您好，很抱歉！由于您提交的不是正面的身份证照片，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '2、提交的身份证照片不清晰' => '您好，很抱歉！由于您提交的正面身份证照片显示不清晰，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '3、名字与实际不符' => '您好，很抱歉，您所提交的身份证名字与实际名字不符，审核不通过，麻烦您重新提交，谢谢！详询在线客服企业QQ：4006999467', '4、号码与实际不符' => '您好，很抱歉，您所提交的身份证号码与实际不符，审核不通过，麻烦您重新提交，谢谢！详询在线客服企业QQ：4006999467', '5、提交的身份证照片不完整' => '您好，很抱歉！由于您提交的正面身份证照片显示不完整，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '6、提交的是身份证复印件照片' => '您好，很抱歉！由于您提交的不是身份证原件正面照片，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '7、提交的是临时身份证照片' => '您好，很抱歉！由于您提交的不是正式身份证照片，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '8、提交的身份证已过期' => '您好，很抱歉！由于您提交的身份证已过期，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '9、提交的是一代身份证不足一年' => '您好，很抱歉！由于您提交的身份证有效期不足一年，审核不通过，请您重新提交二代身份证。详询在线客服企业QQ：4006999467', '10、无法显示' => '您好，很抱歉！由于您提交的身份证照片无法显示，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467', '11、身份证疑是合成' => '您好，很抱歉，您所提交的身份证，疑是合成，审核不通过，麻烦您重新提交，谢谢！详询在线客服企业QQ：4006999467', '12、身份证已认证过' => '您好，很抱歉，您所提交的身份证，已经认证过了，认证不能通过，麻烦您重新提交，谢谢！详询在线客服企业QQ：4006999467', '13、提交的身份证到期时间不正确' => '您好，很抱歉！由于您提交的身份证到期时间与身份证背面有效期限不符，审核不通过，请您重新提交。详询在线客服企业QQ：4006999467');
+    }
+
+    /**
+     * 银行卡认证失败话术
+     * */
+    public static function get_auth_blank_error_mes()
+    {
+        return array(
+            '1、	针对先提交银行卡、未提交身份证认证的' => '您好，很抱歉！由于您未提交身份证认证，银行卡暂时无法认证，麻烦您先提交身份证认证。详询在线客服企业QQ：4006999467',
+            '2、	名字与实际不符' => '您好！您的提交银行卡账号名字与身份证上的姓名不一致，请提供您本人的银行卡账号，进行认证申请，谢谢！',
+            '3、	银行卡未提交正确信息，无法认证的，需提交失败处理' => '您好！很抱歉！您提交的银行卡认证没有填写正确，我们无法准确转账，请重新填写，谢谢！企业QQ：4006999467',
+            '4、	银行卡提交信息不详细（未填写到支行），无法认证的，需提交失败处理' => '您好！很抱歉！您提交的银行卡认证开户行信息不详细，我们无法准确转账，请重新填写，谢谢！企业QQ：4006999467',
+            '5、	转账后银行退款' => '您好！很抱歉！您提交的银行卡认证信息错误，认证金无法转账，请重新填写，谢谢！ 企业QQ：4006999467',
+            '6、银行信息提交正确，但是未能识别到银行信息' => '您好！很抱歉！您提交的银行卡认证未能识别到银行信息，建议重新更换一张银行卡，谢谢！企业QQ：4006999467'
+        );
+    }
+
+    /**
+     * 任务 审核不通过文案
+     * @return array
+     */
+    public static function get_task_nopass_error_mes()
+    {
+        return array('1' => array('title' => '任务模型发布错误', 'reason' => '您的任务交易类型选择错误'), '2' => array('title' => '重复发布', 'reason' => '您的任务重复发布'), '3' => array('title' => '联系不上雇主', 'reason' => '由于无法和您取得联系'), '4' => array('title' => '雇主悔单', 'reason' => '经由您和威客共同协商结果'), '5' => array('title' => '违法违规不受理', 'reason' => '您的任务涉嫌违法违规'), '6' => array('title' => '任务需求不清晰', 'reason' => '您发布的任务需求描述不清晰'), '7' => array('title' => '其他', 'reason' => ''));
+    }
+
+    /**
+     * 任务 关闭文案
+     * @return array
+     */
+    public static function get_task_close_error_mes()
+    {
+        return array('1' => array('title' => '任务模型发布错误', 'reason' => '您的任务交易类型选择错误'), '2' => array('title' => '未托管赏金', 'reason' => '您的任务未托管赏金，任务已被关闭'), '3' => array('title' => '联系不上雇主', 'reason' => '由于无法和您取得联系'), '4' => array('title' => '雇主和威客协商一致关闭任务', 'reason' => '经由您和威客共同协商的结果'), '5' => array('title' => '雇主没有找到合适的威客', 'reason' => '由于您未找到满意的威客'), '6' => array('title' => '雇主在其他平台或线下找到人做了', 'reason' => '由于您已找到满意人选'), '7' => array('title' => '其他', 'reason' => ''));
+    }
+
+    public static function get_task_freeze_error_mes()
+    {
+        return array('1' => array('title' => '未及时选稿', 'reason' => '您的任务未及时选稿'), '2' => array('title' => '有任务纠纷', 'reason' => '您的任务存在任务纠纷'), '3' => array('title' => '任务有问题还在修改阶段', 'reason' => '您的任务正在修改阶段'), '4' => array('title' => '雇主联系不上', 'reason' => '由于无法和您取得联系'), '5' => array('title' => '未及时确认付款', 'reason' => '您的任务未能及时付款'), '6' => array('title' => '任务被投诉', 'reason' => '您的任务被投诉'), '7' => array('title' => '其他', 'reason' => ''));
+    }
+
+    /**
+     * 关闭商铺原因
+     */
+    public static function get_close_shop_mes()
+    {
+        return array(1 => '威客自身要求关闭商铺', 2 => '威客违法相关政策', 3 => '其他');
+    }
+
+    /**
+     * 留言类型
+     * */
+    public static function get_comment_type()
+    {
+        return array('work' => '稿件留言', 'article' => '新闻留言', 'shop' => '商铺留言', 'ask' => '自助问答', 'task' => '任务留言', 'suggest' => '意见和建议');
+    }
+
+    /**
+     * 留言类型
+     * */
+    public static function get_track_status()
+    {
+        return array(-1 => '待审核', 0 => '无', 1 => '任务发布已跟进', 2 => '到期选稿已跟进', 3 => '未选稿已跟进', 4 => '选稿结束已跟进', 5 => '雇主付款已跟进', 6 => '任务已推荐VIP', 7 => '纠纷已跟进', 9 => '关闭', 10 => '纠纷跟踪', 11 => '添加纠纷-待受理', 12 => '添加纠纷-受理中', 13 => '添加纠纷-结束', 14 => '添加纠纷-司法解决',16=>'未接',17=>'无需求');
+    }
+
+    /**
+     * 任务优先级
+     * */
+    public static function get_task_priority()
+    {
+        return array('1' => '非常重要', '2' => '重要', '3' => '普通', '4' => '低');
+    }
+
+    /**
+     * 币种
+     */
+    public static function get_currency_type()
+    {
+        return array('CNY' => '人民币', 'TWD' => '台币');
+    }
+
+    //稿件隐藏状态
+    public static function get_work_hide()
+    {
+        return array(0 => '公开', 1 => '隐藏，结束后公开', 2 => '永久隐藏');
+    }
+
+    /**
+     * 验证稿件是否需要隐藏
+     * @param $wuid 交稿人UID
+     * @param param $hidemode 隐藏模式 1 结束后公开  2未中标隐藏
+     * 20130301 2的状态改为未中标隐藏  只要中标就公开
+     */
+    public static function valid_hide_work($wuid, $hidemode = 1, $status)
+    {
+        global $task_info, $uid, $user_info;
+
+        $hide = false;
+        $g_hide = strpos($task_info ['pay_item'], 'emphide') !== FALSE;
+
+        // 任务 #207969 特殊处理，暂时不显示中标稿件
+        if ($task_info['task_id'] == 207969 && $status == 12 && $uid != $task_info ['uid'] && $uid != $wuid && $user_info ['group_id'] < 1) {
+            return true;
+        }
+        if ($task_info['task_id'] == 217284 && $status == 12 && $uid != $task_info ['uid'] && $uid != $wuid && $user_info ['group_id'] < 1) {
+            return true;
+        }
+
+        if ($g_hide || $hidemode) {
+            if ($uid != $task_info ['uid'] && $uid != $wuid && $user_info ['group_id'] < 1) {
+
+                // 中标,合格,入围稿件
+                if ($status >= 1 && $status < 13) {
+                    if (($task_info['model_id'] == 3 || $task_info['model_id'] == 4) && $hidemode == 2) {//选择稿件中标后显示，计件、招标、雇佣
+                        $hide = false;
+                    } elseif ($task_info['task_status'] != 5 || ($task_info['model_id'] == 4 && $task_info['task_status'] == 5)) {//// 非公示期, 隐藏;5为悬赏类计件类任务公示期，招标雇佣5为威客完成工作
+                        if ($g_hide || $task_info['task_status'] != 8) {
+                            $hide = true;
+                        }
+                    }
+                } else {
+                    if ($g_hide || $hidemode == 2) {
+                        $hide = true;
+                    } elseif ($hidemode == 1 && $task_info ['task_status'] < 8) {
+                        $hide = true;
+                    }
+                }
+            }
+        }
+        return $hide;
+    }
+
+    /**
+     * 验证用户的隐藏模式
+     */
+    public static function valid_hide_mode($hidemode)
+    {
+        return in_array($hidemode, array('no', 'vip', 'dzcredit', 'remain', 'free'));
+    }
+
+    /**
+     * 支付回调提示页面
+     */
+    public static function pay_return_notify($content, $type = 'online_recharge', $obj_id = '', $code = 'success')
+    {
+        global $_K, $uid;
+        $url = $_K ['siteurl'] . '/index.php?';
+        switch ($type) {
+            case 'task_pay' :
+            case 'pub_task' :
+            case 'task_delay' :
+                $url .= 'do=task&task_id=' . $obj_id;
+                break;
+            case 'buy_mobile' :
+                $url .= 'do=shop&u_id=' . $uid;
+                break;
+            case 'integrity' :
+                $url .= 'do=user&view=witkey&op=integ';
+                break;
+            case 'buy_vip':
+                $url .= 'do=user&view=finance&op=offvip';
+                break;
+            case 'buy_maker':
+                $url .= 'do=maker_adopt&view=index';
+                $url = keke_tpl_class::url_rewrite($url);
+                break;
+            default :
+                $url .= 'do=user&view=finance&op=detail&action=charge';
+        }
+
+        kekezu::show_msg('支付提示', $url, 3, $content, $code);
+    }
+
+    /**
+     *
+     */
+    public static function get_charge_action()
+    {
+        return array('pub_task' => '任务发布', 'task_pay' => '赏金托管', 'buy_vip' => 'VIP购买', 'task_delay' => '任务延期', 'buy_mobile' => '任务速配', 'user_charge' => '账户充值', 'integrity' => '诚信卫士支付', 'task_bid' => '任务中标', 'task_mark' => '任务入围', 'task_remain' => '任务余款返还 ', 'task_fail' => '任务失败退款 ', 'buy_eptc' => '购买众包品牌店');
+    }
+
+    /**
+     * 获取稿件图片列表
+     */
+    public static function work_pics($ids)
+    {
+        $pics = array();
+        $ids = array_unique(explode(',', $ids));
+        $ids = implode(',', array_filter($ids));
+        $ids and $pics = db_factory::query("select save_name from " . TABLEPRE . "witkey_file where file_id in ({$ids}) and file_ext in ('jpg','gif','png') ");
+        return $pics;
+    }
+
+    /**
+     * 品牌馆申请状态
+     */
+    public static function get_brand_status()
+    {
+        return array('-1' => '未处理', '1' => '已处理', '2' => '未通过');
+    }
+
+    /**
+     * 品牌馆类别
+     */
+    public static function get_brand_type()
+    {
+        return array('hk' => '香港馆', 'tw' => '台湾馆', 'mc' => '澳门'//,'abroad'=>'海外'
+        );
+    }
+
+    /**
+     * 诚信保障类别
+     */
+    public static function get_integrity_type()
+    {
+        return array('carry_out' => '保证完成', 'aftermarket' => '保证售后', 'original' => '保证原创');
+    }
+
+    /**
+     * 地方版对应关系
+     */
+    public static function get_zone_list($key = 'area_id')
+    {
+        //$ret = include_once S_ROOT . '/config/zone.inc.php';
+        $ret = db_factory::get_table_data('*', 'witkey_area', '', 'area_id', '', '', $key, 86400);
+        return $ret;
+    }
+
+     /**
+      * 根据area_id返回地区名称
+     * @param $area_id
+     * @return string
+     */
+    public static function get_zone_title($area_id)
+    {
+        $sql = sprintf('select *  from %switkey_area where area_id = "%d"', TABLEPRE, $area_id);
+        $area_info = db_factory::get_one($sql);
+        if($area_info){
+          return $area_info['title'];
+        }else{
+            return '';
+        }
+    }
+
+    /**
+     * 根据地区名获取地区id
+     */
+    public static function get_zone_id($area_name)
+    {
+        if ($area_name) {
+            $area_str = is_array($area_name) ? implode("','", $area_name) : $area_name;
+            $area_arr = db_factory::query('select area_id, title, depth, pid, pinyin from ' . TABLEPRE . "witkey_area where title in ('" . $area_str . "')", 1, 86400);
+            $region_arr = array(1 => array(), array());
+            $area_city = array();
+            foreach ($area_arr as $key => $val) {
+                if ($val['depth'] == 1) {
+                    $region_arr[1][] = $val['area_id'];
+                    $ret[$val['depth']][$val['title']] = $val;
+                }
+                if ($val['depth'] == 2) {
+                    $area_city[] = $region_arr[2][] = $val['area_id'];
+                    if (in_array($val['pid'], $region_arr[1])) {
+                        $ret[$val['depth']][$val['title']] = $val;
+                    }
+                }
+
+                if ($val['depth'] == 3 && in_array($val['pid'], $area_city)) {
+                    $ret[$val['depth']][$val['title']] = $val;
+                }
+            }
+            return $ret;
+        }
+    }
+
+    /**
+     * 任务、服务、人才右边攻略\频道宣传推荐,
+     * 攻略、宣传规则
+     * 任务大厅数据排序：原来有推荐就有推荐，=》ID=最新更新
+     * 频道大类：原来有推荐就有推荐=》1.3.5.7.9
+     * 二级大类：原来有推荐就有推荐=》0.2.4.6.8
+     * 三级类：调用最新的
+     * @param mix $indus_ids行业ID ，可为数组或数值
+     * @param string $type 当前页类型，hall——任务大厅、人才大厅、服务大厅，group对应频道页，indus_p一级分类，indus_c二级分类
+     */
+    public static function get_recom_article_list($type, $indus_ids = 0, $art_cat_id = 655)
+    {
+        $recom_fields = 'a.art_id,a.art_title,a.art_pic,a.art_cat_id';
+        is_array($indus_ids) and $indus_ids = implode(",", $indus_ids);
+        empty($indus_ids) and $indus_ids = 0;
+        $recom_table = TABLEPRE . "witkey_article as a," . TABLEPRE . "witkey_article_recommend as r";
+        $recom_where = 'a.is_show=1 and a.art_id = r.art_id and a.art_cat_id="' . $art_cat_id . '" and r.position&4=4 and ';
+        $result = array();
+        $limit = 6;
+
+        $art_fields = 'art_id,art_title,art_pic,art_cat_id';
+        $art_table = TABLEPRE . "witkey_article as a";
+        $art_where = 'is_show=1 and art_cat_id="' . $art_cat_id . '" and ';
+
+        switch ($type) {
+            case 'hall':
+                $recom_where .= ' r.type="hall" ';
+                $order = "r.listorder asc,a.art_id desc";
+                $sql = "select " . $recom_fields . " from " . $recom_table . " where " . $recom_where . " order by " . $order . " limit " . $limit;
+                $result = db_factory::query($sql, 1, 86400);
+                if (!$result) {
+                    $art_where .= " 1=1 ";
+                    $sql = "select " . $art_fields . " from " . $art_table . " where " . $art_where . " order by art_id desc limit " . $limit;
+                    $result = db_factory::query($sql, 1, 86400);
+                }
+                return $result;
+                break;
+            case 'group':
+                $recom_where .= 'r.type="list" and a.indus_id in(' . $indus_ids . ')';
+                $order = "a.task_listorder desc,a.art_id desc";
+                $sql = "select " . $recom_fields . " from " . $recom_table . " where " . $recom_where . " order by " . $order . " limit " . $limit;
+                $result = db_factory::query($sql, 1, 86400);
+                if (!$result) {
+                    //$art_where.= "indus_id in(".$indus_ids.") and (art_id like '%1' or art_id like '%3' or art_id like '%5' or art_id like '%7' or art_id like '%9')";
+                    $art_where .= "indus_id in(" . $indus_ids . ") and (art_id % 2 = 1)";
+                    $order = "art_id desc";
+                    $sql = "select " . $recom_fields . " from " . $art_table . " where " . $art_where . " order by " . $order . " limit " . $limit;
+                    $result = db_factory::query($sql, 1, 86400);
+                }
+                return $result;
+                break;
+            case 'indus_p':
+                $recom_where .= 'r.type="list" and a.indus_id in(' . $indus_ids . ')';
+                $order = "r.listorder asc,a.art_id desc";
+                $sql = "select " . $recom_fields . " from " . $recom_table . " where " . $recom_where . " order by " . $order . " limit " . $limit;
+                $result = db_factory::query($sql, 1, 86400);
+                if (!$result) {
+                    //$art_where.= "indus_id in(".$indus_ids.") and (art_id like '%0' or art_id like '%2' or art_id like '%4' or art_id like '%6' or art_id like '%8')";
+                    $art_where .= "indus_id in(" . $indus_ids . ") and (art_id % 2 = 0)";
+                    $order = "art_id desc"; //频道页
+                    $sql = "select " . $recom_fields . " from " . $art_table . " where " . $art_where . " order by " . $order . " limit " . $limit;
+                    $result = db_factory::query($sql, 1, 86400);
+                }
+                return $result;
+                break;
+            case 'indus_c':
+                if (SOLR_SWITCH) {
+                    require_once(S_ROOT . 'lib/helper/keke_solr.php');
+                    $search = new keke_solr();
+                    $solr_fq = "is_show:1;art_cat_id:" . $art_cat_id . ";indus_id:" . $indus_ids;
+                    $solrData = json_decode($search->goSearch('article', $art_fields, "", $solr_fq, "art_id desc", 0, $limit, 'json', ''), true);
+                    if ($solrData['responseHeader']['status'] === 0) {
+                        $result = $solrData['response']['docs'];
+                    }
+                } else {
+                    $art_where .= ' indus_id =' . $indus_ids;
+                    $order = "art_id desc";
+                    $sql = "select " . $art_fields . " from " . $art_table . " where " . $art_where . " order by " . $order . " limit " . $limit;
+                    $result = db_factory::query($sql, 1, 86400);
+                }
+                return $result;
+                break;
+        }
+    }
+
+    /**
+     * 从已有数组中选出符合条件的元素组成新数组
+     * @param array $list
+     * @param array $condition
+     * @param int $row 选择的条数
+     * @param string $relation 条件之间的关系，and，or
+     * @return array
+     */
+    public static function list_search($list, $condition, $row = '', $relation = 'or')
+    {
+        if (is_string($condition))
+            parse_str($condition, $condition);
+
+        $resultSet = array();
+        foreach ($list as $key => $data) {
+            $find = false;
+            $andresult = true;
+            switch ($relation) {
+                case 'and':
+                    foreach ($condition as $field => $value) {
+                        if (isset($data [$field])) {
+                            if (0 === strpos($value, '/')) {
+                                $find = preg_match($value, $data [$field]);
+                            } elseif ($data [$field] != $value) {
+                                $andresult = false;
+                            }
+                        }
+                    }
+                    $find = true;
+                    break;
+                case 'or':
+                default:
+                    foreach ($condition as $field => $value) {
+                        if (isset($data [$field])) {
+                            if (0 === strpos($value, '/')) {
+                                $find = preg_match($value, $data [$field]);
+                            } elseif ($data [$field] == $value) {
+                                $find = true;
+                            }
+                        }
+                    }
+                    break;
+            }
+            if ($find && $andresult) {
+                if ($row == 1) {
+                    $resultSet = &$list [$key];
+                    break;
+                } else {
+                    $resultSet [] = &$list [$key];
+                }
+            }
+        }
+        return $resultSet;
+    }
+
+    /**
+     * 获得任务类别
+     * @param $model_id 任务模型
+     * @param $task_type 招标模型任务分类
+     * @param $task_cash_coverage 价格区间
+     */
+    public static function get_task_typename($model_id, $task_type, $task_cash_coverage)
+    {
+        if ($model_id == 1) {
+            $type_name = '单赏';
+        } elseif ($model_id == 2) {
+            $type_name = '多赏';
+        } elseif ($model_id == 3) {
+            $type_name = '计件';
+        } elseif ($model_id == 4) {
+            if ($task_type == 3) {
+                $type_name = '直接雇佣';
+            } elseif ($task_type == 2) {
+                $type_name = '服务';
+            } else {
+                if ($task_cash_coverage) {
+                    $type_name = '招标';
+                } else {
+                    $type_name = '雇佣';
+                }
+            }
+        }
+        return $type_name;
+    }
+
+    /**
+     * 判断稿件提交的IP
+     */
+    public static function check_work_ip($task_release_ip)
+    {
+        $work_ip = kekezu::get_ip();
+        $inner_ip = keke_glob_class::check_inner_ip($work_ip);
+        if (!$_COOKIE['dsfdsfda'] && !$inner_ip && $task_release_ip == $work_ip) {
+            //kekezu::keke_show_msg('', '错误代码：0603', 'error','json');
+            kekezu::keke_show_msg('', '系统检测到您正在进行异常操作，请正常操作！', 'error', 'json');
+        }
+    }
+
+    /**
+     * 返回随机图片域名
+     * @param $hostname 指定的域名
+     * return string
+     */
+    public static function rand_img_server($r = null)
+    {
+        global $_K;
+
+        if ($_K['siteurl'] == 'http://www.epwk.com') {
+            $root_domain = '.weikeimg.com';
+        } else {
+            if (count(explode('.', $_SERVER['HTTP_HOST'])) > 2) {
+                $root_domain = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.'));
+            } else {
+                $root_domain = '.' . $_SERVER['HTTP_HOST'];
+            }
+        }
+
+        $r or $r = rand(10, 14);
+        $prefix = 'http://img' . $r;
+        $image_domain = $prefix . $root_domain;
+
+        return $image_domain;
+    }
+
+    /**
+     * shop资源生成地址
+     */
+    public static function shop_resource($url)
+    {
+        $slash_str = (substr($url, 0, 1) == '/') ? '' : '/';
+        $url = $slash_str . $url;
+        $url = self::cdn_resource($url, '', 20);
+        return $url;
+    }
+
+    /**
+     * 生成cdn的url
+     * @param string $url
+     * @return string
+     */
+    public static function cdn_resource($url, $cdn_pre = '', $num = 10)
+    {
+
+        $url_domain = self::cdn_domain($url, $cdn_pre, $num);
+        $url = $url_domain . $url;
+        return $url;
+    }
+
+    /**
+     * 根据URL生成域名
+     */
+    public static function cdn_domain($url, $cdn_pre = '', $num = 10)
+    {
+        $urlhash = md5($url) % 5;
+
+        if (HOST_ENV == '1') {
+            $root_domain = '.weikeimg.com';
+        } else {
+            $suffix = explode('.', ROOT_DOMAIN);
+            $root_domain = '.weikeimg.' . $suffix[1];
+            /*
+              if ( count(explode('.', $_SERVER['HTTP_HOST'])) > 2 ){
+              $root_domain = substr ( $_SERVER['HTTP_HOST'], strpos ( $_SERVER['HTTP_HOST'], '.' ) );
+              } else {
+              $root_domain = '.' . $_SERVER['HTTP_HOST'];
+              }
+             */
+            //$root_domain = '.' . ROOT_DOMAIN;
+        }
+        ($urlhash == 2 || $urlhash == 0) and $urlhash = 1; // 火狐访问img12有问题, 暂时不使用
+        $cdn_pre = $cdn_pre ? $cdn_pre : CDN_PRE_DEFAULT;
+
+        $urlhash = $urlhash + $num; //只能访问img10-img14的域名
+        //$protocol = $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://';
+        $prefix = PROTOCOL . $cdn_pre . $urlhash;
+        $url_domain = $prefix . $root_domain;
+        return $url_domain;
+    }
+
+    /**
+     * js的cdn标签
+     * @param string $url
+     * @return string
+     */
+    public static function cdn_js_tag($url, $cdn_pre = '', $num = 10)
+    {
+        if (empty($cdn_pre) && $num == 10) {
+            $num = 20;
+        }
+        $slash_str = (substr($url, 0, 1) == '/') ? '' : '/';
+        $qm_str = strpos($url, '?') > 0 ? '&' : '?';
+        if ($url == '/js/task_detail.js') {
+            $seo = ' rel="nofollow"';
+        }
+        $url = $url . $slash_str . $qm_str . "ver=" . JS_VER;
+        $src = self::cdn_resource($url, $cdn_pre, $num);
+        $result = '<script type="text/javascript" src="' . $src . '"' . $seo . '></script>';
+        return $result;
+    }
+
+    /**
+     * css的cdn标签
+     * @param string $url
+     * @return string
+     */
+    public static function cdn_css_tag($url, $cdn_pre = '', $num = 10)
+    {
+        if (empty($cdn_pre) && $num == 10) {
+            $num = 20;
+        }
+        $slash_str = (substr($url, 0, 1) == '/') ? '' : '/';
+        $qm_str = strpos($url, '?') > 0 ? '&' : '?';
+        $url = $url . $slash_str . $qm_str . "ver=" . CSS_VER;
+        $src = self::cdn_resource($url, $cdn_pre, $num);
+        $result = '<link rel="stylesheet" type="text/css" href="' . $src . '" />';
+        return $result;
+    }
+
+    /**
+     * 图片的cdn域名url
+     * @param string $url
+     * @return string
+     */
+    public static function cdn_img_url($url, $cdn_pre = '')
+    {
+        $slash_str = (substr($url, 0, 1) == '/') ? '' : '/';
+        $url = $slash_str . $url;
+        $url = self::cdn_resource($url, $cdn_pre);
+        return $url;
+    }
+
+    /**
+     * 生成外部访问需要登录的链接
+     * @param $url 登录后转跳的链接
+     * return string
+     */
+    public static function make_external_link($url)
+    {
+        global $_K;
+
+        return $_K['siteurl'] . '/index.php?do=login&refer=' . urlencode($url);
+    }
+
+    /**
+     * 取三级地区数组
+     * 一级为$pcad['p']
+     * 二级为$pcad['c'][]
+     * 三级为$pcad['a'][] = array()
+     */
+    public static function get_pcad_array()
+    {
+        $p_arr = db_factory::get_table_data('*', 'witkey_pcad', 'pcad_p_id=0', '', '', '', '');
+        foreach ($p_arr as $k => $v) {
+            $pcad_all[$k]['p'] = $v['pcad_name'];
+            $c_arr = db_factory::get_table_data('*', 'witkey_pcad', 'pcad_p_id=' . $v['pcad_id'], '', '', '', '');
+            foreach ($c_arr as $k1 => $v1) {
+                $pcad_all[$k]['c'][$k1] = $v1['pcad_name'];
+                $a_arr = db_factory::get_table_data('*', 'witkey_pcad', 'pcad_p_id=' . $v1['pcad_id'], '', '', '', '');
+                foreach ($a_arr as $k2 => $v2) {
+                    $pcad_all[$k]['a'][$k1][] = $v2['pcad_name'];
+                }
+            }
+        }
+        return $pcad_all;
+    }
+
+    /**
+     * 7大频道SEONAME
+     */
+    public static function get_categroup_list()
+    {
+        $ret = array(1 => 'devise', 2 => 'kaifa', 3 => 'wenan', 4 => 'fixture', 5 => 'marketing', 6 => 'shangwu', 7 => 'shenghuo');
+
+        return $ret;
+    }
+
+    /**
+     * 地区
+     */
+    public static function get_area_data()
+    {
+        $area_arr = kekezu::get_table_data('*', 'witkey_area', '', 'sort asc ', '', '', 'area_id', 86400 * 30);
+        foreach ($area_arr as $area_id => $area_info) {
+            $area_info['pid'] == 0 and $area_p_arr[$area_id] = $area_info or $area_c_arr[$area_id] = $area_info;
+        }
+        $result['area_arr'] = $area_arr;
+        $result['area_p_arr'] = $area_p_arr;
+        $result['area_c_arr'] = $area_c_arr;
+        return $result;
+    }
+
+    /**
+     * 去掉地方名“省，市，自治区“字样
+     */
+    public static function filter_area_title($title)
+    {
+        static $area_title = null;
+        if ($area_title[$title] == null) {
+            $area_title[$title] = str_replace(array("省", "市", "自治区"), '', $title);
+        }
+        return $area_title[$title];
+    }
+
+    /**
+     * 专题列表
+     */
+    public static function get_special_tpl()
+    {
+        return array(
+            '1' => array(
+                'title' => '深邃蓝 ',
+                'img_small' => "tpl/default/shop/special/images/blue_small.jpg",
+                'img' => "tpl/default/shop/special/images/blue.jpg",
+                'path' => "special_detail_blue",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+            '2' => array(
+                'title' => '魅力灰 ',
+                'img_small' => "tpl/default/shop/special/images/grey_small.jpg",
+                'img' => "tpl/default/shop/special/images/grey.jpg",
+                'path' => "special_detail_grey",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+            '3' => array(
+                'title' => '青春绿 ',
+                'img_small' => "tpl/default/shop/special/images/green_small.jpg",
+                'img' => "tpl/default/shop/special/images/green.jpg",
+                'path' => "special_detail_green",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+            '4' => array(
+                'title' => '阳光橙 ',
+                'img_small' => "tpl/default/shop/special/images/orange_small.jpg",
+                'img' => "tpl/default/shop/special/images/orange.jpg",
+                'path' => "special_detail_orange",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+            '5' => array(
+                'title' => '典雅紫 ',
+                'img_small' => "tpl/default/shop/special/images/purple_small.jpg",
+                'img' => "tpl/default/shop/special/images/purple.jpg",
+                'path' => "special_detail_purple",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+            '6' => array(
+                'title' => '经典红 ',
+                'img_small' => "tpl/default/shop/special/images/red_small.jpg",
+                'img' => "tpl/default/shop/special/images/red.jpg",
+                'path' => "special_detail_red",
+                'pages' => array('推荐服务' => 'service', '公司新闻' => 'news', '行业资讯' => 'indus_news', '推荐案例' => 'case')
+            ),
+        );
+    }
+
+    /*
+     * 判断来源是否为网站蜘蛛
+     *
+     */
+
+    public static function is_spider()
+    {
+        $ret = false;
+        //$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)';
+        $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+        if ((strpos($ua, 'baiduspider') !== false) || (strpos($ua, 'googlebot') !== false) || (strpos($ua, 'bingbot') !== false) || (strpos($ua, 'sosospider') !== false) || (strpos($ua, '360spider') !== false)) {
+            $ret = true;
+        }
+
+        return $ret;
+    }
+
+    /*
+     * 对网站蜘蛛的一些特殊处理
+     *
+     */
+
+    public static function check_spider()
+    {
+        return true;
+        global $page;
+
+        $h = 5;
+
+        // 仅允许蜘蛛在[1:00-5:00]检索所有页面, 否则只允许检索前10页
+        if (self::is_spider()) {
+            if (date('H') > $h && $page > 10) {
+                $today_ts = strtotime(date('Y-m-d') . ' 01:00:00');
+                $tomorrow_ts = strtotime('+1 day', $today_ts);
+                $duration = $tomorrow_ts - time();
+
+                header('HTTP/1.1 429 Too Many Requests');
+                header('Retry-After: ' . $duration);
+                exit;
+            }
+        } elseif (date('H') > $h && $page > 100) {
+            header('HTTP/1.1 429 Too Many Requests');
+            header('Retry-After: ' . $duration);
+            exit('太多请求, 请稍候访问.');
+        }
+    }
+
+    // 计时
+    public static function microtime_float()
+    {
+        $mtime = microtime();
+        $mtime = explode(' ', $mtime);
+        return $mtime[1] + $mtime[0];
+    }
+
+    /**
+     * 把字符串转成hex编码
+     * @param unknown_type $str
+     * @return NULL|Ambigous <multitype:, string>
+     */
+    public static function strtohex($str)
+    {
+        if (!is_string($str))
+            return null;
+        $asciis = '';
+        for ($i = 0; $i < strlen($str); $i++) {
+            $asciis .= '\x' . dechex(ord($str[$i]));
+        }
+        return $asciis;
+    }
+
+    /**
+     * 建立多层目录
+     * @param string $root_dir 文件根目录
+     * @param string $dir_path 要建的目录
+     * @param string $separator 文件分隔符
+     */
+    public static function build_dirs($root_dir, $dir_path, $separator)
+    {
+        $dir_path = str_replace($root_dir, '', $dir_path);
+        $dirs = explode($separator, $dir_path);
+        foreach ($dirs as $dir) {
+            $root_dir .= DIRECTORY_SEPARATOR . $dir;
+            is_dir($root_dir) or mkdir($root_dir);
+        }
+    }
+
+    public static function get_cunnar_cn($key)
+    {
+        $result = array('time' => '单次',
+            'month' => '1个月',
+            'quarter' => '一个季度',
+            'year' => '一年');
+        if ($key)
+            $result = $result[$key];
+        return $result;
+    }
+
+    public static function get_payitem_name()
+    {
+        return array(
+            'urgent' => '加急',
+            'workhide' => '稿件隐藏',
+            'seohide' => '屏蔽搜索',
+            'top' => '置顶',
+            'emphide' => '隐藏投标',
+            'taskhide' => '隐藏任务',
+            'cqzr' => '产权代理',
+            'gjlx' => '助您选稿',
+            'hddp' => '替您点评',
+            'xqws' => '写您所需',
+            'rgmh' => '威客速荐',
+            'work_cunnar' => '稿件版权卫士',
+            'work_cunnar_space' => '版权卫士空间',
+            'msg' => '消息推送及通知', // 站内私信
+            'wangpu' => '旺铺专业版',
+            'wangpu_update' => '旺铺升级版',
+            'domain' => '二级域名',
+            'task_cunnar' => '版权卫士',
+            'ad_banner' => '首页轮播广告位',
+            'kee' => '项目管理工具',
+        	'spread'=>'付费推广'	
+        );
+    }
+
+    /*     * 根据不同的任务类型与状态取任务状态文字* */
+
+    public static function get_task_status_txt($task_status, $model_id, $task_type = 0, $cash_status = 1)
+    {
+        $task_status_arr = array(
+            '-1t' => '未确认',
+            '0t' => '未付款',
+            '1t' => '待审核',
+            '2t' => '投稿中',
+            '3t' => '选稿中',
+            '4t' => '摇奖中',
+            '5t' => '公示中',
+            '6t' => '交付',
+            '7t' => '冻结',
+            '8t' => '结束',
+            '9t' => '失败',
+            '10t' => '审核失败',
+            '11t' => '仲裁',
+        );
+        $tender_status = array(
+            '2t' => '投标中',
+            '3t' => '选标中',
+            '4t' => '工作中'
+        );
+        $hire_status = array(
+            '-1t' => '威客未接受',
+            '0t' => '已接受未付款',
+            '4t' => '工作中',
+        );
+        if ($model_id == 4) {//雇佣招标
+            if ($task_type == 3) {//直接雇佣
+                $task_status_arr = array_merge($task_status_arr, $hire_status);
+            } else {
+                $task_status_arr = array_merge($task_status_arr, $tender_status);
+            }
+            if (!$cash_status && $task_status == 4) {
+                $task_status_arr['4t'] = "等待雇主托管赏金";
+            }
+        }
+        return $task_status_arr[$task_status . "t"];
+    }
+
+    /*
+     * 网站指数
+     */
+
+    public static function get_site_index()
+    {
+        //作弊时间天数
+        $day_count = (time() - strtotime('2011-04-01 00:00:00')) / 24 / 3600;
+        $day_count = intVal($day_count);
+
+        /**
+         * 交易额
+         */
+        $task_add_cash = 3488000 + 40000 + $day_count * 200000;
+        $task_cash = intval(db_factory::get_count("select sum(task_cash) from " . TABLEPRE . "witkey_task ", 0, null, 86400));
+        $task_cash += $task_add_cash;
+        $task_cash = number_format($task_cash);
+
+        /**
+         * 交易数量
+         */
+        /* $task_add_num = 5000+120+$day_count*50;
+          $task_num = intval(db_factory::get_count("select count(task_id) from ".TABLEPRE."witkey_task ",0,null,86400));
+          $task_num+= $task_add_num;
+          $task_num = number_format($task_num); */
+        $today_time1 = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $today_time2 = mktime(23, 59, 59, date('m'), date('d'), date('Y'));
+        $task_his_num = intval(db_factory::get_count("select count(task_id) from " . TABLEPRE . "witkey_task where pub_time < " . $today_time1, 0, null, 86400));
+        $task_day_num = intval(db_factory::get_count("select count(1) from " . TABLEPRE . "witkey_task where pub_time >= " . $today_time1 . " and pub_time <= " . $today_time2, 0, null, 1800));
+        $task_num = ($task_his_num + $task_day_num) * 15;
+        $task_num = number_format($task_num);
+
+        /**
+         * 人才
+         */
+        $day_count1 = (time() - strtotime('2013-05-09 00:00:00')) / 24 / 3600;
+        $day_count1 = intVal($day_count1);
+
+        $user_add_num = 3715611 + $day_count1 * 6000;
+        $user_num = intval(db_factory::get_count("select count(uid) from " . TABLEPRE . "witkey_space where come !='batch'", 0, null, 86400));
+        $user_num += $user_add_num;
+        $user_num = number_format($user_num);
+
+        return array($task_cash, $task_num, $user_num);
+    }
+
+    /**
+     * 获取相应行业分类的人才数量
+     * @param int $indus_id 行业分类ID
+     */
+    public static function get_indus_talent($indus_id = 0)
+    {
+        /* //旧版本
+         * $day_count1 = (time() - strtotime('2013-05-09 00:00:00')) / 24 / 3600;
+        $day_count1 = intVal($day_count1);
+        $indus_id = intval($indus_id);
+        $user_add_num = 3715611 + $day_count1 * 6000;
+
+        if ($indus_id) {
+            //$sql = "select count(uid) from ".TABLEPRE."witkey_space where 1=1  and FIND_IN_SET('".$indus_id."',skill_ids) ";
+            $sql = "select count(distinct uid) from " . TABLEPRE . "witkey_skills where skill_id = '" . $indus_id . "'";
+        } else {
+            $sql = "select count(uid) from " . TABLEPRE . "witkey_member ";
+        }
+        $user_num = intval(db_factory::get_count($sql, 0, null, 86400));
+        $user_num += $user_add_num;
+        $user_num = number_format($user_num);
+        return $user_num;*/
+
+        $day_count1 = (time() - strtotime('2013-05-09 00:00:00')) / 24 / 3600;
+        $day_count1 = intVal($day_count1);
+        $indus_id = intval($indus_id);
+        $user_add_num = 3715611 + $day_count1*100;
+
+        if ($indus_id) {
+            //$sql = "select count(uid) from ".TABLEPRE."witkey_space where 1=1  and FIND_IN_SET('".$indus_id."',skill_ids) ";
+            $sql = "select count(distinct uid) from " . TABLEPRE . "witkey_skills where skill_id = '" . $indus_id . "'";
+        } else {
+            $sql = "select count(uid) from " . TABLEPRE . "witkey_member ";
+        }
+        $user_num = intval(db_factory::get_count($sql, 0, null, 86400));
+        $user_num += $user_add_num;
+        $user_num = number_format($user_num);
+        return $user_num;
+    }
+
+    /*
+     * cpm奖品
+     */
+
+    public static function get_cpm_prize()
+    {
+        return array(
+            '1' => '100元红包',
+            '2' => '20元红包',
+            '3' => '5元红包',
+            '4' => '1元红包',
+            '5' => '一品公仔',
+            '6' => '200元红包',
+            '7' => '50元红包',
+            '8' => '100元红包',
+            '9' => '20元红包',
+            '10' => '2元红包',
+            '11' => '10元红包'
+        );
+        /*
+          return array(
+          '1'=>'100元红包',
+          '2'=>'20元红包',
+          '3'=>'5元现金',
+          '4'=>'1元现金',
+          '5'=>'一品公仔',
+          '6'=>'200元红包',
+          '7'=>'50元红包',
+          '8'=>'100元现金',
+          '9'=>'20元现金',
+          '10'=>'2元红包',
+          '11'=>'10元红包'
+          );
+         */
+    }
+
+    /*
+     * ztepwk奖品
+     */
+
+    public static function get_ztepwk_prize()
+    {
+        return array(
+            '1' => '200元红包',
+            '2' => 'VIP旗舰版1年',
+            '3' => '100元红包',
+            '4' => '500元红包',
+            '5' => '公仔一对',
+            '6' => '1000元红包',
+            '7' => '50元红包',
+            '8' => '公仔一对'
+        );
+    }
+
+    /*
+     * 1704yaojiang五一活动奖品
+     */
+
+    public static function get_1704yaojiang_prize()
+    {
+        return array(
+            '1' => '代金券50元',
+            '2' => '代金券100元',
+            '3' => '代金券200元',
+            '4' => '888元新人礼包',
+            '5' => '500元注册商标',
+            '6' => '一品吉祥物(公仔)',
+            '7' => '代步平衡车',
+            '8' => '0元注册商标'
+        );
+    }
+
+    /*
+         * 一品无忧包红包专题
+         */
+
+    public static function get_wuyou_prize()
+    {
+        return array(
+            '1' => '1000代金劵',
+            '2' => '1000代金劵-dianti',
+            '3' => '1000代金劵-h5',
+            '4' => '1000代金劵-zimeiti',
+            '5' => '1000元代金券-weixin',
+            '6' => '1000元代金券-weibo'
+        );
+    }
+
+    /*
+        * 一品无忧包红包专题
+        */
+
+    public static function get_1115wuyou_prize()
+    {
+        return array(
+            '1' => '2000抵用劵'
+        );
+    }
+
+    /*
+         * 一品无忧包红包专题
+         */
+
+    public static function get_tiyanbao_prize()
+    {
+        return array(
+            '1' => '1000体验包',
+            '2' => '1000体验包-weibo',
+            '3' => '1000体验包-weixin',
+            '4' => '1000体验包-zimeiti',
+            '5' => '1000体验包-pengyouquan',
+            '6' => '1000体验包-ruanwen'
+        );
+    }
+
+    /**
+     * @desc 判断稿件是否享有某项增值服务
+     * @param string item_code
+     * @param int uid威客UID
+     * @param int work_id
+     * @return boolean
+     */
+    public static function check_witkey_payitem_exists($item_code, $work_id, $uid)
+    {
+        $work_pay_item = db_factory::get_count("select work_pay_item from " . TABLEPRE . "witkey_task_work where work_id='" . $work_id . "'");
+        if (strpos($work_pay_item, $item_code) === false) {
+            //判断用户是否还有服务
+            $result = keke_payitem_class::payitem_exists($uid, $item_code);
+        } else {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
+     * 判断是否为内部IP
+     */
+    public static function check_inner_ip($vistor_ip = '')
+    {
+        global $allow_ips;
+        $vistor_ip or $vistor_ip = kekezu::get_ip();
+        //$match   = preg_match("/^192\.168\./",$vistor_ip);
+        HOST_ENV != 1 and $match = true;
+        $inner_ips = array_merge($allow_ips['company'], $allow_ips['server']);
+        $match || in_array($vistor_ip, $inner_ips) and $inner = true or $inner = false;
+        return $inner;
+    }
+
+    /**
+     * 计算账目管理费用
+     * @param string $task_currency task中的币种
+     * @param string $work_currency work中的币种
+     * @param float $work_cash_total 已经收取账务管理费后的金额
+     * @param int $model_id 为任务模型
+     * @param int $isvip 为是否VIP,1是，0否
+     * @param int $work_status 稿件金额
+     * @return float $result 所要收取的费用，币种以“所存币种”为准
+     */
+    public static function count_finance_coin_service($task_currency, $work_currency, $cash, $model_id, $isvip, $work_status)
+    {
+        global $model_list;
+        $model_info = $model_list [$model_id];
+        $task_config = unserialize($model_info ['config']);
+        if ($task_currency == 'TWD') {
+            if ($work_status > 0 && $work_status < 13) {
+                $model_id == 4 && $isvip == 1 and $rate = $task_config['service_rate_bid_dalu_vip']
+                or $rate = $task_config['service_rate_bid_dalu'];
+            } elseif ($work_status == 13) {
+                $rate = $task_config['service_rate_dalu'];
+            }
+        } elseif ($task_currency == 'CNY') {
+            if ($work_status > 0 && $work_status < 13) {
+                $model_id == 4 && $isvip == 1 and $rate = $task_config['service_rate_bid_tai_vip']
+                or $rate = $task_config['service_rate_bid_tai'];
+            } elseif ($work_status == 13) {
+                $rate = $task_config['service_rate_tai'];
+            }
+        }
+
+        return $result = sprintf('%0.3f', $cash * 100 / $rate - $cash);
+    }
+
+    /**
+     * 生成并发送验证码
+     * @param string $targetno 发送的目标号码
+     * @param string $target_type 发送方式
+     * @param int $is_ajax 是否是ajax请求，1为是，0为否
+     * @param string $url 不是ajax时，出错跳转地址
+     * @return Ambigous <unknown, string> 返回发送情况
+     */
+    public static function send_verify_code($targetno, $target_type = 'mobile', $msg_tpl, $tpl_title, $is_ajax = 1, $url = '', $msg = '手机认证验证码：', $uid = '', $username = '', $expire = 0, $auth_type = 'register_mobile', $callback = '', $str_ip = '')
+    {
+        global $basic_config, $_lang, $user_info, $allow_ips;
+        $iptracer = epweike_iptracer_class::get_instance();
+        $send_code_use_switch = $basic_config['send_code_use_switch'];
+        $basic_config['send_code_time_limit'] or $basic_config['send_code_time_limit'] = 1;
+        $basic_config['send_code_limit'] = $auth_type == 'register_mobile' ? 3 : $basic_config['send_code_limit'];
+        $c_ip = $str_ip ? $str_ip : kekezu::get_ip();
+        /* $_COOKIE['dsfdsfda']!=1 and $_white_list = array_merge($allow_ips['company'],$allow_ips['server'],$allow_ips['other']);
+
+          if ( $c_ip && ( in_array($c_ip, $_white_list) !== false ) && (!defined('OUTSIDE_TEST') || OUTSIDE_TEST==1) ) {
+          $_exception = true;
+          } */
+        $_exception = keke_glob_class::check_inner_ip($c_ip);
+        //时间间隔限制
+        if ($send_code_use_switch == 'memcache') {
+            $type_time = 'send_code_time_limit_' . $target_type;
+            $rs1 = $iptracer->check_time($type_time, 60 * $basic_config['send_code_time_limit']);
+            $rs2 = $iptracer->check_time($type_time, 60 * $basic_config['send_code_time_limit'], $targetno);
+            if ($rs1 || $rs2) {
+                if ($is_ajax) {
+                    //kekezu::echojson($_lang['too_many_op_take_break_try_again'],0);
+                    $result['msg'] = $_lang['too_many_op_take_break_try_again'];
+                    $result['status'] = 0;
+                    echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                    die();
+                } else {
+                    kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_take_break_try_again'], 'warning');
+                }
+            }
+
+            if ($target_type == 'mobile') {
+                $type_frequency = 'send_code_limit_' . $target_type;
+                $rs1 = $iptracer->check_frequency($type_frequency, $basic_config['send_code_limit']);
+                $rs2 = $iptracer->check_frequency($type_frequency, $basic_config['send_code_limit'], $targetno);
+                if ($rs1 || $rs2) {
+                    if ($is_ajax) {
+                        //kekezu::echojson($_lang['too_many_op_come_back_tomorrow'],0);
+                        $result['msg'] = $_lang['too_many_op_come_back_tomorrow'];
+                        $result['status'] = 0;
+                        echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                        die();
+                    } else {
+                        kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_come_back_tomorrow'], 'warning');
+                    }
+                }
+            }
+        }
+
+
+        db_factory::execute("BEGIN");
+        if ($send_code_use_switch == 'sql') {
+            $send_time = $basic_config['send_code_time_limit'] * 60;
+
+            $last_code_ip = db_factory::get_one("/*master*/select code_id,code,targetno,status,create_time,auth_time,auth_type,expire,uid,ip from " . TABLEPRE . "witkey_verify_code where ip='" . $c_ip . "' and auth_type='" . $auth_type . "' order by code_id desc limit 1 ");
+            $last_ip_time = time() - $last_code_ip['create_time'];
+            if (($last_ip_time < $send_time)) {
+                db_factory::execute('ROLLBACK');
+                if ($is_ajax) {
+                    //kekezu::echojson($_lang['too_many_op_take_break_try_again'],0);
+                    $result['msg'] = $_lang['too_many_op_take_break_try_again'];
+                    $result['status'] = 0;
+                    echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                    die();
+                } else {
+                    kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_take_break_try_again'], 'warning');
+                }
+                die();
+            }
+            $last_code_no = db_factory::get_one("/*master*/select code_id,code,targetno,status,create_time,auth_time,auth_type,expire,uid,ip from " . TABLEPRE . "witkey_verify_code where targetno='" . $targetno . "' and auth_type='" . $auth_type . "' order by code_id desc limit 1 ");
+            $last_no_time = time() - $last_code_no['create_time'];
+            if (($last_no_time < $send_time)) {
+                db_factory::execute('ROLLBACK');
+                if ($is_ajax) {
+                    //kekezu::echojson($_lang['too_many_op_take_break_try_again'],0);
+                    $result['msg'] = $_lang['too_many_op_take_break_try_again'];
+                    $result['status'] = 0;
+                    echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                    die();
+                } else {
+                    kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_take_break_try_again'], 'warning');
+                }
+                die();
+            }
+        }
+
+        //同号每天发送条数限制,只有短信有限制
+        if ($target_type == 'mobile') {
+
+            //事务处理
+            $today_time = strtotime(date('Y-m-d'));
+            $code_send_count = db_factory::get_count("/*master*/select count(1) from " . TABLEPRE . "witkey_verify_code where targetno='" . $targetno . "' and auth_type='" . $auth_type . "' and create_time >= " . $today_time . "");
+            if (($code_send_count >= $basic_config['send_code_limit']) && !$_exception) {
+                db_factory::execute('ROLLBACK');
+                if ($is_ajax) {
+                    //kekezu::echojson($_lang['too_many_op_come_back_tomorrow'],0);
+                    $result['msg'] = $_lang['too_many_op_come_back_tomorrow'];
+                    $result['status'] = 0;
+                    echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                    die();
+                } else {
+                    kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_come_back_tomorrow'], 'warning');
+                }
+                die();
+            }
+            $code_send_count_ip = db_factory::get_count("/*master*/select count(1) from " . TABLEPRE . "witkey_verify_code where ip='" . $c_ip . "' and auth_type='" . $auth_type . "' and create_time >= " . $today_time . "  ");
+            if (($code_send_count_ip >= $basic_config['send_code_limit']) && !$_exception) {
+                db_factory::execute('ROLLBACK');
+                if ($is_ajax) {
+                    //kekezu::echojson($_lang['too_many_op_come_back_tomorrow'],0);
+                    $result['msg'] = $_lang['too_many_op_come_back_tomorrow'];
+                    $result['status'] = 0;
+                    echo $callback . '(' . kekezu::json_encode_k($result) . ')';
+                    die();
+                } else {
+                    kekezu::show_msg($_lang['operate_fail'], $url, 3, $_lang['too_many_op_come_back_tomorrow'], 'warning');
+                }
+                die();
+            }
+        }
+        db_factory::execute('COMMIT');
+        if ($send_code_use_switch == 'memcache') {
+            $iptracer->add($type_time);
+            $iptracer->add($type_time, $targetno);
+            $iptracer->add($type_frequency);
+            $iptracer->add($type_frequency, $targetno);
+        }
+
+        $rankey_type = $target_type == 'mobile' ? 2 : 1;
+        $valid_code = kekezu::randomkeys(6, $rankey_type);
+        //写入验证码表
+        $code_obj = new Keke_witkey_verify_code_class();
+        $code_obj->setCode_id(null);
+        $code_obj->setCode($valid_code);
+        $code_obj->setTargetno($targetno);
+        $code_obj->setStatus(0);
+        $code_obj->setCreate_time(time());
+        $code_obj->setUid($uid);
+        $expire and $code_obj->setExpire($expire + time());
+        $code_obj->setAuth_type($auth_type);
+        $code_obj->setIp($c_ip);
+        $code_obj->setSource('web');
+        $code_obj->create_keke_witkey_verify_code();
+        //print_r($code_obj->setTargetno($targetno));exit;
+        //发送
+        $msg_obj = new keke_msg_class();
+        if ($target_type == 'mobile') {
+            $phone_tpl = db_factory::get_one("select content from " . TABLEPRE . "witkey_msg_tpl where tpl_code='$msg_tpl' and send_type=2");
+            $msg = ($phone_tpl ['content']) ? $phone_tpl ['content'] : $msg;
+            if (strpos($msg, "{验证码}") !== false) {
+                $msg_content = str_replace('{验证码}', $valid_code, $msg);
+            } else {
+                $msg_content = $msg . $valid_code;
+            }
+            $auth_type_array = array('pub_task_mobile', 'task_pay_mobile', 'task_delay_mobile', 'buy_vip_mobile', 'payitem_mobile', 'integrity_mobile', 'integrity_level_mobile', 'integrity_repair_mobile', 'withdraw_mobile');
+            $msg_obj->setIp($c_ip);
+            $msg_res = $msg_obj->send_phone_sms($targetno, $msg_content);
+            if ($msg_res && ($auth_type == 'auth_mobile_mobile' || $auth_type == 'recharge_mobile' || $auth_type == 'group_mobile_mobile' || (!$user_info['auth_mobile'] && in_array($auth_type, $auth_type_array)))) {
+                $auth_u_id = db_factory::get_count("select uid from " . TABLEPRE . "witkey_auth_mobile where uid='" . $user_info['uid'] . "'");
+                $auth_mobile_obj = new Keke_witkey_auth_mobile_class();
+                $auth_mobile_obj->setUid($user_info['uid']);
+                $auth_mobile_obj->setUsername($user_info['username']);
+                $auth_mobile_obj->setMobile($targetno);
+                $auth_mobile_obj->setValid_code($valid_code);
+                $auth_mobile_obj->setAuth_time(time());
+                if ($auth_u_id) {
+                    if ($auth_type != 'auth_mobile_mobile') {
+                        $auth_mobile_obj->setWhere(" uid = '" . $auth_u_id . "'");
+                        $res = $auth_mobile_obj->edit_keke_witkey_auth_mobile();
+                    }
+                } else {
+                    $res = $auth_mobile_obj->create_keke_witkey_auth_mobile();
+                }
+            }
+        } else {
+            $msg_res = $msg_obj->send_message($uid, $username, $msg_tpl, $tpl_title, array('验证码' => $valid_code), $targetno);
+        }
+
+        return $msg_res;
+    }
+
+    /**
+     * @desc 获取银行名称，根据参数来读不同银行
+     * @param string 如果传入则根据不同的页面返回不同范围的银行
+     * @param string 如果传入则返回相应银行名称
+     */
+    public static function get_bank($bank_page = null, $bank_code = null)
+    {
+        $bank_names = array(
+            'boc' => '中国银行',
+            'abc' => '中国农业银行',
+            'ccb' => '中国建设银行',
+            'icbc' => '中国工商银行',
+            'bcom' => '中国交通银行',
+            'cmbc' => '中国民生银行',
+            'psbc' => '中国邮政储蓄银行',
+            'cib' => '中国兴业银行',
+            'hxb' => '华夏银行',
+            'cmb' => '中国招商银行',
+            'spdb' => '上海浦东发展银行',
+            'srcb' => '上海农村商业银行',
+            'bob' => '北京银行',
+            'cbhb' => '渤海银行',
+            'bjrcb' => '北京农商银行',
+            'njcb' => '南京银行',
+            'bea' => '东亚银行',
+            'nbcb' => '宁波银行',
+            'sdb' => '深圳发展银行',
+            'gdb' => '广东发展银行',
+            'citic' => '中信银行',
+            'gzcb' => '广州银行',
+            'hzb' => '杭州银行',
+            'pab' => '平安银行',
+            'hsb' => '徽商银行',
+            'czb' => '浙商银行',
+            'shb' => '上海银行',
+            'ceb' => '光大银行',
+            'jsb' => '江苏银行',
+            'cqb' => '重庆银行',
+            'cdb' => '成都银行',
+            'lzb' => '兰州银行',
+            'other' => '其它银行',
+            'upop' => '银联在线支付',
+            'alipaywap' => '支付宝',
+            'admin_bank_scancode' => '银商银行卡扫码',
+
+            'ceb' => '中国光大银行',
+            'cgb' => '广发银行股份有限公司',
+            'fhb' => '福建海峡银行',
+            'fns' => '福建省农村信用社',
+            'grcb' => '广州农村商业银行',
+            'hfb' => '恒丰银行',
+            'jsgb' => '江苏银行股份有限公司',
+            'jxncb' => '南昌银行',
+            'rcc' => '农村信用社',
+            'xmib' => '厦门国际银行',
+            'xmb' => '厦门银行',
+            'zjncxys' => '浙江省农村信用社',
+
+        );
+        $platform_name = array(
+            'alipayjs' => '支付宝');
+        switch ($bank_page) {
+            case '99bill':
+                $bank_code = array('cmb', 'icbc', 'abc', 'ccb', 'boc', 'spdb', 'bcom', 'cmbc', 'srcb', 'bob', 'cbhb', 'bjrcb',
+                    'njcb', 'ceb', 'bea', 'nbcb', 'sdb', 'citic', 'hxb', 'cib', 'hzb', 'pab', 'hsb', 'czb', 'shb', 'psbc');
+                break;
+            case 'auth_bank':
+                // $bank_code = array('abc', 'ccb', 'icbc', 'bcom', 'cib', 'spdb', 'cmbc', 'citic', 'psbc', 'cib', 'hxb', 'cmb', 'pab', 'boc');
+                $bank_code = array('cmb','icbc', 'abc', 'ccb', 'boc', 'spdb', 'bcom','citic', 'cmbc', 'ceb', 'hxb', 'cgb', 'cib', 'psbc', 'bob', 'fhb', 'fns', 'grcb', 'hzb', 'hfb', 'hsb', 'jsgb', 'jxncb', 'rcc', 'xmib', 'xmb', 'zjncxys');
+                break;
+            case 'pay':
+                $bank_code = array('abc', 'ccb', 'icbc', 'cmb', 'bcom', 'spdb', 'cmbc', 'psbc', 'cib', 'hxb', 'boc');
+                $platform_code = 'alipayjs';
+                break;
+            case 'cib':
+                $bank_code = array('icbc', 'abc', 'ccb', 'boc', 'bcom', 'cmb', 'cib', 'spdb', 'cmbc', 'citic', 'ceb',
+                    'hxb', 'gdb', 'psbc', 'jsb', 'njcb', 'srcb');
+                break;
+            case 'ms':
+                /*$bank_code = array('icbc', 'abc', 'ccb', 'boc', 'bcom', 'cmb', 'cib', 'spdb', 'cmbc', 'citic', 'ceb',
+                    'hxb', 'gdb', 'psbc', 'njcb', 'srcb', 'pab', 'bob');*/
+                $bank_code = array('icbc', 'abc', 'ccb', 'boc', 'cmb', 'cmbc', 'citic', 'ceb',
+                    'hxb', 'gdb', 'bob');
+                break;
+            case 'ms_credit':
+                /*$bank_code = array('icbc', 'abc', 'ccb', 'boc', 'bcom', 'cmb', 'spdb', 'cmbc', 'citic',
+                    'gdb', 'ceb', 'srcb');*/
+                $bank_code = array('icbc', 'abc', 'boc', 'citic', 'ceb', 'hxb');
+                break;
+            case 'credit':
+                $bank_code = array('icbc', 'ccb', 'boc', 'bcom', 'cmb', 'cib', 'spdb', 'cmbc', 'citic',
+                    'gdb', 'jsb', 'njcb', 'srcb');
+                break;
+            case 'btob':
+                $bank_code = array('icbc', 'cmb', 'abc', 'ccb', 'ceb', 'boc', 'pab', 'spdb', 'bcom', 'cmbc');
+                break;
+            case 'unionpay':
+                $bank_code = array('icbc', 'abc', 'ccb', 'boc', 'bcom','cib', 'spdb', 'cmbc', 'citic', 'ceb',
+                    'hxb', 'gdb', 'psbc', 'njcb', 'srcb', 'pab', 'bob');//'cmb',
+                break;
+            case 'huifu':
+                $bank_code = array('cib', 'hxb', 'bob', 'cmb', 'icbc', 'ccb',  'citic', 'ceb', 'bjrcb',
+                    'boc', 'psbc', 'njcb', 'czb', 'shb', 'cbhb', 'srcb', 'gdb', 'cmbc', 'pab', 'bcom', 'spdb','abc');//'hzb',
+                break;
+            case 'huifu_credit':
+                $bank_code = array('cib', 'hxb', 'bob', 'cmb', 'icbc', 'ccb', 'citic', 'ceb', 'bjrcb',
+                    'boc', 'psbc', 'njcb','czb', 'shb', 'cbhb', 'srcb', 'gdb', 'cmbc', 'pab', 'bcom', 'spdb','abc');//'hzb'
+                break;
+            case 'huifu_btob':
+                $bank_code = array('icbc', 'abc', 'boc', 'ccb', 'bcom', 'citic', 'gdb', 'cmb', 'ceb', 'cib', 'spdb', 'psbc', 'bob', 'srcb', 'bjrcb');
+                break;
+            default:
+                break;
+        }
+        if ($bank_code) {
+            is_array($bank_code) or $bank_code = array($bank_code);
+            foreach ($bank_code as $v) {
+                $result[$v] = $bank_names[$v];
+            }
+        } else {
+            $result = $bank_names;
+        }
+        if ($platform_code) {
+            foreach ($platform_code as $k => $v) {
+                $result[$v] = $platform_name[$v];
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * 获取兴业银行收付直通车各银行的代号
+     * @return multitype:multitype:string
+     */
+    public static function get_bank_cib()
+    {
+        $bank_names = require(S_ROOT . "/payment/cib/cib_banks.php");
+
+        return $bank_names;
+    }
+
+    /**
+     * 获取民生银行的代号
+     * @return multitype:multitype:string
+     */
+    public static function get_bank_ms()
+    {
+        $bank_names = require(S_ROOT . "/payment/ms/ms_banks.php");
+
+        return $bank_names;
+    }
+
+    /**
+     * 获取汇付支付各银行的代号
+     */
+    public function get_bank_huifu()
+    {
+        $bank_names = require(S_ROOT . "payment/huifu/huifu_banks.php");
+
+        return $bank_names;
+    }
+
+    /**
+     * 汇付支付
+     * 获取对应银行的网关号
+     * $banb_code 系统对应的银行code
+     * $pay_type 1 信用卡 默认储蓄卡
+     */
+    public function get_bank_gate_id($banb_code = '', $pay_type = '')
+    {
+        $hfpay_info = db_factory::get_one("select * from keke_witkey_hfpay where bank_code='{$banb_code}'");
+        if ($pay_type == 1) {//信用卡
+            return $hfpay_info['credit_gate_id'];
+        } elseif ($pay_type == 4) {//对公
+            return $hfpay_info['dg_gate_id'];
+        }
+        return $hfpay_info['gate_id'];
+    }
+
+    /**
+     * @desc 获取财务用途
+     * @param string $finance_page 哪个页面调用 ，根据不同页面返回不同的财务用途列表
+     * @param mix $finance_code财务用途编码 ,数组或者字符串
+     * @return mix $result 返回数组或字符串，返回 财务动作
+     */
+    public static function get_finance_action($finance_page = null, $finance_code = null)
+    {
+        global $_lang;
+        $finance_actions = array(
+            "realname_auth" => $_lang ['realname_auth'],
+            "bank_auth" => $_lang ['bank_auth'],
+            "email_auth" => $_lang ['email_auth'],
+            "mobile_auth" => $_lang ['mobile_auth'],
+            "buy_vip" => $_lang ['buy_vip'],
+            "pub_task" => $_lang ['pub_task'],
+            "withdraw" => $_lang ['withdraw'],
+            "task_delay" => $_lang ['task_delay'],
+            "task_refund" => $_lang ['task_fail'],
+            "buy_eptc" => $_lang ['buy_eptc'],
+            "buy_eptong" => $_lang['buy_eptong'],
+            "buy_mall_work" => '原创作品购买',
+            "refund_mall_work" => '原创作品退款',
+            //==========(in)=========
+            "ext_cash" => $_lang ['ext_cash'],
+            "online_recharge" => $_lang ['online_recharge'],
+            "offline_recharge" => $_lang ['offline_recharge'],
+            "task_bid" => $_lang ['task_bid'],
+            'task_mark' => $_lang ['task_mark'],
+            "task_fail" => $_lang ['task_fail'],
+            "task_prom_fail" => $_lang ['task_prom_fail'],
+            "sale_service" => $_lang ['sale_service'],
+            "admin_recharge" => $_lang ['admin_recharge'],
+            "withdraw_fail" => $_lang ['withdraw_fail'],
+            "report" => $_lang ['report_processs'],
+            "payitem" => $_lang ['payitem'],
+            "task_auto_return" => $_lang ['task_auto_return'],
+            'order_cancel' => $_lang ['order_cancel'],
+            "online_charge" => $_lang ['online_charge'],
+            "order_charge" => $_lang ['order_charge'],
+            "prom_reg" => $_lang ['prom_reg'],
+            'prom_pub_task' => $_lang ['prom_pub_task'],
+            'prom_task_bid' => $_lang ['prom_bid_task'],
+            'enterprise_auth' => $_lang ['enterprise_auth'],
+            'task_remain' => $_lang ['task_remain_return'],
+            'task_remain_bid' => $_lang['task_remain_bid'],
+            'hosted_return' => $_lang ['task_hosted_return'],
+            'admin_charge' => $_lang ['admin_charge'],
+            'host_deposit' => $_lang ['host_deposit'],
+            'deposit_return' => $_lang ['deposit_return'],
+            'host_return' => $_lang ['host_return'],
+            'host_split' => $_lang ['host_split'],
+            'task_lettory' => $_lang ['task_lettory'],
+            'invoice_taxes' => $_lang ['invoice_taxes'],
+            'return_invoice_taxes' => $_lang ['return_invoice_taxes'],
+            'invoice_freight' => $_lang ['invoice_freight'],
+            'return_freight_taxes' => $_lang ['return_freight_taxes'],
+            'buy_mobile' => $_lang ['buy_mobile'],
+            'credit_return' => $_lang ['credit_return'],
+            'task_pay' => $_lang ['task_pay'],
+            'admin_recharge_out' => $_lang ['admin_recharge_out'],
+            'prom_task_bid' => $_lang ['prom_task_bid'],
+            'prom_reg' => $_lang ['prom_reg'],
+            'integrity' => $_lang ['integrity'],
+            'integrity_refund' => $_lang ['integrity_refund'],
+            'prom_pub_task' => $_lang ['prom_pub_task'],
+            'prom_auth' => $_lang ['prom_auth'],
+            'admin_correction' => $_lang ['admin_correction'],
+            'task_prom' => $_lang ['task_prom'],
+            'offer99' => $_lang ['offer99'],
+            'penalty' => $_lang ['penalty'],
+            'prom_lottery' => $_lang ['prom_lottery'],
+            'payitem_refund' => $_lang ['payitem_refund'],
+            'pub_task' => $_lang ['pub_task'],
+            'buy_vip_taxes' => $_lang ['buy_vip_taxes'],
+            'service_charge_dalu' => $_lang ['service_charge_dalu'],
+            'service_charge_tai' => $_lang ['service_charge_tai'],
+            'notice' => $_lang ['notice'],
+            'tax' => $_lang ['tax'],
+            'brokerage' => $_lang ['brokerage'],
+            'task_delete' => $_lang ['task_delete'],
+            'task_pay' => $_lang ['task_pay'],
+            'fee_withdraw' => $_lang['fee_withdraw'],
+            'refund_fee_withdraw' => $_lang['refund_fee_withdraw'],
+            'freeze' => $_lang['freeze'],
+            'unfreeze' => $_lang['unfreeze'],
+            'refund' => "退款",
+            'refund_fail' => "退款失败",
+            'integrity_indem' => '保证金赔付',
+            'integrity_repair' => '保证金补缴',
+            'prom_inner' => '内部推广',
+            'emaker_sum' => 'E创客抽佣',
+            'emaker_bid_sum' => 'E创客抽佣（推广中标）',
+            'iv_bef_freight' => '任务前运费',
+            'logo_fee' => 'logo套餐服务费',
+            'return_bef_freight' => '退还开票快递费(任务完成前)',
+            'buy_vip_iv_freight' => 'vip开票快递费',
+            'case_lottery' => '接单助手APP宣传',
+            'buy_ad' => '广告投放',
+            'ad_refund' => '广告投放退款',
+            'scratch' => '接单助手APP刮奖',
+            'app_credit_lottery' => '积分摇一摇（APP活动费用）',
+            'scratch' => '刮奖活动（APP活动费用）',
+            'app_credit_exchange' => '积分兑换（APP活动费用）',
+            'buy_maker' => '创客通',
+            'buy_video' => '指间动画',
+            'satisfaction' => '满意度罚金收益',
+            'satisfaction_out' => '满意度罚金退款',
+            'sincerity_money' => '竞标保证金',
+            'sell_mall_work' => '原创作品售出',
+            'buy_mall_fee' => '原创作品手续费',
+            'bidbond_in' => '竞标保证金服务费',
+            'question_red_in' => '问卷红包收入',
+            'question_red_out' => '问卷红包支出',
+            'buy_epcs' => '购买一品财税',
+            'admin_buy_eptc' => '购买一品同城',
+            'stand_taxes' => "分摊开票税金",
+            'refund_stand_taxes' => '退还分摊开票税金',
+            'stand_freight' => "分摊开票快递费",
+            'refund_stand_freight' => '退还分摊开票快递费',
+            'bear_freight' => '承担威客快递费',
+            'buy_epyx' => '一品优选收入',
+            'refund_epyx' => '一品优选退款',
+            'task_cost' => '一品优选任务成本',
+            'shangbiao_cost' => '一品优选商标成本',
+            'caishui_cost' => '一品优选财税成本',
+            'buy_eptong_ios' => '购买一品通（IOS）',
+        	'task_delay_fee' =>'计件任务手续费',	
+        	'back_task_delay_fee' =>'退还计件任务手续费',
+        );
+
+        switch ($finance_page) {
+            case 'admin_finance_company':
+                $finance_code = array(
+                    'buy_vip', 'payitem', 'integrity', 'logo_fee', 'buy_ad',
+                    'pub_task', 'buy_eptc', 'buy_eptong', 'sincerity_money', 'bidbond_in',
+                    //task
+                    'task_mark', 'brokerage', 'service_charge_tai', 'service_charge_dalu', 'task_delete', 'emaker_sum', 'emaker_bid_sum', 'satisfaction', 'satisfaction_out',
+                    //user
+                    'invoice_taxes', 'fee_withdraw', 'refund_fee_withdraw', 'integrity_indem', 'integrity_repair', 'invoice_freight',
+                    //prom
+                    'prom_pub_task', 'prom_task_bid', 'prom_auth', 'prom_lottery', 'prom_inner', 'buy_maker', 'buy_video',
+                    //refund
+                    'payitem_refund', 'integrity_refund', 'payitem_refund', 'return_invoice_taxes', 'return_freight_taxes',
+                    //admin
+                    'admin_charge', 'admin_recharge_out', 'buy_vip_taxes', 'iv_bef_freight', 'return_bef_freight', 'buy_vip_iv_freight', 'buy_epcs', 'admin_buy_eptc',
+                    //mall
+                    'buy_mall_fee', 'stand_taxes', 'refund_stand_taxes', 'stand_freight', 'refund_stand_freight', 'bear_freight',
+                    //epyx
+                    'buy_epyx', 'refund_epyx', 'task_cost', 'shangbiao_cost', 'caishui_cost',
+                    'buy_eptong_ios','task_delay_fee','back_task_delay_fee'
+                );
+                break;
+            case 'admin_finance_all':
+                /*
+                  $finance_code=array(
+                  //==========(in)=========
+                  'task_pay','pub_task',"buy_vip","task_delay","payitem",'invoice_taxes','integrity','invoice_freight','logo_fee',
+                  //==========(out)=========
+                  //task
+                  "task_bid",'task_mark',"task_fail","task_prom_fail",'task_lettory','task_delete','task_remain','task_remain_bid',
+                  //prom
+                  'prom_pub_task','prom_task_bid','prom_auth','prom_pub_task','prom_task_bid','prom_lottery','prom_inner','invoice_freight',
+                  //user
+                  "online_recharge","offline_recharge","online_charge","order_charge","withdraw","integrity_indem","integrity_repair",
+                  //refund
+                  'integrity_refund',"withdraw_fail",'return_invoice_taxes','payitem_refund','return_invoice_taxes','refund','refund_fail','return_freight_taxes',
+                  //admin
+                  'admin_charge','admin_recharge_out','admin_correction','offer99','fee_withdraw','refund_fee_withdraw','freeze','unfreeze'
+                  ); */
+                $finance_code = array(
+                    'online_recharge', 'offline_recharge', 'online_charge', 'admin_charge', 'order_charge',
+                    'admin_recharge_out', 'admin_correction', 'task_pay', 'pub_task', 'task_delay',
+                    'buy_vip', 'buy_ad', 'ad_refund', 'logo_fee', 'payitem',
+                    'payitem_refund', 'integrity', 'integrity_refund', 'integrity_indem', 'integrity_repair',
+                    'freeze', 'unfreeze', 'invoice_taxes', 'return_invoice_taxes', 'invoice_freight',
+                    'return_freight_taxes', 'prom_inner', 'prom_pub_task', 'prom_task_bid', 'prom_auth',
+                    'prom_lottery', 'withdraw', 'withdraw_fail', 'refund', 'refund_fail',
+                    'task_fail', 'task_delete', 'task_remain', 'task_remain_bid', 'task_bid',
+                    'task_mark', 'task_prom_fail', 'task_lettory', 'offer99', 'fee_withdraw',
+                    'refund_fee_withdraw', 'case_lottery', 'app_credit_lottery', 'pub_task', 'app_credit_exchange',
+                    'scratch', 'buy_eptc', 'buy_eptong', 'sincerity_money', 'buy_mall_work',
+                    'refund_mall_work', 'sell_mall_work', 'question_red_in', 'question_red_out', 'satisfaction_out','task_delay_fee','back_task_delay_fee'
+                );
+                break;
+            default:
+                break;
+        }
+        if ($finance_code) {
+            is_array($finance_code) or $finance_code = array($finance_code);
+            foreach ($finance_code as $v) {
+                $result[$v] = $finance_actions[$v];
+            }
+        } else {
+            $result = $finance_actions;
+        }
+        return $result;
+    }
+
+    static function escape_input($value)
+    {
+        // 去除斜杠
+        if (get_magic_quotes_gpc()) {
+            $value = stripslashes($value);
+        }
+        $value = mysql_escape_string($value);
+
+        return $value;
+    }
+
+    /**
+     * 过滤直接复制到输入框的图片
+     * @param unknown_type $content
+     */
+    static function filter_content_img($content)
+    {
+        $content = preg_replace("/<img .*?src=.*?data:image\/.*?;base64,.*?>/", "", kekezu::escape($content));
+        return $content;
+    }
+
+    /**
+     * 隐藏保护，姓名
+     */
+    static function privacy_name($name)
+    {
+        $lens = mb_strlen($name, 'UTF8');
+        if ($lens > 3) {
+            $name = mb_substr($name, 0, $lens - 2, 'utf-8') . "**";
+        } else {
+            $name = mb_substr($name, 0, $lens - 1, 'utf-8') . "*";
+        }
+        return $name;
+    }
+
+    /**
+     * 隐私保护，用户名
+     */
+    static function privacy_user_name($name)
+    {
+
+        if (keke_glob_class::check_inner_ip()) {
+            return $name;
+        }
+
+        $lens = mb_strlen($name, 'UTF8');
+        $name_first = mb_substr($name, 0, 1, 'utf-8');
+        $name_end = mb_substr($name, $lens - 1, $lens, 'utf-8');
+        $name = $name_first . "***" . $name_end;
+        return $name;
+    }
+
+    /**
+     * 隐私保护，数字
+     */
+    static function privacy_digit($num)
+    {
+        $lens = strlen($num);
+        for ($i = 1; $i < $lens - 6; $i++) {
+            $strs .= "*";
+        }
+        return mb_substr($num, 0, 3) . $strs . mb_substr($num, $lens - 4);
+    }
+
+    /**
+     * 隐私保护，邮箱
+     */
+    static function privacy_email($email)
+    {
+        $start = strpos($email, "@");
+        $lens = strlen($email) - $start;
+        for ($i = 1; $i < strlen($email) - 1 - $lens; $i++) {
+            $strs .= "*";
+        }
+        $email = mb_substr($email, 0, 1, 'utf-8') . $strs . mb_substr($email, $start - 1, $lens + 1, 'utf-8');
+        return $email;
+    }
+
+    /**
+     * 隐私保护，自动生成的用户
+     * @param array $name_arr 一维数组，以uid值为key值
+     * @param bool $a 强制隐私保护
+     */
+    static function privacy_auto_name($name_arr = array(), $a = false)
+    {
+        $uid_arr = $name_arr ? array_keys($name_arr) : array();
+        if (keke_glob_class::check_inner_ip() && !$a) {
+            return $name_arr;
+        }
+        if ($uid_arr[0]) {
+            $uid_arr = array_filter($uid_arr);
+            $member_ext_arr = db_factory::query("select uid,k,v1,v2,v3,v4,type from " . TABLEPRE . "witkey_member_ext where uid in (" . implode(',', $uid_arr) . ") and k IN('akey','mobfast','akeymobile') and type='user'", 1, 3600);
+            foreach ($name_arr as $n_k => $n_v) {
+                foreach ($member_ext_arr as $m_k => $m_v) {
+                    if ($n_k == $m_v['uid']) {
+                        if (strpos($n_v, 'mf') !== false) {
+                            $name_str = substr($n_v, 2);
+                            $name_str = keke_glob_class::privacy_digit($name_str);
+                            $n_v = 'mf' . $name_str;
+                        }
+                        if (strpos($n_v, 'M') !== false) {
+                            $name_str = substr($n_v, 1);
+                            $name_str = keke_glob_class::privacy_digit($name_str);
+                            $n_v = 'M' . $name_str;
+                        }
+                    }
+                }
+                $name_arr[$n_k] = $n_v;
+            }
+        }
+        return $name_arr;
+    }
+
+    /*
+     * 任务,人才,服务列表页尾部seo模块
+     * $type: task,talent,service
+     * $id为当前类 的id
+     * 如:当前为设计频道下，则id为g_id
+     * 当前为设计频道下的宣传品设计分类，这id为indus_id
+     * $flag不为0的话，则表示取所有任务或者所有人才或者所有服务
+     */
+
+    public static function get_tailseo_arr($type = "task", $id = 0, $flag = 0)
+    {
+        if ($flag) {
+            $sql = "select * from keke_witkey_tail_seo where id=1";
+        } else {
+            if ($id < 20) {
+                $id_name = "g_id";
+                $table = "industry_group";
+            } else {
+                $id_name = "indus_id";
+                $table = "industry";
+            }
+            switch ($type) {
+                case 'task':
+                    $sql = "select task_intro_title,task_intro_content,task_intro_flag,task_xg_title,task_xg_content,task_xg_flag,task_zb_title,task_zb_content,task_zb_flag,task_link_title,task_link_content,task_link_flag from " . TABLEPRE . "witkey_{$table} where {$id_name}={$id}";
+                    break;
+                case 'talent':
+                    $sql = "select talent_intro_title,talent_intro_content,talent_intro_flag,talent_xg_title,talent_xg_content,talent_xg_flag,talent_zb_title,talent_zb_content,talent_zb_flag,talent_link_title,talent_link_content,talent_link_flag from " . TABLEPRE . "witkey_{$table} where {$id_name}={$id}";
+                    break;
+                case 'service':
+                    $sql = "select service_intro_title,service_intro_content,service_intro_flag,service_xg_title,service_xg_content,service_xg_flag,service_zb_title,service_zb_content,service_zb_flag,service_link_title,service_link_content,service_link_flag from " . TABLEPRE . "witkey_{$table} where {$id_name}={$id}";
+                    break;
+                default:
+                    $sql = "select task_intro_title,task_intro_content,task_intro_flag,task_xg_title,task_xg_content,task_xg_flag,task_zb_title,task_zb_content,task_zb_flag,task_link_title,task_link_content,task_link_flag from " . TABLEPRE . "witkey_{$table} where {$id_name}={$id}";
+            }
+        }
+
+        return db_factory::get_one($sql, 86400);
+    }
+
+    // 生成GUID
+    public static function guid()
+    {
+        $randomString = openssl_random_pseudo_bytes(16);
+        $time_low = bin2hex(substr($randomString, 0, 4));
+        $time_mid = bin2hex(substr($randomString, 4, 2));
+        $time_hi_and_version = bin2hex(substr($randomString, 6, 2));
+        $clock_seq_hi_and_reserved = bin2hex(substr($randomString, 8, 2));
+        $node = bin2hex(substr($randomString, 10, 6));
+
+        /**
+         * Set the four most significant bits (bits 12 through 15) of the
+         * time_hi_and_version field to the 4-bit version number from
+         * Section 4.1.3.
+         * @see http://tools.ietf.org/html/rfc4122#section-4.1.3
+         */
+        $time_hi_and_version = hexdec($time_hi_and_version);
+        $time_hi_and_version = $time_hi_and_version >> 4;
+        $time_hi_and_version = $time_hi_and_version | 0x4000;
+
+        /**
+         * Set the two most significant bits (bits 6 and 7) of the
+         * clock_seq_hi_and_reserved to zero and one, respectively.
+         */
+        $clock_seq_hi_and_reserved = hexdec($clock_seq_hi_and_reserved);
+        $clock_seq_hi_and_reserved = $clock_seq_hi_and_reserved >> 2;
+        $clock_seq_hi_and_reserved = $clock_seq_hi_and_reserved | 0x8000;
+
+        return sprintf('%08s-%04s-%04x-%04x-%012s', $time_low, $time_mid, $time_hi_and_version, $clock_seq_hi_and_reserved, $node);
+    }
+
+    /*
+     * $id 用户id或者商铺id
+     * $type 1 返回商铺id，2 返回用户id
+     */
+
+    public static function get_shopid_or_uid($id, $type = 1)
+    {
+        if ($type == 1) {
+            $fields = 'shop_id';
+            $w_fields = 'uid';
+        } else {
+            $fields = 'uid';
+            $w_fields = 'shop_id';
+        }
+        $sql = " select " . $fields . " from " . TABLEPRE . "witkey_space where " . $w_fields . "=" . $id;
+        $res = db_factory::get_one($sql, 86400);
+        return $res[$fields];
+    }
+
+    /**
+     * 检查是否需要输入验证码
+     * @return boolean true需要显示验证码，false不需要显示验证码
+     */
+    public static function show_auth_code()
+    {
+        global $kekezu;
+        $today_total = db_factory::get_count("select count(*) from " . TABLEPRE . "witkey_verify_code where create_time>=" . strtotime(date("Y-m-d")));
+        if ($today_total >= $kekezu->_sys_config['per_day_mobile_code']) {
+            $show_auth_code = true;
+        } else {
+            $show_auth_code = false;
+        }
+        return $show_auth_code;
+    }
+
+    /**
+     * 销售组别
+     */
+    public static function get_saler_group()
+    {
+        return array(
+            '一区一部',
+            '一区二部',
+            '一区三部',
+            '一区四部',
+            '一区五部',
+            '一区六部',
+            '二区一部',
+            '二区二部',
+            '二区三部',
+            '二区四部',
+            '二区五部',
+            '二区六部',
+            '二区七部',
+        	'售后三部',	
+            '售后二部',
+            '售后一部',
+            '品牌部',
+            //'北京营运中心',
+            '北京营运中心一组',
+            '北京营运中心二组',
+            '一品通销售小组',
+            '优选一部',
+            '优选二部',
+            '优选三部',
+            '一品财税',
+            '一品同城商务部',
+            '一品同城客服部',
+            '任务开发客服组',
+            '客服组',
+        );
+    }
+
+    /**
+     * 虚假保障
+     * @param unknown_type $info
+     * @return Ambigous <number, unknown>
+     */
+    public static function get_fake_integ($info)
+    {
+        $uid_arr = array();
+        foreach ($info as $key => $val) {
+            $uid_arr[] = $val['uid'];
+        }
+        $uid_arr and $fake_integ_arr = db_factory::query("select v1,uid from " . TABLEPRE . "witkey_member_ext where k='fake_integ' and type='shop' and uid in (" . implode(',', $uid_arr) . ")", 1, 86400);
+        foreach ($info as $key => $val) {
+            foreach ($fake_integ_arr as $fk => $fv) {
+                if ($val['uid'] == $fv['uid']) {
+                    $val['fake_integ'] = $fv['v1'];
+                }
+            }
+            $val['fake_integ'] = $val['fake_integ'] ? $val['fake_integ'] : 0;
+            $val['integ'] = $val['integrity'] ? $val['integrity'] : ($val['fake_integ'] ? $val['fake_integ'] : 0);
+
+            // 空格转化
+            $val['shop_name'] = str_replace(' ', '&nbsp;', $val['shop_name']);
+            $info[$key] = $val;
+        }
+        return $info;
+    }
+
+    /**
+     * htmlpurifier
+     */
+    public static function htmlpurifier($dirty_html)
+    {
+        require_once(S_ROOT . "lib/helper/htmlpurifier/HTMLPurifier.auto.php");
+
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('Core.CollectErrors', true);
+        $purifier = new HTMLPurifier($config);
+        $pure_html = $purifier->purify(stripslashes($dirty_html));
+        $pure_html = addslashes($pure_html);
+
+        return $pure_html;
+    }
+
+    /*
+     * 判断当前url是否是新版的url
+     *
+     */
+
+    public static function is_new_url()
+    {
+        return keke_tpl_class::url_rewrite('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']) == ('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ? true : false;
+    }
+
+    /*
+     * 判断标识符或是登录名，以字母开头,可带数字、"_"、"." 的字串 限定最小长度(第二个参数)与最大长度(第三个参数)(默认为2--32位)
+     * 4~16个字符，支持汉字、字母、数字、下划线，不能以数字开头,不包含特殊符号
+     * @param name
+     */
+
+    public static function isSignName($name)
+    {
+        $pattern = '/^[a-zA-Z_\x{4e00}-\x{9fa5}]{1}(\w{3,15}|[\x{4e00}-\x{9fa5}]{1,7})$/u';
+        if (preg_match($pattern, $name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * 返回发布任务推广设置的推广发布配置所对应任务模型key值
+     */
+
+    public static function get_prom_pub_task_key($model_id, $task_type)
+    {
+        switch ($model_id) {
+            case 1:
+                $key = 'sreward';
+                break;
+            case 2:
+                $key = 'mreward';
+                break;
+            case 3:
+                $key = 'preward';
+                break;
+            case 4:
+                if ($task_type == 3) {
+                    $key = 'hire';
+                    break;
+                } else {
+                    $key = 'tender';
+                    break;
+                }
+        }
+        return $key;
+    }
+
+    /* 是否显示首席图标 */
+
+    public static function get_chief_ico($is_show = 0, $title)
+    {
+        global $_K;
+        $str = '';
+        if ($is_show == 2) {
+            $str .= '<a href="' . keke_tpl_class::url_rewrite($_K[siteurl] . '/index.php?do=chief&view=about') . '" class="icocx_top" target="_blank" title="' . $title . '"></a>';
+        }
+        return $str;
+    }
+
+    /* 是否显示大咖图标 */
+
+    public static function get_daka_ico($is_show = 0, $title)
+    {
+        global $_K;
+        $str = '';
+        if ($is_show == 2) {
+            $str .= '<a href="http://daka.epwk.com/rzbz.html" class="ico_daka" target="_blank" title="' . $title . '"></a>';
+        }
+        return $str;
+    }
+
+    /**
+     * 显示一品通图标
+     * @param type $eptong_level
+     * @return string
+     */
+    public static function get_eptong_ico($eptong_level = 0)
+    {
+        $str = '';
+        if ($eptong_level > 0) {
+            $str .= "<a href='" . keke_tpl_class::url_rewrite($_K['siteurl'] . '/index.php?do=eptong&view=index') . "' target='_blank'><i class='ico_ept'></i></a>";
+        }
+        return $str;
+    }
+
+    /* 输出HTML缓存头信息 */
+
+    public static function show_html_cache_control()
+    {
+        if (!in_array($GLOBALS['do'], array('pay', 'user', 'shelves', 'ajax', 'login', 'register', 'release', 'campaign', 'oauth_login', 'oauth_register', 'excite_email')) && !in_array($GLOBALS['view'], array('match_list', 'service_info', 'diy', 'desc', 'index', 'get_password')) && !$GLOBALS['task_id'] && ADMIN_KEKE !== true) {
+            $ts = gmdate("D, d M Y H:i:s", time() + HTML_SECONDS_TO_CACHE) . " GMT";
+            header("Expires: $ts");
+            header("Pragma: cache");
+            header("Cache-Control: max-age=" . HTML_SECONDS_TO_CACHE);
+        }
+    }
+
+    /**
+     * 更改图片域名url
+     * @param string $url
+     * @return string
+     */
+    public static function edit_img_url($url, $edit_pre = '', $num = 10)
+    {
+        $url_arr = explode("://", $url);
+        if (count($url_arr) > 1) {
+            if (stripos($url, $GLOBALS['_K']['siteurl']) === false) {
+                if (stripos($url, "http://www.epweike.com") === false) {
+                    return $url;
+                }
+            }
+            $url_exp = explode("/", $url_arr[1]);
+            unset($url_exp[0]);
+            $url = implode("/", $url_exp);
+        } else {
+            if (strpos($url_arr[0], "www.") !== false) {
+                $url_exp = explode("/", $url_arr[0]);
+                unset($url_exp[0]);
+                $url = implode("/", $url_exp);
+            }
+        }
+        if (strpos($url, '../upload') !== false) {
+            $url = str_replace('../upload/', 'upload/', $url);
+        }
+        $slash_str = (substr($url, 0, 1) == '/') ? '' : '/';
+        $url = $slash_str . $url;
+        $url = self::cdn_resource($url, $edit_pre, $num);
+        return $url;
+    }
+
+    /**
+     * 跳转域名加密
+     * @param string $domain_name
+     * @param string $key
+     * @return string
+     */
+    public static function goto_url_auth($domain_name = "", $key = "", $operation = "ENCODE")
+    {
+        require_once(S_ROOT . "keke_client/ucenter/client.php");
+        $key = $key ? $key : "6eced9f7d662ff12bda3937fed36336d";
+        $domain_name_new = "";
+        if ($operation == 'ENCODE') {
+            $domain_name_auth = uc_authcode($domain_name, 'ENCODE', $key);
+            $domain_name_new = urlencode($domain_name_auth);
+        }
+        return $domain_name_new;
+    }
+
+    /* 显示E创客图标 */
+
+    public static function emaker_ico()
+    {
+        global $_K;
+        $str = '<a href="' . keke_tpl_class::url_rewrite($_K['siteurl'] . '/index.php?do=emaker&view=index') . '" target="_blank" title="E创客"><i class="eckico"></i></a>';
+        return $str;
+    }
+
+    /* 站内信分类 */
+
+    public static function msg_classify()
+    {
+        return array('1' => '资金变更', '2' => '任务速配', '3' => '交易提醒', '4' => '诚信信用通知', '5' => '账号安全');
+    }
+
+    /**
+     * 获取权限授权配置项
+     * @return multitype:multitype:number string
+     */
+    public static function get_authorize_items()
+    {
+        $authorize_arr = array(
+            1 => array('award_id' => 1, 'award_name' => '会员管理-资金明细'),
+            2 => array('award_id' => 2, 'award_name' => '会员管理-查看资料'),
+            3 => array('award_id' => 3, 'award_name' => '任务管理-雇主资料'),
+            4 => array('award_id' => 4, 'award_name' => '专场管理-显示完整联系方式'),
+        );
+        return $authorize_arr;
+    }
+
+    /**
+     * 线下打款银行信息
+     */
+    public static function offline_bank()
+    {
+        $arr = array('icbc' => '工商银行(4100200109200028434)', 'ccb' => '建设银行(35101504001052501686)', 'boc' => '中国银行(424767957316)', 'cib' => '兴业银行(129500100100204338)', 'cmb' => '招商银行(592903269810201)', 'abc' => '农业银行(40378001040014898)', 'bjicbc' => '北京分公司工商银行(0200023309005779939)', 'bjalipay' => '北京支付宝');
+        return $arr;
+    }
+
+    // 404 访问
+    public static function visit_404()
+    {
+        header('HTTP/1.0 404 Not Found');
+        header('Status: 404 Not Found');
+        include S_ROOT . '/tpl/vertwo/error_page/404.html';
+
+        die;
+    }
+
+    //更改浏览数
+    public static function visit_views($table_name, $table_id_name, $table_id, $view = 'views')
+    {
+        if (REDIS_CACHE) {
+            $redis_obj = new Redis();
+            list($host, $port) = explode(':', REDIS_HOST);
+            $timeout = 5;
+            $redis_obj->open($host, $port, $timeout);
+            $redis_obj->sadd($table_name . "_views_ids", $table_id);
+            $redis_obj->incr("{$table_name}:{$table_id_name}:{$table_id}:{$view}");
+        } else {
+            //更改浏览数
+            $sqlplus = "update %switkey_" . $table_name . " set " . $view . " = " . $view . "+1 where " . $table_id_name . " = '%d'";
+            db_factory::execute(sprintf($sqlplus, TABLEPRE, $table_id));
+        }
+    }
+
+    //验证码存到redis
+    public static function secode_to_redis($key, $value)
+    {
+        if (SECODE_TO_REDIS) {
+            $redis = new Redis();
+            list($host, $port) = explode(':', REDIS_HOST);
+            $timeout = 5;
+            $redis->open($host, $port, $timeout);
+            $redis->select(5);
+            $key = session_id() . $key;
+            //$redis->set($key,$value);
+            //带过期时间
+            $redis->setex($key, 600, $value);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //验证码redis校验
+    public static function secode_check_to_redis($key, $value)
+    {
+        $redis = new Redis();
+        list($host, $port) = explode(':', REDIS_HOST);
+        $timeout = 5;
+        $redis->open($host, $port, $timeout);
+        $redis->select(5);
+        $key = session_id() . $key;
+        $res = $redis->get($key);
+        if ($res == $value) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /* 是否显示威客图标 */
+
+    public static function get_weike_ico($shop_id = 0)
+    {
+        global $_K;
+        $str = '';
+        if (HOST_ENV == '1') {
+            if (!self::$_shop_arr) {
+                $shop_arr = require S_ROOT . '/config/weike_shop.php';
+                self::$_shop_arr = $shop_arr;
+            } else {
+                $shop_arr = self::$_shop_arr;
+            }
+            if (in_array($shop_id, $shop_arr['sj'])) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            } elseif (in_array($shop_id, $shop_arr['kf'])) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            } elseif (in_array($shop_id, $shop_arr['zh'])) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            }
+        } else {
+            if (in_array($shop_id, array(121205))) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            } elseif (in_array($shop_id, array(121752))) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            } elseif (in_array($shop_id, array(121572))) {
+                $title = "2016第二届'威'年度影响力十佳服务商";
+                $str .= '<a href="http://s.epwk.com/thread-37807-1-1.html" class="icowei" target="_blank" title="' . $title . '"></a>';
+            }
+        }
+        return $str;
+    }
+
+    /**
+     * 获取商铺联系方式是否公开
+     * 1,4,16,64,256,1048576 关闭，位运算。分别为手机，电话，QQ，邮箱，微信;其中1048576是后台关闭
+     * 2,8,32,128,512,2097152 开启;
+     */
+    public static function get_shop_contact($num = 0)
+    {
+        $bit_arr = array(2, 8, 32, 128, 512);
+        $msg_arr = array('mobile', 'phone', 'qq', 'email', 'weixin');
+        $open_arr = array();
+        if ($num & 1048576) {
+            foreach ($msg_arr as $v) {
+                $open_arr[$v] = 0;
+            }
+        } else {
+            foreach ($bit_arr as $k => $v) {
+                $open_arr[$msg_arr[$k]] = $num & $v;
+            }
+        }
+        return $open_arr;
+    }
+
+    /**
+     * 根据设置进行位运算，数值跟上面相同
+     * $arr[0] 手机，$arr[1] 电话，$arr[2] QQ，$arr[3] 邮箱，$arr[4] 微信
+     * 1,4,16,64,256,1048576 关闭，位运算。分别为手机，电话，QQ，邮箱，微信;其中1048576是后台关闭
+     * 2,8,32,128,512,2097152 开启;
+     */
+    public static function set_shop_contact($arr = array())
+    {
+        $bit_close_arr = array(1, 4, 16, 64, 256, 1048576);
+        $bit_open_arr = array(2, 8, 32, 128, 512);
+        $num = 0;
+        foreach ($arr as $k => $v) {
+            if ($v) {
+                $num = $num | $bit_open_arr[$k];
+            } else {
+                $num = $num | $bit_close_arr[$k];
+            }
+        }
+        return $num;
+    }
+
+    // #18478 访问商铺出现index.php的处理
+    // $routing 是否路由模式
+    public static function move_index_uri($routing = false)
+    { // 不存在数据提交时才会301跳转
+        $move_uri = '';
+        if (!$routing) {
+            if (!$_REQUEST && preg_match('/\/index\.php$/', $_SERVER['REQUEST_URI'])) {
+                $move_uri = 'http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['REQUEST_URI'], 0, -9);
+            }
+        } else {
+            global $route_request_uri;
+            if (!$_POST && !$route_request_uri['query'] && preg_match('/\/index\.php$/', $route_request_uri['path'])) {
+                $move_uri = 'http://' . $_SERVER['HTTP_HOST'] . substr($route_request_uri['path'], 0, -9);
+            }
+        }
+        if ($move_uri) {
+            header('Location: ' . $move_uri, true, 301);
+            die;
+        }
+    }
+
+    //下次跟踪时间
+    public static function next_track_date($shop_id)
+    {
+        $res = db_factory::get_one('select track_type,t_time from keke_witkey_shop_track where shop_id=' . $shop_id . ' order by track_id desc limit 1');
+        if (!$res['t_time'])
+            return;
+
+        switch ($res['track_type']) {
+            case 0:
+                $t = $res['t_time'] + 1 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 1:
+                $t = $res['t_time'] + 8 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 2:
+                $t = $res['t_time'] + 7 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 3:
+                $t = $res['t_time'] + 14 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 4:
+                $t = $res['t_time'] + 2 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 6:
+                $t = $res['t_time'] + 30 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 7:
+                $t = $res['t_time'] + 2 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 8:
+                $t = $res['t_time'] + 7 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 9:
+                $t = $res['t_time'] + 15 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            case 10:
+                $t = $res['t_time'] + 7 * 24 * 60 * 60;
+                echo date("Y-m-d", $t);
+                break;
+            default:
+                break;
+        }
+        return;
+    }
+
+    //#19581雇主选标后，发送消息通知给商标事业部
+    public static function msg_sgangbiao()
+    {
+        return array(
+            735520 => array('uid' => 735520, 'username' => 'chengwysch', 'mobile' => '18759209629', 'email' => '2279465079@qq.com'),
+            1328733 => array('uid' => 1328733, 'username' => 'helesoon', 'mobile' => '17750591962', 'email' => '2711317778@qq.com'),
+        );
+    }
+
+    // 用户每日第三级行业浏览量统计
+    public static function user_visit_industry_views($uid, $indus_id)
+    {
+        $uid = intval($uid);
+        $indus_id = intval($indus_id);
+        if ($uid && $indus_id) {
+            $today_start = strtotime(date('Y-m-d'));
+            $status = db_factory::execute(sprintf('update %switkey_user_visit_industry set views = views + 1 where uid = "%d" and indus_id = "%d" and visit = %d', TABLEPRE, $uid, $indus_id, $today_start));
+            if (!$status) {
+                db_factory::execute(sprintf('insert into %switkey_user_visit_industry values ("", "%d", "%d", %d, %d)', TABLEPRE, $uid, $indus_id, $today_start, 1));
+            }
+        }
+    }
+
+    // SEM数据
+    public static function parse_access_origin($access_origin)
+    {
+        $search_engine = array(
+            'www.baidu.com' => array('百度', array('wd', 'word')),
+            'wap.baidu.com' => array('百度', array('wd', 'word')),
+            'm.baidu.com' => array('百度', array('wd', 'word')),
+            'www.haosou.com' => array('好搜', array('q')),
+            'm.haosou.com' => array('好搜', array('q')),
+            'www.so.com' => array('360搜索', array('q')),
+            'm.so.com' => array('360搜索', array('q')),
+            'www.sogou.com' => array('搜狗', array('query')),
+            'wap.sogou.com' => array('搜狗', array('keyword')),
+            'm.sogou.com' => array('搜狗', array('keyword')),
+            'm.sm.cn' => array('神马', array('q')),
+            'so.m.sm.cn' => array('神马', array('q'))
+        );
+        $preg_search_engine = array(
+            '/^m\.[[:alnum:]\-]+\.sm\.cn$/' => array('神马', array('q')),
+            '/^so\.m\.[[:alnum:]\-]+\.sm\.cn$/' => array('神马', array('q'))
+        );
+
+        $access_parse = parse_url($access_origin);
+
+        $preg_host = '';
+        foreach ($preg_search_engine as $key => $value) {
+            if (preg_match($key, $access_parse['host'])) {
+                $preg_host = $key;
+                break;
+            }
+        }
+
+        $semdata = array();
+        if (array_key_exists($access_parse['host'], $search_engine) || $access_parse['host'] = $preg_host) {
+            if (isset($search_engine[$access_parse['host']])) {
+                $semdata['access_origin'] = $search_engine[$access_parse['host']][0];
+            } else {
+                $semdata['access_origin'] = $preg_search_engine[$access_parse['host']][0];
+            }
+            parse_str($access_parse['query'], $access_query_parse);
+            if (isset($search_engine[$access_parse['host']])) {
+                foreach ($search_engine[$access_parse['host']][1] as $value) {
+                    if ($semdata['search_word']) {
+                        break;
+                    } else {
+                        $semdata['search_word'] = $access_query_parse[$value];
+                    }
+                }
+            } else {
+                foreach ($preg_search_engine[$access_parse['host']][1] as $value) {
+                    if ($semdata['search_word']) {
+                        break;
+                    } else {
+                        $semdata['search_word'] = $access_query_parse[$value];
+                    }
+                }
+            }
+        }
+
+        return $semdata;
+    }
+
+    // 一品商城 服务评论基数 基于服务所属第三级分类计算直接雇佣总数
+    public static function mall_service_indus_reviews($indus_ids = array())
+    {
+        sort($indus_ids);
+        $Solr_urls[] = 'task';
+        $Solr_datas[] = keke_solr::datas_to_tring(
+            '', '', sprintf('task_status:8;model_id:4;task_type:3;-(service_id:*);indus_id:(%s)', implode(' OR ', $indus_ids)), '', 0, count($indus_ids), 'json', '', '<em>', '</em>', '', '', '', array('group' => 'true', 'group.field' => 'indus_id', 'group.limit' => 0)
+        );
+        $solrData = keke_solr::cURL_multi_Solr($Solr_urls, $Solr_datas);
+        $solrData = json_decode($solrData, true);
+
+        $_indus_ids = array();
+        if ($solrData['grouped']['indus_id']['groups']) {
+            foreach ($solrData['grouped']['indus_id']['groups'] as $value) {
+                $_indus_ids[$value['groupValue']] = $value['doclist']['numFound'];
+            }
+        }
+
+        return $_indus_ids;
+    }
+
+    public static function return_notify($type = 'online_recharge', $obj_id = '')
+    {
+        global $_K, $uid;
+        $url = $_K ['siteurl'] . '/index.php?';
+        switch ($type) {
+            case 'task_pay' :
+            case 'pub_task' :
+            case 'task_delay' :
+                $url .= 'do=task&task_id=' . $obj_id;
+                break;
+            case 'buy_mobile' :
+                $url .= 'do=shop&u_id=' . $uid;
+                break;
+            case 'integrity' :
+                $url .= 'do=user&view=witkey&op=integ';
+                break;
+            case 'buy_vip':
+                $url .= 'do=user&view=finance&op=offvip';
+                break;
+            case 'payitem':
+                $url .= 'do=user&view=finance';
+                break;
+            case 'buy_mall_work':
+                $url = "http://mall." . ROOT_DOMAIN . '/order/id' . $obj_id;
+                break;
+            default :
+                $url .= 'do=user&view=finance&op=detail&action=charge';
+        }
+        return $url;
+    }
+
+    // 新版稿件详情处理
+    public static function new_work_desc($work_desc, $return_str = false)
+    {
+        global $task_info;
+        $_work_desc = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $work_desc);
+        $_work_desc = str_replace("\r", '', $_work_desc);
+        $_work_desc = unserialize($_work_desc);
+        if ($_work_desc) {
+            if ($return_str) {
+                $str = '';
+                foreach ($_work_desc as $key => $value) {
+                    $str .= sprintf('%s：%s<br />%s：%s', ($task_info['indus_id'] != 1124 ? '名字' : '广告语'), stripslashes($value['original_text']), ($task_info['indus_id'] != 1124 ? '释义' : '补充'), $value['annotate_text']);
+                    if ($key != count($_work_desc) - 1) {
+                        $str .= '<br />';
+                    }
+                }
+                return $str;
+            } else {
+                foreach ($_work_desc as $key => $value) {
+                    $_work_desc[$key]['original_text'] = stripslashes($value['original_text']);
+                }
+                return $_work_desc;
+            }
+        } else {
+            return $work_desc;
+        }
+    }
+
+    /**
+     * 获取奖金积分用途
+     */
+    public static function get_reward_credit_desc()
+    {
+        $credit_desc = array(
+            'sign' => '签到送积分',
+            'share' => '分享送积分',
+            'task_view' => '好任务，不停看',
+            'hide_work' => '兑换隐藏稿件服务',
+            'red_packets_50' => '兑换50元红包抵用券',
+            'red_packets_100' => '兑换100元红包抵用券',
+            'skill' => '兑换修改技能标签',
+            'auth_mobile' => '手机认证送积分',
+            'auth_realname' => '实名认证送积分',
+            'exchage_cash' => '200积分兑换1元现金',
+            'exchage_hide_work' => '50积分兑换隐藏稿件服务',
+            'lottery' => '摇奖',
+            'reg' => '注册送积分',
+            'set' => '设置送积分',
+            'share_service' => '分享服务送积分',
+            'task_hand' => '交稿送积分',
+        );
+        return $credit_desc;
+    }
+
+    /**
+     * 获取同城代理商列表用户
+     */
+    public static function get_eptc_proxy_list($uid = 0)
+    {
+        $proxy_list = db_factory::query('select uid from keke_witkey_proxy_eptc');
+        foreach ($proxy_list as $key => $v) {
+            $proxy_arr[] = $v['uid'];
+        }
+        if (in_array($uid, $proxy_arr)) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * 随时退ico
+     * <span class="w-spico-tui"></span>
+     */
+
+    public static function get_anyrefund_ico($uid)
+    {
+        if ($uid) {
+            $res = self::get_anyrefund_user($uid);
+            if ($res) {
+                return '<a href="http://zt.epwk.com/1612suishitui/" target="_blank"><span class="w-spico-tui"></span></a>';
+            }
+        }
+        return '';
+    }
+
+    /*
+     * 获取随时退用户
+     */
+
+    public static function get_anyrefund_user($uid = 0)
+    {
+        $where = 'status=1 and del_status=0';
+        $uid and $where .= " and uid={$uid} ";
+        $res = db_factory::query("select uid from keke_witkey_anyrefund where " . $where);
+        if ($res) {
+            if ($uid)
+                return TRUE;
+            $uid_str = '';
+            foreach ($res as $k => $v) {
+                $uid_str .= $v['uid'] . ' OR ';
+            }
+            $uid_str = rtrim($uid_str, ' OR ');
+            return $uid_str;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * 随时退消息通知
+     */
+
+    public static function anyrefund_send_msg($msg_tpl, $task_id)
+    {
+        global $_K;
+        $msg_obj = new keke_msg_class();
+        $arr = array();
+        $task_info = db_factory::get_one("select uid,username,w_uid,w_username,task_title,task_id from keke_witkey_task where task_id={$task_id}");
+        switch ($msg_tpl) {
+            case 'anyrefund_apply'://随时退雇主申请退款
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['w_uid']);
+                $arr['雇主'] = $task_info['username'];
+                break;
+            case 'anyrefund_appeal'://随时退威客提交申诉
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['uid']);
+                $arr['威客'] = $task_info['w_username'];
+                break;
+            case 'anyrefund_cancel_employer'://随时退退款失败_雇主通知
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['uid']);
+                $arr['威客'] = $task_info['w_username'];
+                break;
+            case 'anyrefund_cancel_witkey'://随时退退款失败_威客通知
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['w_uid']);
+                $arr['雇主'] = $task_info['username'];
+                break;
+            case 'anyrefund_success_employer'://随时退退款成功_雇主通知
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['uid']);
+                $arr['威客'] = $task_info['w_username'];
+                break;
+            case 'anyrefund_success_witkey'://随时退退款成功_威客通知
+                $auth_space_info = db_factory::get_one('select uid,username,email, mobile from ' . TABLEPRE . 'witkey_space where uid = ' . $task_info['w_uid']);
+                $arr['雇主'] = $task_info['username'];
+                break;
+            default:
+                return false;
+                break;
+        }
+        $msg_title = '随时退';
+        $arr['任务标题'] = '<a target="_blank" href=' . $_K['siteurl'] . '/index.php?do=task&task_id=' . $task_info ['task_id'] . '>' . $task_info ['task_title'] . '</a>';
+        //var_dump($arr);exit;
+        $res = $msg_obj->send_message($auth_space_info['uid'], $auth_space_info['username'], $msg_tpl, $msg_title, $arr, $auth_space_info['email'], $auth_space_info['mobile']);
+        if ($res) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * 是否强制购买版权卫士
+     */
+
+    public static function is_force_buy_copyright($task_info)
+    {
+        $force_buy_work_cunnar = false;
+        $work_cunnar_config = keke_payitem_class::get_payitem_config('witkey', '', 'work_cunnar', '', '');
+        $work_cunnar_config = unserialize($work_cunnar_config['ext']);
+        if (in_array($task_info['model_id'], array(1, 2)) && $task_info['start_time'] > $work_cunnar_config['work_cunnar']['open_time'] && $work_cunnar_config['work_cunnar']['is_buy'] == 1 && strpos($task_info['pay_item'], 'task_cunnar') === false) {
+            if (in_array($task_info['indus_id'], $work_cunnar_config['work_cunnar']['limit_industry'])) {
+                if ($work_cunnar_config['work_cunnar']['limit_cash'] == 0) {
+                    $force_buy_work_cunnar = true;
+                } elseif ($task_info['task_cash'] > $work_cunnar_config['work_cunnar']['limit_cash']) {
+                    $force_buy_work_cunnar = true;
+                }
+            }
+        }
+        return $force_buy_work_cunnar;
+    }
+
+    public static function get_copyright_buy_url($work_info)
+    {
+        global $user_info;
+        $url = "http://" . USER_DOMAIN . '/Home/Toolbox/buyrecord/b_time/all/item_code/work_cunnar.html';
+        if ($work_info) {
+            $rec_id = db_factory::get_count("select record_id from keke_witkey_payitem_record where uid={$user_info['uid']} and obj_id={$work_info['work_id']} and obj_type='work' and item_code='work_cunnar' and status=0");
+            $res = db_factory::get_one("select * from keke_witkey_order where obj_type='payitem' and order_status='wait' and order_body='work_cunnar' and task_id={$work_info['task_id']} and obj_id={$rec_id} and order_uid={$user_info['uid']}");
+            $res and $url = $_k['siteurl'] . '/index.php?do=pay&order_id=' . $res['order_id'] . '&obj_type=payitem&obj_id=' . $res['obj_id'];
+        }
+        return $url;
+    }
+
+    public static function get_special_config($type = 1, $show = 1, $dis = 0)
+    {
+        $where = '1=1';
+        $type and $where = " sp_type = " . intval($type);
+        $show and $where .= " AND need_show = " . intval($show);
+        $dis and $where .= " AND need_dis = " . intval($dis);
+        $special_arr = db_factory::get_table_data("sp_id,sp_type,sp_content", "witkey_special_config", $where, "", "", "", "sp_id");
+        return $special_arr;
+    }
+
+    //=========================================商城案例购买相关方法开始==============================//
+    /**
+     * 一键转卖查询作品稿件方法
+     */
+    public static function get_witkey_file($works_file, $works_id)
+    {
+        $all = array();
+        if ($works_file) {//直接用字符串查询 如1,2,3
+            $all = db_factory::query("select * from keke_witkey_file where file_id IN ({$works_file})");
+            return $all;
+        } elseif ($works_id) {
+            $works_info = db_factory::get_one("select * from keke_witkey_mall_works where works_id='{$works_id}' ");
+            if ($works_info['works_file']) {
+                $all = db_factory::query("select * from keke_witkey_file where file_id IN ({$works_info['works_file']})");
+            }
+            return $all;
+        }
+        return $all;
+    }
+
+    /**
+     * 一键转卖,生成唯一订单号
+     */
+    public static function get_mall_order_sn()
+    {
+        $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        $orderSn = $yCode[intval(date('Y')) - 2011] . date('Y') . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+        return $orderSn;
+    }
+
+    /**
+     * 作品状态转换
+     */
+    public static function get_mall_work_status()
+    {
+        $work_status = array(
+            '' => '全部',
+            '0' => '正常',
+            '1' => '下架',
+            //'3' => '已删除',
+            '4' => '冻结'
+        );
+        return $work_status;
+    }
+
+    /**
+     * 订单状态转换
+     */
+    public static function get_mall_work_order_status()
+    {
+        $work_order_status = array(
+            '' => '全部',
+            0 => '待付款',
+            1 => '待上传',
+            2 => '待确认',
+            3 => '成功',
+            4 => '关闭', //失败也是关闭
+            5 => '已评价',
+            6 => '冻结',
+            7 => '退款中',
+            8 => '退款失败',
+            9 => '退款成功'
+        );
+        return $work_order_status;
+    }
+
+    /**
+     * 订单延迟状态转换
+     */
+    public static function get_mall_order_delay_status()
+    {
+        $delay_order_status = array(
+            '' => '全部',
+            0 => '未延迟',
+            1 => '已申请延迟',
+            2 => '同意延迟',
+            3 => '拒绝延迟'
+        );
+        return $delay_order_status;
+    }
+
+    public static function get_industry_one()
+    {
+//        return  array(
+//            '1'=>'A. 农/林/牧/渔业',
+//            '2'=>'B. 采矿业',
+//            '3'=>'C. 制造业',
+//            '4'=>'D. 电力/热力/燃气及水生产和供应业',
+//            '5'=>'E. 建筑业',
+//            '6'=>'F. 批发和零售业',
+//            '7'=>'G. 交通运输/仓储和邮政业',
+//            '8'=>'H. 住宿和餐饮业',
+//            '9'=>'I. 信息传输/软件和信息技术服务业',
+//            '10'=>'J. 金融业',
+//            '11'=>'K. 房地产业',
+//            '12'=>'L. 租赁和商务服务业',
+//            '13'=>'M. 科学研究和技术服务业',
+//            '14'=>'N. 水利/环境和公共设施管理业',
+//            '15'=>'O. 居民服务/修理和其他服务业',
+//            '16'=>'P. 教育',
+//            '17'=>'Q. 卫生和社会工作',
+//            '18'=>'R. 文化/体育和娱乐业',
+//            '19'=>'S. 公共管理、社会保障和社会组织',
+//            '20'=>'T. 国际组织',
+//            '21'=>'Z. 其他'
+//        );
+
+        return array(
+            '1' => '农/林/牧/渔业',
+            '2' => '采矿业',
+            '3' => '制造业',
+            '4' => '电力/热力/燃气及水生产和供应业',
+            '5' => '建筑业',
+            '6' => '批发和零售业',
+            '7' => '交通运输/仓储和邮政业',
+            '8' => '住宿和餐饮业',
+            '9' => '信息传输/软件和信息技术服务业',
+            '10' => '金融业',
+            '11' => '房地产业',
+            '12' => '租赁和商务服务业',
+            '13' => '科学研究和技术服务业',
+            '14' => '水利/环境和公共设施管理业',
+            '15' => '居民服务/修理和其他服务业',
+            '16' => '教育',
+            '17' => '卫生和社会工作',
+            '18' => '文化/体育和娱乐业',
+            '19' => '公共管理、社会保障和社会组织',
+            '20' => '国际组织',
+            '21' => '其他'
+        );
+    }
+
+    public static function get_works_type()
+    {
+        return array(
+            '1000' => '商标/VI设计',
+            '1001' => '宣传品设计',
+            '1002' => '服装设计',
+            '1003' => '应用设计',
+            '1004' => '照片处理',
+            '1005' => '书籍装帧',
+            '1006' => '动漫设计',
+            '1007' => 'UI设计',
+            '1008' => '多媒体设计',
+            '1009' => '卡片设计',
+            '1010' => '家居装修',
+            '1011' => '建筑装修',
+            '1012' => '建筑设计',
+            '1013' => '软装设计',
+            '1014' => '定制家居',
+            '1015' => '其他装修',
+
+            '1016' => '网站开发',
+            '1017' => '软件开发',
+            '1018' => '移动应用开发'
+
+        );
+    }
+
+    /**
+     * 资源关联重新分配跟踪人
+     */
+    public static function get_distribution_uid($adv_type, $mobile)
+    {
+        if ($adv_type == 58) {
+            $redis = new RedisA(RedisA::BUSINESS_DB);
+            if ($redis->llen('special') == 0) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id = 32");
+                foreach ($username_array as $row) {
+                    if (!in_array($row['uid'], array(597652, 1373903))) {
+                        $redis->lpush("special", $row);
+                    }
+                }
+            }
+            if ($redis->get('special-user') == false) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id = 32");
+                $specialuser = array();
+                foreach ($username_array as $r) {
+                    if (!in_array($r['uid'], array(597652, 1373903))) {
+                        $specialuser[] = $r['uid'];
+                    }
+                }
+                $redis->set('special-user', $specialuser);
+            }
+
+            $rs_exist = $redis->hGet('special-store', $mobile);
+            $distribution_info = json_decode($rs_exist, true);
+            $specialuser = $redis->get('special-user');
+            if ($rs_exist && in_array($distribution_info['uid'], $specialuser)) {
+                $distribution_uid = $distribution_info['uid'];
+            } else {
+                $user_row = json_decode($redis->rpoplpush('special', 'special'), true);
+                $distribution_uid = $user_row['uid'];
+            }
+            if (empty($rs_exist)) {
+                $redis->hSet('special-store', $mobile, json_encode(array('uid' => $user_row['uid'])));
+            }
+        } elseif ($adv_type == 75) {
+            $redis = new RedisA(RedisA::BUSINESS_DB);
+            if ($redis->llen('special_ept_new_product') == 0) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id in(60,111,112,113)");
+                foreach ($username_array as $row) {
+                    if (!in_array($row['uid'], array(597652, 1373903))) {
+                        $redis->lpush("special_ept_new_product", $row);
+                    }
+                }
+            }
+            if ($redis->get('special-user_new') == false) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id in(60,111,112,113)");
+                $specialuser = array();
+                foreach ($username_array as $r) {
+                    if (!in_array($r['uid'], array(597652, 1373903))) {
+                        $specialuser[] = $r['uid'];
+                    }
+                }
+                $redis->set('special-user_new', $specialuser);
+            }
+            $rs_exist = $redis->hGet('special-store_new', $mobile);
+            $distribution_info = json_decode($rs_exist, true);
+            $specialuser = $redis->get('special-user_new');
+            if ($rs_exist && in_array($distribution_info['uid'], $specialuser)) {
+                $distribution_uid = $distribution_info['uid'];
+            } else {
+                if ($redis->llen('special_youxuan') == 0) {
+                    $user_row = json_decode($redis->rpoplpush('special_ept_new_product', 'special_ept_new_product'), true);
+                    $distribution_uid = $user_row['uid'];
+                } else {
+                    $user_row = json_decode($redis->rpoplpush('special_youxuan', 'special_youxuan'), true);
+                    $distribution_uid = $user_row['uid'];
+                }
+
+            }
+            if (empty($rs_exist)) {
+                $redis->hSet('special-store_new', $mobile, json_encode(array('uid' => $user_row['uid'])));
+            }
+        } elseif ($adv_type == 41) {
+            $redis = new RedisA(RedisA::BUSINESS_DB);
+            if ($redis->llen('special_tongcheng_product') == 0) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id in(53)");
+                foreach ($username_array as $row) {
+                    if (!in_array($row['uid'], array(597652, 1373903))) {
+                        $redis->lpush("special_tongcheng_product", $row);
+                    }
+                }
+            }
+            if ($redis->get('special-tongcheng_user_new') == false) {
+                $username_array = db_factory::query("SELECT uid FROM " . TABLEPRE . "witkey_space WHERE group_id in(53)");
+                $specialuser = array();
+                foreach ($username_array as $r) {
+                    if (!in_array($r['uid'], array(597652, 1373903))) {
+                        $specialuser[] = $r['uid'];
+                    }
+                }
+                $redis->set('special-tongcheng_user_new', $specialuser);
+            }
+            $rs_exist = $redis->hGet('special-tongcheng_store_new', $mobile);
+            $distribution_info = json_decode($rs_exist, true);
+            $specialuser = $redis->get('special-tongcheng_user_new');
+            if ($rs_exist && in_array($distribution_info['uid'], $specialuser)) {
+                $distribution_uid = $distribution_info['uid'];
+            } else {
+                if ($redis->llen('special_tongcheng') == 0) {
+                    $user_row = json_decode($redis->rpoplpush('special_tongcheng_product', 'special_tongcheng_product'), true);
+                    $distribution_uid = $user_row['uid'];
+                } else {
+                    $user_row = json_decode($redis->rpoplpush('special_tongcheng', 'special_tongcheng'), true);
+                    $distribution_uid = $user_row['uid'];
+                }
+
+            }
+            if (empty($rs_exist)) {
+                $redis->hSet('special-tongcheng_store_new', $mobile, json_encode(array('uid' => $user_row['uid'])));
+            }
+        }
+        return $distribution_uid;
+    }
+
+    /**
+     * 资源关联数据
+     */
+    public static function get_relate_special($id, $adv_type_id, $distribution_uid, $relate_source_id)
+    {
+        $result_info = db_factory::get_one("select * from keke_witkey_advertis where id =" . intval($id));
+        $res_id = db_factory::inserttable(TABLEPRE . 'witkey_advertis', array('advertis_username' => $result_info['advertis_username'], 'username' => $result_info['username'], 'phone' => $result_info['phone'], 'advertis_type' => $result_info['advertis_type'], 'advertis_type_desc' => $result_info['advertis_type_desc'],
+                'ip' => $result_info['ip'], 'status' => $result_info['status'], 'ontime' => $result_info['ontime'], 'op_username' => $result_info['op_username'], 'op_time' => $result_info['op_time'], 'mark_status' => $result_info['mark_status'], 'source' => $result_info['source'], 'semkeyword' => $result_info['semkeyword'],
+                'pro_uid' => $result_info['pro_uid'], 'is_pay' => $result_info['is_pay'], 'adv_type' => $adv_type_id, 'industry' => $result_info['industry'], 'qq' => $result_info['qq'], 'email' => $result_info['email'], 'ramk' => $result_info['ramk'], 'adver_source' => $result_info['adver_source'],
+                'sem_source' => $result_info['sem_source'], 'distribution_uid' => $distribution_uid, 'distribution_username' => $result_info['distribution_username'], 'next_time' => $result_info['next_time'], 'province' => $result_info['province'], 'city' => $result_info['city'], 'new_type' => $result_info['new_type'],
+                'release_status' => $result_info['release_status'], 'task_id' => $result_info['task_id'], 'operation_source' => $result_info['operation_source'], 'reserve_type' => $result_info['reserve_type'], 'reason' => $result_info['reason'], 'tc_type' => $result_info['tc_type'], 'tc_desc' => $result_info['tc_desc'],
+                'bidding_area' => $result_info['bidding_area'], 'category_pname' => $result_info['category_pname'], 'utm_medium' => $result_info['utm_medium'], 'utm_campaign' => $result_info['utm_campaign'], 'utm_content' => $result_info['utm_content'], 'relate_source' => $relate_source_id
+            )
+        );
+        $result_remark = db_factory::query("select * from keke_witkey_advertis_history where advertis_id =" . intval($id));
+        foreach ($result_remark as $key => $value) {
+            db_factory::inserttable(TABLEPRE . 'witkey_advertis_history', array('advertis_id' => $res_id, 'op_username' => $value['op_username'], 'op_time' => $value['op_time'], 'ramk' => $value['ramk'], 'type' => 0));
+        }
+    }
+
+    /**
+     * 资源数据关联到标局
+     */
+    public static function get_relate_epbiao($id)
+    {
+        $result_info = db_factory::get_one("select * from keke_witkey_advertis where id =" . intval($id));
+        if (in_array($result_info['adv_type'], array(22, 23, 66, 67, 68))) {
+            $result_info['adv_type'] = 22;
+        }
+        $design_relate_info_history = db_factory::get_one("select * from keke_witkey_advertis_history where advertis_id =" . intval($id) . " order by op_time desc");
+        $gateway = "http://www.epbiao.com/ajax_allocats.php?act=index";
+        $param = array('stat_code' => 'synchronize', 'mobile' => $result_info['phone'], 'reg_username' => $result_info['username'], 'synchronous_source' => $result_info['adv_type'], 'cat_desc' => $design_relate_info_history['ramk'],);
+        $contents = kekezu::curl_request($gateway, 3, true, "post", $param, "", array(), 40, "throw");
+        $result = json_decode($contents, true);
+        return $result;
+    }
+
+    //=========================================商城案例购买相关方法结束==============================//
+
+    /**
+     * 通过uid返回用户信息
+     * @param $uid
+     * @return array|null
+     */
+    public static function get_user_info_by_uid($uid)
+    {
+        $user_info = db_factory::get_one(sprintf('select *  from %switkey_space where uid = "%d" ', TABLEPRE, intval($uid)));
+        return $user_info;
+    }
+
+    /**
+     * 同城业务类型
+     * @return array
+     */
+    public static function get_eptc_ye_wu()
+    {
+        return array(
+            1 => "商标注册",
+            2 => "知识产权",
+            3 => "品牌无忧包",
+            4 => "一品通",
+            5 => "众包品牌店",
+            6 => "行业服务",
+            7 => "拓展业务",
+        );
+    }
+
+
+    /**
+     * #41575 任务冻结通知 task_freeze_notice_send  您好！您发布的任务< xxxxxxxxxxxxx >进入冻结状态，如需帮助请联系客服人员！
+     * @param $task_id
+     * @param $msg_tpl
+     */
+    public static function task_freeze_notice_send($task_id, $msg_tpl='')
+    {
+        $sql = sprintf('select * from %switkey_task where task_id = "%d"', TABLEPRE, $task_id);
+        $task_info = db_factory::get_one($sql);
+        $sql = sprintf('select * from %switkey_space where uid = "%d"', TABLEPRE, $task_info['uid']);
+        $space_info = db_factory::get_one($sql);
+        if($task_info && $space_info && $msg_tpl){
+            //获取该类型模板配置
+            $sql = sprintf('select *  from %switkey_msg_config where k = "%s" AND obj = "task" ', TABLEPRE, $msg_tpl);
+            $tpl_config = db_factory::get_one($sql);
+            //获取短信模板
+            $sql = sprintf('select *  from %switkey_msg_tpl where tpl_code = "%s" AND send_type = 2 ', TABLEPRE, $msg_tpl);
+            $tpl_info = db_factory::get_one($sql);
+            $send_type = unserialize($tpl_config['v']);
+            $is_open = array_sum($send_type);//$is_open等于0 的时候模板关闭
+            if ($tpl_config && $tpl_info) {
+                if ($is_open != 0) { //模板开启
+                    if ($send_type['send_mobile_sms'] != 0) { //手机短信模板是否开启
+                        $user_info = kekezu::get_user_info($task_info['uid']);
+                        $spf_data['任务标题'] = $task_info['task_title'];
+                        $spf_data['用户名'] = $task_info['username'];
+                        $tpl_str = $tpl_info['content'];
+
+                        foreach ($spf_data as $k1 => $v1) {
+                            $tpl_str = str_replace('{' . $k1 . '}', $v1, $tpl_str);//为短信模板赋值
+                        }
+                        $msg_obj = new keke_msg_class();
+                        $msg_obj->send_phone_sms ( $user_info['mobile'], $tpl_str );
+                    }
+                }
+            }
+
+        }
+
+    }
+    //#43404 VIP商铺免费申请审核通过站内信和短信通知
+    public static function free_vip_send($user_name, $msg_tpl='',$type='')
+    {
+        $free_vip_info = db_factory::get_one("select email,uid,mobile,username from keke_witkey_space where username='$user_name'");
+        $free_vip_list = db_factory::get_one("SELECT ontime FROM " . TABLEPRE . "witkey_advertis WHERE adv_type=90 and username = '$user_name'");
+        if($free_vip_list && $free_vip_info && $msg_tpl){
+            //获取该类型模板配置
+            $sql = sprintf('select *  from %switkey_msg_config where k = "%s" AND obj = "user" ', TABLEPRE, $msg_tpl);
+            $tpl_config = db_factory::get_one($sql);
+            $send_type = unserialize($tpl_config['v']);
+            $is_open = array_sum($send_type);//$is_open等于0 的时候模板关闭
+            if ($tpl_config) {
+                if ($is_open != 0) { //模板开启
+
+                    if ($send_type['send_mobile_sms'] != 0) { //手机短信模板是否开启
+                        $spf_data['申请时间'] = date("Y-m-d H:i:s",$free_vip_list['ontime']);
+                        $spf_data['用户名'] = $free_vip_info['username'];
+                        //获取短信模板
+                        $sql = sprintf('select *  from %switkey_msg_tpl where tpl_code = "%s" AND send_type=2 ', TABLEPRE, $msg_tpl);
+                        $tpl_info = db_factory::get_one($sql);
+                        $tpl_str = $tpl_info['content'];
+
+                        foreach ($spf_data as $k1 => $v1) {
+                            $tpl_str = str_replace('{' . $k1 . '}', $v1, $tpl_str);//为短信模板赋值
+                        }
+                        $msg_obj = new keke_msg_class();
+                        $msg_obj->send_phone_sms ( $free_vip_info['mobile'], $tpl_str );
+                    }
+                    if ($send_type['send_sms'] != 0) { //站内信模板是否开启
+                        $spf_data['申请时间'] = date("Y-m-d H:i:s",$free_vip_list['ontime']);
+                        $spf_data['用户名'] = $free_vip_info['username'];
+                        //获取短信模板
+                        $sql = sprintf('select *  from %switkey_msg_tpl where tpl_code = "%s" AND send_type=1 ', TABLEPRE, $msg_tpl);
+                        $tpl_info = db_factory::get_one($sql);
+                        $tpl_str = $tpl_info['content'];
+
+                        foreach ($spf_data as $k1 => $v1) {
+                            $tpl_str = str_replace('{' . $k1 . '}', $v1, $tpl_str);//为短信模板赋值
+                        }
+                        if($type==1){
+                            kekezu::notify_user ( "您的VIP开通申请已审核通过", $tpl_str , $free_vip_info['uid'], $free_vip_info['username']);
+                        }else{
+                            kekezu::notify_user ( "您的VIP开通申请审核未通过", $tpl_str , $free_vip_info['uid'], $free_vip_info['username']);
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    /**
+     * #41575 任务动态通知 task_notice_send_end  恭喜您发布的【{任务标题}】任务交稿已结束，欢迎登录查看。
+     * @param $task_id
+     * @param $msg_tpl
+     */
+    public static function task_notice_send_end($task_id, $msg_tpl='')
+    {
+        $sql = sprintf('select * from %switkey_task where task_id = "%d"', TABLEPRE, $task_id);
+        $task_info = db_factory::get_one($sql);
+        $sql = sprintf('select * from %switkey_space where uid = "%d"', TABLEPRE, $task_info['uid']);
+        $space_info = db_factory::get_one($sql);
+
+        if($task_info && $space_info && $msg_tpl){
+            //获取该类型模板配置
+            $sql = sprintf('select *  from %switkey_msg_config where k = "%s" AND obj = "task" ', TABLEPRE, $msg_tpl);
+            $tpl_config = db_factory::get_one($sql);
+            //获取短信模板
+            $sql = sprintf('select *  from %switkey_msg_tpl where tpl_code = "%s" AND send_type = 2 ', TABLEPRE, $msg_tpl);
+            $tpl_info = db_factory::get_one($sql);
+            $send_type = unserialize($tpl_config['v']);
+            $is_open = array_sum($send_type);//$is_open等于0 的时候模板关闭
+
+            if ($tpl_config && $tpl_info) {
+                if ($is_open != 0) { //模板开启
+                    if ($send_type['send_mobile_sms'] != 0) { //手机短信模板是否开启
+                        $spf_data['任务标题'] = $task_info['task_title'];
+                        $spf_data['用户名'] = $task_info['username'];
+                        $tpl_str = $tpl_info['content'];
+
+                        foreach ($spf_data as $k1 => $v1) {
+                            $tpl_str = str_replace('{' . $k1 . '}', $v1, $tpl_str);//为短信模板赋值
+                        }
+
+                        if(OPEN_NOTICE_SEND == 1){
+                            if($space_info['mobile']){
+                                $message_send_type = keke_glob_class::get_message_send_type();/*array ( 0 => array ( 1 => 'send_sms', 2 => 'send_email', 3 => 'send_mobile_sms', 4 => 'send_app_switch', ), 1 => array ( 'send_sms' => '站内短信', 'send_email' => '发送邮件', 'send_mobile_sms' => '手机短信', 'send_app_switch' => 'APP推送站内短信开关', ), );*/
+                                $msg_obj = new keke_msg_class();
+                                $msg_obj->setTitle('任务交稿结束提醒');
+                                $msg_obj->send_phone_sms($space_info['mobile'], $tpl_str);
+                            }
+                        }else{
+                            if($space_info['mobile']){
+                                $tpl_str_send = '【任务动态提醒】任务编号:'.$task_info['task_id'].'， 【发送人】：'.$space_info['mobile'].' 【内容】：'.$tpl_str.'\r\n';
+                                file_put_contents(S_ROOT . 'data/logs/task/'."task_notice_send_end_log".date('Ymd',time()).".txt", $tpl_str_send.PHP_EOL, FILE_APPEND);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    /**
+     * 招商支付宝微信
+     * 充值表银行卡类型 转行名称
+     */
+    public static function cmb_bank_type()
+    {
+        return array(
+            'ICBC_DEBIT' => '工商银行(借记卡)',
+            'ICBC_CREDIT' => '工商银行(信用卡)',
+            'ABC_DEBIT' => '农业银行(借记卡)',
+            'ABC_CREDIT' => '农业银行(信用卡)',
+            'PSBC_DEBIT' => '邮政储蓄银行(借记卡)',
+            'PSBC_CREDIT' => '邮政储蓄银行(信用卡)',
+            'CCB_DEBIT' => '建设银行(借记卡)',
+            'CCB_CREDIT' => '建设银行(信用卡)',
+            'CMB_DEBIT' => '招商银行(借记卡)',
+            'CMB_CREDIT' => '招商银行(信用卡)',
+            'BOC_DEBIT' => '中国银行(借记卡)',
+            'BOC_CREDIT' => '中国银行(信用卡)',
+            'COMM_DEBIT' => '交通银行(借记卡)',
+            'COMM_CREDIT' => '交通银行(信用卡)',
+            'SPDB_DEBIT' => '浦发银行(借记卡)',
+            'SPDB_CREDIT' => '浦发银行(信用卡)',
+            'GDB_DEBIT' => '广发银行(借记卡)',
+            'GDB_CREDIT' => '广发银行(信用卡)',
+            'CMBC_DEBIT' => '民生银行(借记卡)',
+            'CMBC_CREDIT' => '民生银行(信用卡)',
+            'PAB_DEBIT' => '平安银行(借记卡)',
+            'PAB_CREDIT' => '平安银行(信用卡)',
+            'CEB_DEBIT' => '光大银行(借记卡)',
+            'CEB_CREDIT' => '光大银行(信用卡)',
+            'CIB_DEBIT' => '兴业银行(借记卡)',
+            'CIB_CREDIT' => '兴业银行(信用卡)',
+            'CITIC_DEBIT' => '中信银行(借记卡)',
+            'CITIC_CREDIT' => '中信银行(信用卡)',
+            'BOSH_DEBIT' => '上海银行(借记卡)',
+            'BOSH_CREDIT' => '上海银行(信用卡)',
+            'CRB_DEBIT' => '华润银行(借记卡)',
+            'HZB_DEBIT' => '杭州银行(借记卡)',
+            'HZB_CREDIT' => '杭州银行(信用卡)',
+            'BSB_DEBIT' => '包商银行(借记卡)',
+            'BSB_CREDIT' => '包商银行(信用卡)',
+            'CQB_DEBIT' => '重庆银行(借记卡)',
+            'SDEB_DEBIT' => '顺德农商行(借记卡)',
+            'SZRCB_DEBIT' => '深圳农商银行(借记卡)',
+            'SZRCB_CREDIT' => '深圳农商银行(信用卡)',
+            'HRBB_DEBIT' => '哈尔滨银行(借记卡)',
+            'BOCD_DEBIT' => '成都银行(借记卡)',
+            'GDNYB_DEBIT' => '南粤银行(借记卡)',
+            'GDNYB_CREDIT' => '南粤银行(信用卡)',
+            'GZCB_DEBIT' => '广州银行(借记卡)',
+            'GZCB_CREDIT' => '广州银行(信用卡)',
+            'JSB_DEBIT' => '江苏银行(借记卡)',
+            'JSB_CREDIT' => '江苏银行(信用卡)',
+            'NBCB_DEBIT' => '宁波银行(借记卡)',
+            'NBCB_CREDIT' => '宁波银行(信用卡)',
+            'NJCB_DEBIT' => '南京银行(借记卡)',
+            'QHNX_DEBIT' => '青海农信(借记卡)',
+            'ORDOSB_CREDIT' => '鄂尔多斯银行(信用卡)',
+            'ORDOSB_DEBIT' => '鄂尔多斯银行(借记卡)',
+            'BJRCB_CREDIT' => '北京农商(信用卡)',
+            'BHB_DEBIT' => '河北银行(借记卡)',
+            'BGZB_DEBIT' => '贵州银行(借记卡)',
+            'BEEB_DEBIT' => '鄞州银行(借记卡)',
+            'PZHCCB_DEBIT' => '攀枝花银行(借记卡)',
+            'QDCCB_CREDIT' => '青岛银行(信用卡)',
+            'QDCCB_DEBIT' => '青岛银行(借记卡)',
+            'SHINHAN_DEBIT' => '新韩银行(借记卡)',
+            'QLB_DEBIT' => '齐鲁银行(借记卡)',
+            'QSB_DEBIT' => '齐商银行(借记卡)',
+            'ZZB_DEBIT' => '郑州银行(借记卡)',
+            'CCAB_DEBIT' => '长安银行(借记卡)',
+            'RZB_DEBIT' => '日照银行(借记卡)',
+            'SCNX_DEBIT' => '四川农信(借记卡)',
+            'BEEB_CREDIT' => '鄞州银行(信用卡)',
+            'SDRCU_DEBIT' => '山东农信(借记卡)',
+            'BCZ_DEBIT' => '沧州银行(借记卡)',
+            'SJB_DEBIT' => '盛京银行(借记卡)',
+            'LNNX_DEBIT' => '辽宁农信(借记卡)',
+            'JUFENGB_DEBIT' => '临朐聚丰村镇银行(借记卡)',
+            'ZZB_CREDIT' => '郑州银行(信用卡)',
+            'JXNXB_DEBIT' => '江西农信(借记卡)',
+            'JZB_DEBIT' => '晋中银行(借记卡)',
+            'JZCB_CREDIT' => '锦州银行(信用卡)',
+            'JZCB_DEBIT' => '锦州银行(借记卡)',
+            'KLB_DEBIT' => '昆仑银行(借记卡)',
+            'KRCB_DEBIT' => '昆山农商(借记卡)',
+            'KUERLECB_DEBIT' => '库尔勒市商业银行(借记卡)',
+            'LJB_DEBIT' => '龙江银行(借记卡)',
+            'NYCCB_DEBIT' => '南阳村镇银行(借记卡)',
+            'LSCCB_DEBIT' => '乐山市商业银行(借记卡)',
+            'LUZB_DEBIT' => '柳州银行(借记卡)',
+            'LWB_DEBIT' => '莱商银行(借记卡)',
+            'LYYHB_DEBIT' => '辽阳银行(借记卡)',
+            'LZB_DEBIT' => '兰州银行(借记卡)',
+            'MINTAIB_CREDIT' => '民泰银行(信用卡)',
+            'MINTAIB_DEBIT' => '民泰银行(借记卡)',
+            'NCB_DEBIT' => '宁波通商银行(借记卡)',
+            'NMGNX_DEBIT' => '内蒙古农信(借记卡)',
+            'XAB_DEBIT' => '西安银行(借记卡)',
+            'WFB_CREDIT' => '潍坊银行(信用卡)',
+            'WFB_DEBIT' => '潍坊银行(借记卡)',
+            'WHB_CREDIT' => '威海商业银行(信用卡)',
+            'WHB_DEBIT' => '威海市商业银行(借记卡)',
+            'WHRC_CREDIT' => '武汉农商(信用卡)',
+            'WHRC_DEBIT' => '武汉农商行(借记卡)',
+            'WJRCB_DEBIT' => '吴江农商行(借记卡)',
+            'WLMQB_DEBIT' => '乌鲁木齐银行(借记卡)',
+            'WRCB_DEBIT' => '无锡农商(借记卡)',
+            'WZB_DEBIT' => '温州银行(借记卡)',
+            'XAB_CREDIT' => '西安银行(信用卡)',
+            'WEB_DEBIT' => '微众银行(借记卡)',
+            'XIB_DEBIT' => '厦门国际银行(借记卡)',
+            'XJRCCB_DEBIT' => '新疆农信银行(借记卡)',
+            'XMCCB_DEBIT' => '厦门银行(借记卡)',
+            'YNRCCB_DEBIT' => '云南农信(借记卡)',
+            'YRRCB_CREDIT' => '黄河农商银行(信用卡)',
+            'YRRCB_DEBIT' => '黄河农商银行(借记卡)',
+            'YTB_DEBIT' => '烟台银行(借记卡)',
+            'ZJB_DEBIT' => '紫金农商银行(借记卡)',
+            'ZJLXRB_DEBIT' => '兰溪越商银行(借记卡)',
+            'ZJRCUB_CREDIT' => '浙江农信(信用卡)',
+            'AHRCUB_DEBIT' => '安徽省农村信用社联合社(借记卡)',
+            'BCZ_CREDIT' => '沧州银行(信用卡)',
+            'SRB_DEBIT' => '上饶银行(借记卡)',
+            'ZYB_DEBIT' => '中原银行(借记卡)',
+            'ZRCB_DEBIT' => '张家港农商行(借记卡)',
+            'SRCB_CREDIT' => '上海农商银行(信用卡)',
+            'SRCB_DEBIT' => '上海农商银行(借记卡)',
+            'ZJTLCB_DEBIT' => '浙江泰隆银行(借记卡)',
+            'SUZB_DEBIT' => '苏州银行(借记卡)',
+            'SXNX_DEBIT' => '山西农信(借记卡)',
+            'SXXH_DEBIT' => '陕西信合(借记卡)',
+            'ZJRCUB_DEBIT' => '浙江农信(借记卡)',
+            'AE_CREDIT' => 'AE(信用卡)',
+            'TACCB_CREDIT' => '泰安银行(信用卡)',
+            'TACCB_DEBIT' => '泰安银行(借记卡)',
+            'TCRCB_DEBIT' => '太仓农商行(借记卡)',
+            'TJBHB_CREDIT' => '天津滨海农商行(信用卡)',
+            'TJBHB_DEBIT' => '天津滨海农商行(借记卡)',
+            'TJB_DEBIT' => '天津银行(借记卡)',
+            'TRCB_DEBIT' => '天津农商(借记卡)',
+            'TZB_DEBIT' => '台州银行(借记卡)',
+            'URB_DEBIT' => '联合村镇银行(借记卡)',
+            'DYB_CREDIT' => '东营银行(信用卡)',
+            'CSRCB_DEBIT' => '常熟农商银行(借记卡)',
+            'CZB_CREDIT' => '浙商银行(信用卡)',
+            'CZB_DEBIT' => '浙商银行(借记卡)',
+            'CZCB_CREDIT' => '稠州银行(信用卡)',
+            'CZCB_DEBIT' => '稠州银行(借记卡)',
+            'DANDONGB_CREDIT' => '丹东银行(信用卡)',
+            'DANDONGB_DEBIT' => '丹东银行(借记卡)',
+            'DLB_CREDIT' => '大连银行(信用卡)',
+            'DLB_DEBIT' => '大连银行(借记卡)',
+            'DRCB_CREDIT' => '东莞农商银行(信用卡)',
+            'DRCB_DEBIT' => '东莞农商银行(借记卡)',
+            'CSRCB_CREDIT' => '常熟农商银行(信用卡)',
+            'DYB_DEBIT' => '东营银行(借记卡)',
+            'DYCCB_DEBIT' => '德阳银行(借记卡)',
+            'FBB_DEBIT' => '富邦华一银行(借记卡)',
+            'FDB_DEBIT' => '富滇银行(借记卡)',
+            'FJHXB_CREDIT' => '福建海峡银行(信用卡)',
+            'FJHXB_DEBIT' => '福建海峡银行(借记卡)',
+            'FJNX_DEBIT' => '福建农信银行(借记卡)',
+            'FUXINB_DEBIT' => '阜新银行(借记卡)',
+            'BOCDB_DEBIT' => '承德银行(借记卡)',
+            'JSNX_DEBIT' => '江苏农商行(借记卡)',
+            'BOLFB_DEBIT' => '廊坊银行(借记卡)',
+            'CCAB_CREDIT' => '长安银行(信用卡)',
+            'CBHB_DEBIT' => '渤海银行(借记卡)',
+            'CDRCB_DEBIT' => '成都农商银行(借记卡)',
+            'BYK_DEBIT' => '营口银行(借记卡)',
+            'BOZ_DEBIT' => '张家口市商业银行(借记卡)',
+            'CFT' => '零钱',
+            'BOTSB_DEBIT' => '唐山银行(借记卡)',
+            'BOSZS_DEBIT' => '石嘴山银行(借记卡)',
+            'BOSXB_DEBIT' => '绍兴银行(借记卡)',
+            'BONX_DEBIT' => '宁夏银行(借记卡)',
+            'BONX_CREDIT' => '宁夏银行(信用卡)',
+            'GDHX_DEBIT' => '广东华兴银行(借记卡)',
+            'BOLB_DEBIT' => '洛阳银行(借记卡)',
+            'BOJX_DEBIT' => '嘉兴银行(借记卡)',
+            'BOIMCB_DEBIT' => '内蒙古银行(借记卡)',
+            'BOHN_DEBIT' => '海南银行(借记卡)',
+            'BOD_DEBIT' => '东莞银行(借记卡)',
+            'CQRCB_CREDIT' => '重庆农商银行(信用卡)',
+            'CQRCB_DEBIT' => '重庆农商银行(借记卡)',
+            'CQTGB_DEBIT' => '重庆三峡银行(借记卡)',
+            'BOD_CREDIT' => '东莞银行(信用卡)',
+            'CSCB_DEBIT' => '长沙银行(借记卡)',
+            'BOB_CREDIT' => '北京银行(信用卡)',
+            'GDRCU_DEBIT' => '广东农信银行(借记卡)',
+            'BOB_DEBIT' => '北京银行(借记卡)',
+            'HRXJB_DEBIT' => '华融湘江银行(借记卡)',
+            'HSBC_DEBIT' => '恒生银行(借记卡)',
+            'HSB_CREDIT' => '徽商银行(信用卡)',
+            'HSB_DEBIT' => '徽商银行(借记卡)',
+            'HUNNX_DEBIT' => '湖南农信(借记卡)',
+            'HUSRB_DEBIT' => '湖商村镇银行(借记卡)',
+            'HXB_CREDIT' => '华夏银行(信用卡)',
+            'HXB_DEBIT' => '华夏银行(借记卡)',
+            'HNNX_DEBIT' => '河南农信(借记卡)',
+            'BNC_DEBIT' => '江西银行(借记卡)',
+            'BNC_CREDIT' => '江西银行(信用卡)',
+            'BJRCB_DEBIT' => '北京农商行(借记卡)',
+            'JCB_DEBIT' => '晋城银行(借记卡)',
+            'JJCCB_DEBIT' => '九江银行(借记卡)',
+            'JLB_DEBIT' => '吉林银行(借记卡)',
+            'JLNX_DEBIT' => '吉林农信(借记卡)',
+            'JNRCB_DEBIT' => '江南农商(借记卡)',
+            'JRCB_DEBIT' => '江阴农商行(借记卡)',
+            'JSHB_DEBIT' => '晋商银行(借记卡)',
+            'HAINNX_DEBIT' => '海南农信(借记卡)',
+            'GLB_DEBIT' => '桂林银行(借记卡)',
+            'GRCB_CREDIT' => '广州农商银行(信用卡)',
+            'GRCB_DEBIT' => '广州农商银行(借记卡)',
+            'GSB_DEBIT' => '甘肃银行(借记卡)',
+            'GSNX_DEBIT' => '甘肃农信(借记卡)',
+            'GXNX_DEBIT' => '广西农信(借记卡)',
+            'GYCB_CREDIT' => '贵阳银行(信用卡)',
+            'GYCB_DEBIT' => '贵阳银行(借记卡)',
+            'GZNX_DEBIT' => '贵州农信(借记卡)',
+            'HAINNX_CREDIT' => '海南农信(信用卡)',
+            'HKB_DEBIT' => '汉口银行(借记卡)',
+            'HANAB_DEBIT' => '韩亚银行(借记卡)',
+            'HBCB_CREDIT' => '湖北银行(信用卡)',
+            'HBCB_DEBIT' => '湖北银行(借记卡)',
+            'HBNX_CREDIT' => '湖北农信(信用卡)',
+            'HBNX_DEBIT' => '湖北农信(借记卡)',
+            'HDCB_DEBIT' => '邯郸银行(借记卡)',
+            'HEBNX_DEBIT' => '河北农信(借记卡)',
+            'HFB_DEBIT' => '恒丰银行(借记卡)',
+            'HKBEA_DEBIT' => '东亚银行(借记卡)',
+            'JCB_CREDIT' => 'JCB(信用卡)',
+            'MASTERCARD_CREDIT' => 'MASTERCARD(信用卡)',
+            'VISA_CREDIT' => 'VISA(信用卡)',
+        );
+    }
+
+    /**
+     * 获取可退款支付类型
+     */
+    public static function get_charge_refund_payment($code=0){
+    	if($code){
+    		return array('ms','cmb_wx','cmb_alipay','cmb_wx_app','cmb_alipay_app','cmb_wx_wap','cmb_alipay_wap','huifu',
+    				'huifu_wx','huifu_alipay','huifu_wx_app','huifu_alipay_app','huifu_wx_wap','huifu_alipay_wap','huifu_quick','huifu_quick_wap','huifu_quick_app',
+                'yop_quick', 'yop_quick_wap', 'yop_quick_app');
+    	}else{
+    		return  array(
+    				'ms'=>'民生银行',
+    				'cmb_wx'=>'招商微信扫码',
+    				'cmb_alipay'=>'招商支付宝扫码',
+    				'cmb_wx_app'=>'招商微信扫码app',
+    				'cmb_alipay_app'=>'招商支付宝扫码app',
+    				'cmb_wx_wap'=>'招商微信扫码wap',
+    				'cmb_alipay_wap'=>'招商支付宝扫码wap',
+    				'huifu'=>'汇付支付',
+    				'huifu_wx'=>'汇付微信扫码',
+    				'huifu_alipay'=>'汇付支付宝扫码',
+    				'huifu_wx_app'=>'汇付微信扫码app',
+    				'huifu_alipay_app'=>'汇付支付宝扫码app',
+    				'huifu_wx_wap'=>'汇付微信扫码wap',
+    				'huifu_alipay_wap'=>'汇付支付宝扫码wap',
+    				'huifu_quick'=>'汇付快捷支付',
+    				'huifu_quick_wap'=>'汇付快捷支付wap',
+    				'huifu_quick_app'=>'汇付快捷支付app',
+                    'yop_quick' => '易宝快捷支付',
+                    'yop_quick_wap' => '易宝快捷支付wap',
+                    'yop_quick_app' => '易宝快捷支付app',
+    		);
+    	}
+    	
+    }
+    
+    /**
+     * 返回退款状态
+     */
+    public static function get_refund_status(){
+    	return array(
+					0=>'待审核',	
+					1=>'退款中',
+					2=>'已成功',
+					3=>'失败',
+					4=>'余额不足失败',
+					5=>'拒绝退款',	
+				);
+    }
+    
+    /**
+     * 首页搜索标签管理
+     * 缓存一天
+     */
+    public static function get_search_label(){
+      //设置缓存
+      list($mc_config[0]['host'], $mc_config[0]['port']) = explode(':', IPTRACER_MEMCACHED_HOST);
+      $memcache_obj = new mem_cache_class($mc_config);
+      $search_label = $memcache_obj->get("home_page_search_label");
+      if($search_label){
+      	return $search_label;
+      }
+      $search_label	 = db_factory::query("select * from keke_witkey_search_label");
+      $memcache_obj->set('home_page_search_label',$search_label,86400);
+      return $search_label;
+    }
+
+    /**
+     * 获取文章专题信息
+     * @param $art_id
+     * @param $g_id
+     * @param int $limit
+     * @param int $a_class  默认为列表页推荐标签 1为首页推荐
+     * @return string
+     */
+    function get_article_special_info($art_id,$g_id,$limit = 1,$a_class = 0,$indus_id = 0){
+        $g_id_arr = array(
+            1=>array('word'=>'设计','g_id'=>1,'pseudo'=>'sheji'),
+            2=>array('word'=>'开发','g_id'=>2,'pseudo'=>'kaifa'),
+            3=>array('word'=>'文案','g_id'=>3,'pseudo'=>'wenan'),
+            4=>array('word'=>'装修','g_id'=>4,'pseudo'=>'zhuangxiu'),
+            5=>array('word'=>'营销','g_id'=>5,'pseudo'=>'yingxiao'),
+            6=>array('word'=>'商务','g_id'=>6,'pseudo'=>'shenghuo'),
+            7=>array('word'=>'生活','g_id'=>7,'pseudo'=>'shangwu')
+        );
+        $sql = sprintf('select * from %switkey_special_word_article where article_id = "%d" limit %d', TABLEPRE, $art_id,$limit);
+        $special_word_id_arr = db_factory::query($sql);
+        if($special_word_id_arr){
+            $str_where = '';
+            foreach ($special_word_id_arr as $value){
+                $str_where .= $value['special_word_id'].',';
+            }
+            $str_where =  '('.trim( $str_where,',').')';
+            $sql = sprintf('select * from %switkey_special_word where id in %s limit %d', TABLEPRE, $str_where,$limit);
+            $special_word_id_arr = db_factory::query($sql);
+        }else{
+            if($art_id){
+                $sql = sprintf('select indus_id from %switkey_article where art_id = "%d"', TABLEPRE, intval($art_id));
+                $art_info =  db_factory::query($sql);
+
+                if($art_info[0]['indus_id'] < 8){
+                    $special_word_id_arr[0] = $g_id_arr[$art_info[0]['indus_id']];
+                }else{
+                    $sql = sprintf('select indus_id,g_id from %switkey_industry where indus_id = "%d"', TABLEPRE, $art_info[0]['indus_id']);
+                    $indus_info =  db_factory::query($sql);
+                    $special_word_id_arr[0] = $g_id_arr[$indus_info[0]['g_id']];
+                }
+            }else {
+                if (empty($special_word_id_arr[0]) && $g_id) {
+                    $special_word_id_arr[0] = $g_id_arr[$g_id];
+                } elseif (empty($special_word_id_arr[0]) && $indus_id) {
+                    if ($indus_id < 8) {
+                        $special_word_id_arr[0] = $g_id_arr[$indus_id];
+                    } else {
+                        $sql = sprintf('select indus_id,g_id from %switkey_industry where indus_id = "%d"', TABLEPRE, $indus_id);
+                        $indus_info = db_factory::query($sql);
+                        $special_word_id_arr[0] = $g_id_arr[$indus_info[0]['g_id']];
+                    }
+                } else {
+                    $special_word_id_arr[0] = $g_id_arr[array_rand($g_id_arr)];
+                }
+            }
+
+        }
+
+        /*$sql = sprintf('select * from %switkey_special_word where g_id = "%d"', TABLEPRE, 1);
+        $word_w_info = db_factory::get_one($sql);
+        $special_word_id_arr[0] = $word_w_info;*/
+
+        $tmp_url = '';
+
+        foreach ($special_word_id_arr as $key => $value) {
+            if($a_class == 1){
+                $tmp_class = '';
+                $tmp_word = '['.$value['word'].']';
+            }else{
+                $tmp_class = 'class="font12 f_l"';
+                $tmp_word = $value['word'];
+            }
+            $tmp_url .= sprintf('<a %s href="%s">%s</a>', $tmp_class,GONG_LUE_URL.'/special/'.$value['pseudo'].'/', $tmp_word);
+        }
+        return $tmp_url;
+    }
+
+    /**
+     * 获取推荐文章专题
+     * @param int $limit
+     * @return array
+     */
+    function get_recommend_special($limit = 12)
+    {
+        $sql = "SELECT special_word_id from keke_witkey_special_word_article WHERE 1=1
+GROUP BY special_word_id
+ORDER BY special_word_id DESC limit 100";
+        $tmp_data = db_factory::query($sql,1,3600);
+        $data_count = count($tmp_data);
+        if($data_count < $limit ){
+            $limit = $data_count;
+        }
+        $rand_key = array_rand($tmp_data,$limit);
+        $tmp_arr_rand = array();
+        foreach ($rand_key as $key => $value) {
+            $tmp_arr_rand[$value] = $tmp_data[$value];
+        }
+        if($tmp_arr_rand){
+            $tmp_str = '';
+            foreach ($tmp_arr_rand as $value){
+                $tmp_str .= $value['special_word_id'].',';
+            }
+            $sql = 'SELECT id,word,g_id,pseudo,thumbnail from keke_witkey_special_word WHERE display = 1 AND id in ('.trim($tmp_str,',').')';
+            return db_factory::query($sql,1,3600);
+        }else{
+            return array();
+        }
+    }
+
+    /**
+     * http转https
+     * @param string $url 完整的url
+     * @param bool $flip 翻转，就是变成https转http
+     * @return string
+     */
+    public static function http2https($url, $flip = false) {
+        if ($flip) {
+            return preg_replace('/^https:/i', 'http:', $url);
+        } else {
+            return preg_replace('/^http:/i', 'https:', $url);
+        }
+    }
+
+    /**
+     *  通过自运营任务资金配置
+     * @return int
+     */
+    public static function getTaskPoolCashConfig() {
+        $basic_arr = db_factory::get_one('/*master*/select config_id,k,v,type,listorder from ' . TABLEPRE . 'witkey_basic_config where 1=1 '." and k = 'task_pool_cash'");
+        if(intval($basic_arr['v'])){
+            return intval($basic_arr['v']);
+        }else{
+            return 30000;
+        }
+
+    }
+
+    /**
+     * 推广员上线是否是任务开发组成员
+     * @param $uid
+     * @return bool
+     */
+    public static function checkIsInsideProm($uid) {
+        $sql = sprintf('select * from %switkey_prom_relation where uid = "%d"', TABLEPRE, intval($uid));
+        $prom_relation_info = db_factory::get_one($sql);
+        if(empty($prom_relation_info)){
+            return false;
+        }else{
+            $sql = sprintf('select uid,username,group_id from %switkey_space where uid = "%d"', TABLEPRE, intval($prom_relation_info['prom_uid']));
+            $space_info = db_factory::get_one($sql);
+            if($space_info['group_id'] == 32){//任务开发组
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 移除过任务池的任务不能再被移入
+     * @param $task_cash
+     * @param $uid
+     * @return bool
+     * .
+     */
+    public static function checkMoveOutTaskPool($task_cash,$uid) {
+        if(self::checkIsInsideProm($uid)){//是否为任务开发组引进
+            return true;
+        }else{
+            if( (intval($task_cash) > TASK_CAPITAL_POOL_CASH) ){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
+
+
+    /**获取solr 攻略数据 2018-03-08
+     * @param array $_indus_c_arr
+     * @param array $_indus_p_arr
+     * @param array $_indus_g_arr
+     */
+public static function Get_gonglue_info($_indus_c_arr=array(),$_indus_p_arr=array(),$_indus_g_arr=array())
+{
+        require_once(S_ROOT . 'lib/helper/keke_solr.php');//引入solr
+        $search = new keke_solr();
+        $top10_arr_sheji = array();
+        $top10_arr  = array();
+        $indus_c_arr = $_indus_c_arr;//微信推广  采集工具  插画设计 版权登记
+        $indus_p_arr = $_indus_p_arr;//创意设计  生活服务 商务服务 工业设计 视觉传达 招聘找人
+        $group_arr   =   $_indus_g_arr;//文案  營銷  裝修 生活 企業服務
+        $sheji= '1';
+
+        if($sheji){
+            foreach($group_arr as $group){
+                if($sheji == $group['g_id']){
+                    $new_g_arr['group'] = $group;//当前频道
+                    //$cur_g_info = $group;
+                    foreach($indus_p_arr as $indus_p){
+                        if($indus_p['g_id'] == $sheji){
+                            //$new_p[] = $indus_p['indus_id'];
+                            //$new_g_arr['indus_p'][] = $indus_p;//当前一级分类
+                            foreach($indus_c_arr as $indus_c){
+                                if($indus_c['indus_pid'] == $indus_p['indus_id']){
+                                    $new_c_sheji[] = $indus_c['indus_id'];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $kaifa= '2';
+        if($kaifa){
+            foreach($group_arr as $group){
+                if($kaifa == $group['g_id']){
+                    $new_g_arr['group'] = $group;//当前频道
+                    //$cur_g_info = $group;
+                    foreach($indus_p_arr as $indus_p){
+                        if($indus_p['g_id'] == $kaifa){
+                            //$new_p[] = $indus_p['indus_id'];
+                            //$new_g_arr['indus_p'][] = $indus_p;//当前一级分类
+                            foreach($indus_c_arr as $indus_c){
+                                if($indus_c['indus_pid'] == $indus_p['indus_id']){
+                                    $new_c_kaifa[] = $indus_c['indus_id'];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(SOLR_SWITCH){//是否开启solr
+            $hot_where = '';
+            $hot_where =  'is_show:1 AND art_cat_id:655 AND art_type:gonglue AND is_recommend:[1 TO *}';
+            $sheji   and $hot_where .= ' AND indus_id:('.implode(" OR ", $new_c_sheji).')';
+            $top10_arr_sheji = json_decode($search->goSearch('article', 'art_id,indus_id,art_title,approve_time,seo_desc,content,art_pic,views,article_cms,leave_num', '', $hot_where, 'approve_time desc,views desc', 0, 4), true);
+            $top10_arr_sheji = $top10_arr_sheji['response']['docs'];
+            $hot_where = '';
+            $hot_where =  'is_show:1 AND art_cat_id:655 AND art_type:gonglue AND is_recommend:[1 TO *}';
+            if($new_c_kaifa){
+                $kaifa   and $hot_where .= ' AND indus_id:('.implode(" OR ", $new_c_kaifa).')';
+            }
+            $top10_arr_kaifa = json_decode($search->goSearch('article', 'art_id,indus_id,art_title,approve_time,seo_desc,content,art_pic,views,article_cms,leave_num', '', $hot_where, 'approve_time desc,views desc', 0, 4), true);
+            $top10_arr_kaifa = $top10_arr_kaifa['response']['docs'];
+        }else{
+            $hot_where = '';
+            $hot_where = '1=1 and art_cat_id=655 and is_show=1';
+            $sheji   and $hot_where .= " and indus_id in (".implode(",",$new_c_sheji).")";
+            $order= 'approve_time desc,views desc limit 0,6 ';
+            $hot_sql = "select art_title,art_id from keke_witkey_article ".$hot_where;
+            $top10_arr_sheji = db_factory::get_table_data("art_title,art_id", "witkey_article", "{$hot_where}", $order, "", "", "art_id", 86400);
+            $hot_where = '';
+            $hot_where = '1=1 and art_cat_id=655 and is_show=1 ';
+            $kaifa  and $hot_where .= " and indus_id in (".implode(",",$new_c_kaifa).")";
+            $order= 'approve_time desc,views desc limit 0,4 ';
+            $hot_sql = 'select art_title,art_id from keke_witkey_article '.$hot_where;
+            $top10_arr_kaifa = db_factory::get_table_data("art_title,art_id", "witkey_article", "{$hot_where}", $order, "", "", "art_id", 86400);
+        }
+        //攻略首页的热门关注TOP10取设计的6条，开发4条
+        $top10_arr = array_merge($top10_arr_sheji, $top10_arr_kaifa);
+        return $top10_arr;
+
+    }
+    /**获取solr 攻略数据 2018-03-08
+     * @param array $_indus_c_arr
+     * @param array $_indus_p_arr
+     * @param array $_indus_g_arr
+     */
+    public static function Get_gonglue_data($rows=5)
+    {
+        $return_Data = array();
+        if(SOLR_SWITCH){//是否开启solr  SOLR_SWITCH
+            require_once(S_ROOT . 'lib/helper/keke_solr.php');//引入solr
+            $search = new keke_solr();
+            $hot_where = '';
+            $hot_where =  '(NOT article_cms:\'p\' OR is_show:1) AND art_type:gonglue ';
+            $top10_arr_sheji = json_decode($search->goSearch('article', 'art_id,art_title,indus_id', '', $hot_where, 'art_id desc', 0, $rows), true);
+            $return_Data = $top10_arr_sheji['response']['docs'];
+        }else{
+            $hot_where = '';
+            $hot_where = '1 = 1  and art_type = \'gonglue\' and (article_cms <> \'P\' or is_show = 1)';
+            $order= "art_id desc limit 0,{$rows} ";
+            $return_Data = db_factory::get_table_data("art_title,art_id,indus_id", "witkey_article", "{$hot_where}", $order, "", "", "art_id", 86400);
+          }
+        return $return_Data;
+    }
+
+    /**服务排行2018-03-14
+     * @param array $_indus_c_arr
+     * @return mixed
+     */
+    public static function get_service_top($relate_id = 0)
+    {
+            $solrData = array();
+            require_once(S_ROOT . 'lib/helper/keke_solr.php');//引入solr
+            $search = new keke_solr();
+            $solr_fl = '';
+            $solr_fl = 'service_id,uid,credit_score,shop_id,pic,title,integrity,integrity_ids,shop_name,w_good_rate,price,unite_price,user_type,service_province,service_city,service_area,task_income_credit,currency,task_income_cash,brand,task_bid_num,auth_realname,auth_bank,auth_email,auth_mobile,sale_num,unite_price_char';
+            $solr_q = '';
+            if($relate_id){
+                $solr_fq = sprintf('is_close:0;indus_ids:%d', $relate_id);
+            }else{
+                $solr_fq = 'is_close:0;';
+            }
+            $top10_arr_sheji = json_decode($search->goSearch('service', $solr_fl, $solr_q,$solr_fq,'sale_num desc', 0, 10), true);
+            $solrData = $top10_arr_sheji['response']['docs'];
+
+            //如果为空查询上级
+            if(empty($solrData)){
+                $hot_where = "indus_id={$relate_id}";
+                $order= "";
+                $indus_info = db_factory::get_table_data("indus_id,indus_pid,indus_name,g_id ", "witkey_industry", "{$hot_where}", $order, "", "", "indus_id", 86400);
+                $indus_pid = $indus_info[0]['indus_pid']?$indus_info[0]['indus_pid']:0;//如果为空查询顶级
+                $solr_fq = sprintf('is_close:0;indus_ids:%d', $indus_pid);
+                $top10_arr_sheji = json_decode($search->goSearch('service', $solr_fl, $solr_q,$solr_fq,'sale_num desc', 0, 10), true);
+                $solrData = $top10_arr_sheji['response']['docs'];
+            }
+        return $solrData;
+    }
+
+}
